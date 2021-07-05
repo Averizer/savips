@@ -1,0 +1,139 @@
+@import '../../../scss/index.scss';
+.login-form {
+  margin-top: 15px;
+
+  h1 {
+    color: $letra-titulos;
+    text-align: center;
+    font-size: 35px;
+    padding-bottom: 20px;
+  }
+
+  .ui.form {
+    .field {
+      .input {
+        margin-bottom: 5px;
+
+        input {
+          background-color: $blanco;
+          border: 0px;
+          font-size: 16px;
+          color: $letra-titulos;
+
+          &:hover,
+          &:active,
+          &:focus {
+            background-color: $fondo-gris;
+            border: 0px;
+          }
+        }
+
+        i {
+          color: $gris-oscuro;
+          font-size: 19px;
+        }
+        &.error {
+          input {
+            border-bottom: 1px solid $danger;
+          }
+        }
+      }
+    }
+
+    .button {
+      width: 100%;
+      background-color: $lila;
+      color: $blanco;
+      text-transform: uppercase;
+      margin-top: 10px;
+      border-radius: 50px;
+      padding: 17px p;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .error-text {
+      color: $letra-gris-oscuro;
+      padding-left: 15px;
+    }
+  }
+
+  &__options {
+    margin-top: 40px;
+    color: $letra-titulos;
+    text-align: center;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    p {
+      &:first-of-type {
+        margin-bottom: 40px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      &:last-of-type {
+        color: $letra-titulos;
+        span {
+          color: $lila;
+          text-decoration: underline;
+          padding-left: 5px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .divider {
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    height: 1px;
+  }
+
+  .div-transparent:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 5%;
+    right: 5%;
+    width: 90%;
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      rgb(48, 49, 51),
+      transparent
+    );
+  }
+
+  .div-dot:after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: -9px;
+    left: calc(50% - 9px);
+    width: 18px;
+    height: 18px;
+    background-color: $lila;
+    border: 1px solid rgb(48, 49, 51);
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 2px $gris-menus, 0 0 0 4px $gris-menus;
+  }
+
+  .ui.button.google {
+    margin-top: 30px;
+    width: 100%;
+    background-color: $rojo-google;
+    color: $blanco;
+    text-transform: uppercase;
+    margin-top: 10px;
+    border-radius: 50px;
+    padding: 17px p;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+}

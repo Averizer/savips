@@ -1,0 +1,31 @@
+@import '../../scss/index.scss';
+
+.auth {
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  &__box {
+    position: absolute;
+    top: 0;
+    left: -4;
+    background-color: $gris-menus;
+    width: 50%;
+    height: 100%;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    z-index: 1;
+    padding: 50px 70px;
+
+    &-logo {
+      text-align: center;
+      img {
+        width: 300px;
+      }
+    }
+  }
+}
