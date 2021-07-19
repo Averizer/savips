@@ -3,6 +3,7 @@ import firebase from 'firebase/app'
 const firebaseConfig = {
   apiKey: 'AIzaSyAXLN9GuoyPdqJrntBTVaK-S58X_BNNEfU',
   authDomain: 'savips-9083b.firebaseapp.com',
+  databaseURL: 'https://savips-9083b-default-rtdb.firebaseio.com',
   projectId: 'savips-9083b',
   storageBucket: 'savips-9083b.appspot.com',
   messagingSenderId: '179045486433',

@@ -1,0 +1,16 @@
+@import '../../scss/index.scss';
+
+.notificaciones {
+  display: flex;
+  border-radius: 0;
+  background-color: $gris-menus;
+  height: 100%;
+  width: 100%;
+  padding-top: 50px;
+
+  h1 {
+    font-size: 20px;
+    color: $gris-oscuro;
+    padding: 0 10%;
+  }
+}

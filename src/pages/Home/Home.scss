@@ -1,0 +1,23 @@
+@import '../../scss/index.scss';
+
+.home {
+  position: relative;
+  align-content: center;
+
+  .ui.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+  .textoInicio {
+    position: absolute;
+    top: 8px;
+    left: 15px;
+    padding: 0 20px;
+    font-size: 40px !important;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: $gris-oscuro;
+  }
+}

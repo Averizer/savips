@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import { Button, Icon, Form, Input } from 'semantic-ui-react'
 import { toast } from 'react-toastify'
 import firebase from '../../../utils/firebase'
+import { registrarUsuario } from '../../../utils/Api'
 import 'firebase/auth'
+import 'firebase/firestore'
 import { validateEmail } from '../../../utils/Validation'
 import './RegisterForm.scss'
 
@@ -42,21 +44,29 @@ export default function RegisterForm(props) {
 
     if (formOk) {
       setIsLoading(true)
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(formData.email, formData.password)
-        .then(() => {
-          changeUserName()
-          sendVerificationEmail()
-          toast.success('Registro exitoso')
-        })
-        .catch(() => {
-          toast.error('Error al crear la cuenta.')
-        })
-        .finally(() => {
-          setIsLoading(false)
-          setSelectedForm(null)
-        })
+      try {
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(formData.email, formData.password)
+          .then(() => {
+            changeUserName()
+            sendVerificationEmail()
+            toast.success('Registro exitoso')
+          })
+          .catch((e) => {
+            toast.error('Error al crear la cuenta.')
+            console.log(e)
+          })
+          .finally(() => {
+            setIsLoading(false)
+          })
+        registrarUsuario(formData.email, formData)
+        setSelectedForm(null)
+      } catch (e) {
+        console.log(e)
+        toast.error('Hubo un error intenta más tarde')
+        setSelectedForm(null)
+      }
     }
   }
 
@@ -75,9 +85,7 @@ export default function RegisterForm(props) {
   const changeUserName = () => {
     firebase
       .auth()
-      .currentUser.updateProfile({
-        displayName: formData.name,
-      })
+      .currentUser.updateProfile({ displayName: formData.nombre })
       .catch(() => {
         toast.error('Error al asignar el nombre.')
       })
