@@ -7,14 +7,37 @@ export async function isUserAdmin(uid) {
   const response = await db.collection('psicologos').doc(uid).get()
   return response.exists
 }
-
-export async function verifyIfTherapist(correo) {
-  const response = await db.collection('pacientes').doc(correo).get()
-  return response
+//Ok
+export async function therapistExistace(email) {
+  const therapistExistace = await db.collection('psicologos').doc(email).get()
+  return therapistExistace
 }
 
+export async function verifyTherapistHaving(email) {
+  const response = await db.collection('pacientes').doc(email).get()
+  return response
+}
+//OK
+export async function getTherapisName(email) {
+  const response = await db.collection('pacientes').doc(email).get()
+  return response
+}
+//Ok
+export async function updateTherapistOfPatient(
+  emailTherapist,
+  emailPatient,
+  therapistName,
+) {
+  const response = db
+    .collection('pacientes')
+    .doc(emailPatient)
+    .update({ psicologo: emailTherapist, nombrepsicologo: therapistName })
+  return response
+}
+//OK
 export async function registrarUsuario(uid, formData) {
-  db.collection('pacientes')
+  await db
+    .collection('pacientes')
     .doc(uid)
     .set({ ...formData, psicologo: 'pscicologo' })
 }

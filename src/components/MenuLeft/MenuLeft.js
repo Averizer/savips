@@ -1,59 +1,34 @@
 import React, { useState, useEffect } from 'react'
-import { Menu, Icon, Image, Form, Input, Button } from 'semantic-ui-react'
+import { Menu, Icon, Image } from 'semantic-ui-react'
 import { Link, withRouter } from 'react-router-dom'
-import { verifyIfTherapist } from '../../utils/Api'
-import { validateEmail } from '../../utils/Validation'
+import { verifyTherapistHaving } from '../../utils/Api'
+import FooterName from '../FooterName/FooterName'
 import logo from '../../assets/png/SAVIPS.png'
-
 import './MenuLeft.scss'
+
+import IngresarPsicologo from '../IngresarPsicologo/IngresarPsicologo'
 function MenuLeft(props) {
-  let psicologo = 'Pedrito'
-  const [formData, setFormData] = useState(defaultValueForm())
-  const { user, location } = props
+  const { user, setReloadApp, location } = props
   const [activeMenu, setActiveMenu] = useState(location.pathname)
   const [psychologistAssigned, setPsychologistAssigned] = useState(false)
-  const [formError, setFormError] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
-
   //
   useEffect(() => {
-    verifyIfTherapist(user.email).then((response) => {
+    setReloadApp()
+    verifyTherapistHaving(user.email).then((response) => {
       response.data().psicologo === ''
         ? setPsychologistAssigned(false)
         : setPsychologistAssigned(true)
     })
-  }, [user])
+  }, [setReloadApp, user])
   //Verificar en donde nos encontramos
   useEffect(() => {
     setActiveMenu(location.pathname)
   }, [location])
   //Navegar por el menu lateral
-  const handlerMenu = (e, menu) => {
+  const handlerMenu = (menu) => {
     setActiveMenu(menu.to)
   }
-  //Verificar y guardar cambios del formulario
-  const onChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
-  //Verificar que el correo del psicologo sea correcto
-  const onSubmit = () => {
-    setFormError({})
-    let errors = {}
-    let formOk = true
 
-    if (!validateEmail(formData.email)) {
-      errors.email = true
-      formOk = false
-    }
-    setFormError(errors)
-    //Falta crear la opcion de hacer el update
-    if (formOk) {
-      setIsLoading(false)
-    }
-  }
   return (
     <>
       <Menu className="menu-left" borderless vertical>
@@ -101,43 +76,16 @@ function MenuLeft(props) {
             Historial
           </Menu.Item>
         </div>
-
-        {psychologistAssigned ? (
-          <div className="footer">
-            <h4>Actualmente tu psicologo es {psicologo}</h4>
-          </div>
-        ) : (
-          <div className="footer">
-            <Form onSubmit={onSubmit} onChange={onChange}>
-              <Form.Field>
-                <Input
-                  type="text"
-                  name="email"
-                  placeholder="Ingresa el correo de tu psicologo"
-                  icon="envelope outline"
-                  error={formError.email}
-                />
-                {formError.email && (
-                  <span className="error-text">
-                    Por favor, introduce un correo valido.
-                  </span>
-                )}
-              </Form.Field>
-              <Button type="submit" loading={isLoading}>
-                Unirte
-              </Button>
-            </Form>
-          </div>
-        )}
+        <div className="footer">
+          {psychologistAssigned ? (
+            <FooterName user={user} setReloadApp={setReloadApp} />
+          ) : (
+            <IngresarPsicologo user={user} setReloadApp={setReloadApp} />
+          )}
+        </div>
       </Menu>
     </>
   )
 }
 
 export default withRouter(MenuLeft)
-
-function defaultValueForm() {
-  return {
-    email: '',
-  }
-}

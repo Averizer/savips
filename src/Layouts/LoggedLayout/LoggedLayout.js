@@ -15,7 +15,7 @@ export default function LoggedLayout(props) {
       <Grid className="logged-layout">
         <Grid.Row>
           <Grid.Column width={3}>
-            <MenuLeft user={user} />
+            <MenuLeft user={user} setReloadApp={setReloadApp} />
           </Grid.Column>
           <Grid.Column className="content" width={9}>
             <TopBar user={user} />
