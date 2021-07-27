@@ -39,5 +39,5 @@ export async function registrarUsuario(uid, formData) {
   await db
     .collection('pacientes')
     .doc(uid)
-    .set({ ...formData, psicologo: 'pscicologo' })
+    .set({ ...formData, psicologo: '' })
 }
