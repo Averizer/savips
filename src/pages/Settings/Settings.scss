@@ -25,6 +25,9 @@
       .ui.image {
         width: 100px;
         border-radius: 50px;
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
 
@@ -42,6 +45,23 @@
         letter-spacing: 1px;
         border-radius: 40px;
       }
+    }
+  }
+  .user-email {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+
+    .h3 {
+      margin: 0px;
+    }
+
+    .button {
+      background-color: $lila;
+      color: $blanco;
+      letter-spacing: 1px;
+      border-radius: 40px;
     }
   }
 }

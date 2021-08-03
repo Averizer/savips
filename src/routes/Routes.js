@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 //Paginas
 import Home from '../pages/Home'
 import Settings from '../pages/Settings'
+import Mensajes from '../pages/Mensajes'
 export default function Routes(props) {
   const { user, setReloadApp } = props
 
@@ -16,7 +17,7 @@ export default function Routes(props) {
         <h1>Calendario</h1>
       </Route>
       <Route path="/Mensajes" exact>
-        <h1>Mensajes</h1>
+        <Mensajes user={user} />
       </Route>
       <Route path="/Historial" exact>
         <h1>Historial de citas</h1>
