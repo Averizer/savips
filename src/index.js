@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals'
 import 'semantic-ui-css/semantic.min.css'
 import 'react-toastify/dist/ReactToastify.css'
 import './index.scss'
+
 ReactDOM.render(<App />, document.getElementById('root'))
 
 // If you want to start measuring performance in your app, pass a function

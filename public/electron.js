@@ -10,8 +10,8 @@ let mainWindow
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1300,
-    height: 780,
+    width: 1150,
+    height: 807,
     webPreferences: {
       nativeWindowOpen: true,
     },

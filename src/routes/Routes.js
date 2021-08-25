@@ -5,7 +5,12 @@ import { Switch, Route } from 'react-router-dom'
 import Home from '../pages/Home'
 import Settings from '../pages/Settings'
 import Mensajes from '../pages/Mensajes'
+<<<<<<< Updated upstream
 import Historial from '../pages/Historial'
+=======
+import Calendario from '../components/Calendario'
+
+>>>>>>> Stashed changes
 export default function Routes(props) {
   const { user, setReloadApp } = props
 
@@ -15,7 +20,7 @@ export default function Routes(props) {
         <Home user={user} />
       </Route>
       <Route path="/Calendario" exact>
-        <h1>Calendario</h1>
+        <Calendario user={user} setReloadApp={setReloadApp}/>
       </Route>
       <Route path="/Mensajes" exact>
         <Mensajes user={user} />

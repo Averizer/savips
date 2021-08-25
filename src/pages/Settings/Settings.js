@@ -38,7 +38,9 @@ export default function Settings(props) {
         setContentModal={setContentModal}
         setReloadApp={setReloadApp}
       />
-      <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
+      <BasicModal show={showModal} 
+      setShow={setShowModal} 
+      title={titleModal}>
         {contentModal}
       </BasicModal>
     </div>
