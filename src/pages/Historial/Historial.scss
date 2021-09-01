@@ -17,7 +17,8 @@
   }
 
   .row.stressChart {
-    height: 285px;
+    // height: 285px;
+    height: 38vh;
     margin: 0 20px 0 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgb(165, 164, 164);
@@ -25,13 +26,16 @@
     .cl1 {
       height: 290px;
       padding-left: 25px;
+      .stressChart {
+        height: 35vh;
+      }
     }
     .cl2 {
-      height: 290px;
-      padding: 235px 0 0 0;
+      height: auto;
+      padding: 32.4vh 0 0 0.2vh;
       h1 {
         font-size: 14px;
-        color: $gris-claro;
+        color: $titulo-gris;
       }
     }
   }
@@ -44,14 +48,22 @@
     .cl5 {
       border-radius: 10px;
       box-shadow: 0 2px 5px rgb(165, 164, 164);
-      height: 120px;
-      width: 400px;
-      h1 {
+      height: 13vh;
+      width: 28vh;
+      margin: 6px;
+      .title {
         font-size: 18px;
         display: flex;
         color: $titulo-gris;
         justify-content: center;
         padding-top: 15px;
+      }
+      .result {
+        font-size: 18px;
+        display: flex;
+        color: $color_principal;
+        justify-content: center;
+        margin-top: -1px;
       }
     }
   }
@@ -60,8 +72,13 @@
     margin: 0 20px 0 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgb(165, 164, 164);
-    height: 130px;
+    height: 15vh;
     background-color: $nota;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $nota_seleccionada;
+    }
 
     h1 {
       margin: 0 20px 0 20px;
