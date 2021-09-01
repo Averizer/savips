@@ -7,10 +7,9 @@ export default function ChartBind(props) {
   const { level } = props;
   auxLevel = level;
   return (
-    <div className="historial">
+    <div className="stressChart">
       <Line
         data={datos}
-        height={250}
         options={{
           responsive: true,
           maintainAspectRatio: false,

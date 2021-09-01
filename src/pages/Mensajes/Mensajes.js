@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { Grid } from 'semantic-ui-react'
-import { db } from '../../utils/Api'
-import firebase from '../../utils/firebase'
-import 'firebase/auth'
-import './Mensajes.scss'
-import SendMessage from '../../components/Mensajes/SendMessage'
+import React, { useState, useEffect, useRef } from "react";
+import { Grid } from "semantic-ui-react";
+import { db } from "../../utils/Api";
+import firebase from "../../utils/firebase";
+import "firebase/auth";
+import "./Mensajes.scss";
+import SendMessage from "../../components/Mensajes/SendMessage";
 
 export default function Mensajes() {
-  const scroll = useRef()
-  const [messages, setMessages] = useState([])
+  const scroll = useRef();
+  const [messages, setMessages] = useState([]);
   useEffect(() => {
-    db.collection('messages')
-      .orderBy('createdAt')
+    db.collection("messages")
+      .orderBy("createdAt")
       .limit(50)
       .onSnapshot((snapshot) => {
-        setMessages(snapshot.docs.map((doc) => doc.data()))
-      })
-  }, [])
+        setMessages(snapshot.docs.map((doc) => doc.data()));
+      });
+  }, []);
   return (
     <Grid>
       <div className="mensjes">
@@ -28,8 +28,8 @@ export default function Mensajes() {
                   key={id}
                   className={`msg ${
                     uid === firebase.auth().currentUser.uid
-                      ? 'sent'
-                      : 'received'
+                      ? "sent"
+                      : "received"
                   }`}
                 >
                   <img src={photoURL} alt="" />
@@ -45,5 +45,5 @@ export default function Mensajes() {
         </Grid.Row>
       </div>
     </Grid>
-  )
+  );
 }

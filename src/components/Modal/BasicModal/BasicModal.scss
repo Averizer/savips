@@ -1,4 +1,4 @@
-@import '../../../scss/index.scss';
+@import "../../../scss/index.scss";
 
 .ui.modal.basic-modal {
   background-color: $fondo-gris !important;
@@ -23,7 +23,11 @@
   }
   .content {
     color: $letra-gris-claro;
-    background-color: transparent;
+    background-color: white;
+    h1 {
+      font-size: 15px;
+      color: $letra-gris-oscuro;
+    }
 
     .button {
       background-color: $lila;
