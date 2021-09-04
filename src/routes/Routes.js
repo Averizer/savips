@@ -5,12 +5,9 @@ import { Switch, Route } from 'react-router-dom'
 import Home from '../pages/Home'
 import Settings from '../pages/Settings'
 import Mensajes from '../pages/Mensajes'
-<<<<<<< Updated upstream
 import Historial from '../pages/Historial'
-=======
 import Calendario from '../components/Calendario'
 
->>>>>>> Stashed changes
 export default function Routes(props) {
   const { user, setReloadApp } = props
 
