@@ -42,7 +42,7 @@
 
   .row.extraInfo {
     margin: 0 20px 0 20px;
-    justify-content: space-between;
+    justify-content: space-around;
     .cl3,
     .cl4,
     .cl5 {
@@ -73,7 +73,7 @@
     margin: 0 20px 0 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgb(165, 164, 164);
-    height: 15vh;
+    height: 110px;
     background-color: $nota;
 
     &:hover {
