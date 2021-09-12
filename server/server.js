@@ -10,7 +10,7 @@ const app = express();
 let server = http.createServer(app);
 
 const publicPath = path.resolve(__dirname, "../public");
-const port = process.env.PORT || 3000;
+const port = process.env.PORTS || 3000;
 
 app.use(express.static(publicPath));
 
