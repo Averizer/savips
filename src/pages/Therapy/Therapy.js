@@ -1,28 +1,43 @@
-import React from "react";
-// import io from "socket.io";
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+
+const connectSocketServer = () => {
+  const socket = io.connect("http://localhost:8000");
+  socket.emit("client", "pepe");
+  return socket;
+};
 
 export default function Therapy() {
-  // var socket = io();
-  // const [data, setData] = useState("");
+  const [socket] = useState(() => connectSocketServer());
+  const [online, setOnline] = useState(false);
+  const [data, setData] = useState("");
 
-  // socket.on("connect", async () => {
-  //   console.log("Conectado al servidor");
-  //   socket.emit("client", "pepe");
-  // });
+  useEffect(() => {
+    setOnline(socket.connected);
+  }, [socket]);
 
-  // // escuchar
-  // socket.on("disconnect", function () {
-  //   console.log("Perdimos conexión con el servidor");
-  // });
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Socket: ", socket.id, "conectado");
+    });
+  }, [socket]);
 
-  // socket.on("dataResult", (data) => {
-  //   console.log(data);
-  //   setData(data);
-  // });
+  useEffect(() => {
+    socket.on("disconnect", function () {
+      console.log("Perdimos conexión con el Servidor");
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("dataResult", (data) => {
+      setData(data);
+    });
+  }, [socket]);
 
   return (
     <div>
-      <h1>Prueba</h1>
+      {/* <h1>EJEMPLO</h1> */}
+      {/* <h1>{data}</h1> */}
     </div>
   );
 }

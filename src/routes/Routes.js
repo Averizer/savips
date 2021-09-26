@@ -7,7 +7,7 @@ import Settings from "../pages/Settings";
 import Mensajes from "../pages/Mensajes";
 import Historial from "../pages/Historial";
 import Calendario from "../components/Calendario";
-// import Therapy from "../pages/Therapy";
+import Therapy from "../pages/Therapy";
 
 export default function Routes(props) {
   const { user, setReloadApp } = props;
@@ -29,9 +29,9 @@ export default function Routes(props) {
       <Route path="/Settings" exact>
         <Settings user={user} setReloadApp={setReloadApp} />
       </Route>
-      {/* <Route path="/Therapy" exact>
+      <Route path="/Therapy" exact>
         <Therapy />
-      </Route> */}
+      </Route>
     </Switch>
   );
 }
