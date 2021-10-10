@@ -52,3 +52,41 @@ export const reauthenticate = (password) => {
   )
   return user.reauthenticateWithCredential(credentials)
 }
+//OK
+export const getEvent = async () => {
+  const userEmail = firebaseApp.auth().currentUser.email
+  let events = {}
+  console.log(userEmail)
+  const docRef = db
+    .collection('pacientes')
+    .doc(userEmail)
+    .collection('calendario')
+
+  await docRef
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        const id = doc.id
+        const inicio = doc.data().hora.seconds
+        const titulo = doc.data().titulo
+        const data = { id: id, title: titulo, start: inicio }
+        events = { ...events, data }
+        console.log(events)
+      })
+      return events
+    })
+    .catch((error) => {
+      console.log('Error obteniendo el documento:', error)
+    })
+}
+
+export const addEvent = async (object) => {
+  console.log('agregando evento')
+  const userEmail = auth.currentUser.email
+  await db
+    .collection('pacientes')
+    .doc(userEmail)
+    .collection('calendario')
+    .add(object)
+}
