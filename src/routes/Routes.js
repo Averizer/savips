@@ -10,7 +10,13 @@ import Calendario from "../components/Calendario";
 import Therapy from "../pages/Therapy";
 
 export default function Routes(props) {
-  const { user, setReloadApp } = props;
+  const {
+    user,
+    setReloadApp,
+    setContent,
+    setNotifications,
+    setNotificationsContent,
+  } = props;
 
   return (
     <Switch>
@@ -30,7 +36,11 @@ export default function Routes(props) {
         <Settings user={user} setReloadApp={setReloadApp} />
       </Route>
       <Route path="/Therapy" exact>
-        <Therapy />
+        <Therapy
+          setContent={setContent}
+          setNotifications={setNotifications}
+          setNotificationsContent={setNotificationsContent}
+        />
       </Route>
     </Switch>
   );

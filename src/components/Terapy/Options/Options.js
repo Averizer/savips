@@ -24,8 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   container: {
-    width: "600px",
-    margin: "35px 0",
+    width: "60%",
     padding: 0,
     [theme.breakpoints.down("xs")]: {
       width: "80%",
@@ -38,8 +37,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
   },
   paper: {
-    padding: "10px 20px",
-    border: "2px solid black",
+    // justifyContent: "center",
+    padding: "10px",
+    border: "2px solid white",
+    margin: "10px",
   },
 }));
 
@@ -50,7 +51,7 @@ const Options = ({ children }) => {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
-      <Paper elevation={10} className={classes.paper}>
+      <Paper elevation={1} className={classes.paper}>
         <form className={classes.root} noValidate autoComplete="off">
           <Grid container className={classes.gridContainer}>
             <Grid item xs={12} md={6} className={classes.padding}>
@@ -68,15 +69,54 @@ const Options = ({ children }) => {
                   variant="contained"
                   color="primary"
                   fullWidth
-                  startIcon={<Assignment />}
-                ></Button>
+                  startIcon={<Assignment fontSize="large" />}
+                >
+                  Copy your ID
+                </Button>
               </CopyToClipboard>
+            </Grid>
+
+            <Grid item xs={12} md={6} className={classes.padding}>
+              <Typography gutterBottom variant="h6">
+                Make a call
+              </Typography>
+              <TextField
+                label="ID to call"
+                value={idToCall}
+                onChange={(e) => setIdToCall(e.target.value)}
+                fullWidth
+              />
+              {callAccepted && !callEnded ? (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<PhoneDisabled fontSize="large" />}
+                  fullWidth
+                  onClick={leaveCall}
+                  className={classes.margin}
+                >
+                  Hang Up
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  startIcon={<Phone fontSize="large" />}
+                  fullWidth
+                  onClick={() => {
+                    console.log("Calling", idToCall);
+                    callUser(idToCall);
+                  }}
+                  className={classes.margin}
+                >
+                  Call
+                </Button>
+              )}
             </Grid>
           </Grid>
         </form>
+        {children}
       </Paper>
-      Options
-      {children}
     </Container>
   );
 };

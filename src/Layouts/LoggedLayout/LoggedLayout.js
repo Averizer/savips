@@ -1,15 +1,18 @@
-import React from 'react'
-import { Grid } from 'semantic-ui-react'
-import { BrowserRouter as BR } from 'react-router-dom'
-import './LoggedLayout.scss'
+import React, { useState } from "react";
+import { Grid } from "semantic-ui-react";
+import { BrowserRouter as BR } from "react-router-dom";
+import "./LoggedLayout.scss";
 
 //Componentes
-import TopBar from '../../components/TopBar'
-import Routes from '../../routes/Routes'
-import MenuLeft from '../../components/MenuLeft'
-import Notificaciones from '../../components/Notificaciones'
+import TopBar from "../../components/TopBar";
+import Routes from "../../routes/Routes";
+import MenuLeft from "../../components/MenuLeft";
+import Notificaciones from "../../components/Notificaciones";
 export default function LoggedLayout(props) {
-  const { user, setReloadApp } = props
+  const { user, setReloadApp } = props;
+  const [content, setContent] = useState(9);
+  const [notifications, setNotifications] = useState(4);
+  const [notificationsContent, setNotificationsContent] = useState();
   return (
     <BR>
       <Grid className="logged-layout">
@@ -17,15 +20,24 @@ export default function LoggedLayout(props) {
           <Grid.Column width={3}>
             <MenuLeft user={user} setReloadApp={setReloadApp} />
           </Grid.Column>
-          <Grid.Column className="content" width={9}>
+          <Grid.Column className="content" width={content}>
             <TopBar user={user} />
-            <Routes user={user} setReloadApp={setReloadApp} />
+            <Routes
+              user={user}
+              setReloadApp={setReloadApp}
+              setContent={setContent}
+              setNotifications={setNotifications}
+              setNotificationsContent={setNotificationsContent}
+            />
           </Grid.Column>
-          <Grid.Column width={4}>
-            <Notificaciones user={user} />
+          <Grid.Column width={notifications}>
+            <Notificaciones
+              user={user}
+              // notificationsContent={notificationsContent}
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
     </BR>
-  )
+  );
 }
