@@ -1,35 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import { Menu, Icon, Image } from 'semantic-ui-react'
-import { Link, withRouter } from 'react-router-dom'
-import { verifyTherapistHaving } from '../../utils/Api'
-import FooterName from '../FooterName/FooterName'
-import logo from '../../assets/png/SAVIPS.png'
-import './MenuLeft.scss'
+import React, { useState, useEffect } from "react";
+import { Menu, Icon, Image } from "semantic-ui-react";
+import { Link, withRouter } from "react-router-dom";
+import { verifyTherapistHaving } from "../../utils/Api";
+import FooterName from "../FooterName/FooterName";
+import logo from "../../assets/png/SAVIPS.png";
+import "./MenuLeft.scss";
 
-import IngresarPsicologo from '../IngresarPsicologo/IngresarPsicologo'
+import IngresarPsicologo from "../IngresarPsicologo/IngresarPsicologo";
 function MenuLeft(props) {
-  const { user, setReloadApp, location } = props
-  const [activeMenu, setActiveMenu] = useState(location.pathname)
-  const [psychologistAssigned, setPsychologistAssigned] = useState(false)
+  const { user, setReloadApp, location } = props;
+  const [activeMenu, setActiveMenu] = useState(location.pathname);
+  const [psychologistAssigned, setPsychologistAssigned] = useState(false);
   //
   useEffect(() => {
-    setReloadApp()
+    setReloadApp();
     verifyTherapistHaving(user.email).then((response) => {
-      response.data().psicologo === ''
+      response.data().psicologo === ""
         ? setPsychologistAssigned(false)
-        : setPsychologistAssigned(true)
-    })
-  }, [setReloadApp, user])
-  
+        : setPsychologistAssigned(true);
+    });
+  }, [setReloadApp, user]);
   //Verificar en donde nos encontramos
   useEffect(() => {
-    setActiveMenu(location.pathname)
-  }, [location])
-  
+    setActiveMenu(location.pathname);
+  }, [location]);
   //Navegar por el menu lateral
   const handlerMenu = (menu) => {
-    setActiveMenu(menu.to)
-  }
+    setActiveMenu(menu.to);
+  };
 
   return (
     <>
@@ -39,7 +37,7 @@ function MenuLeft(props) {
             as={Link}
             to="/"
             name="home"
-            active={activeMenu === '/'}
+            active={activeMenu === "/"}
             onClick={handlerMenu}
           >
             <Image src={logo} />
@@ -50,7 +48,7 @@ function MenuLeft(props) {
             as={Link}
             to="/calendario"
             name="calendario"
-            active={activeMenu === '/calendario'}
+            active={activeMenu === "/calendario"}
             onClick={handlerMenu}
           >
             <Icon name="calendar alternate outline" />
@@ -62,7 +60,7 @@ function MenuLeft(props) {
             as={Link}
             to="/mensajes"
             name="mensajes"
-            active={activeMenu === '/mensajes'}
+            active={activeMenu === "/mensajes"}
             onClick={handlerMenu}
           >
             <Icon name="mail" />
@@ -73,27 +71,22 @@ function MenuLeft(props) {
             as={Link}
             to="/historial"
             name="historial"
-            active={activeMenu === '/historial'}
+            active={activeMenu === "/historial"}
             onClick={handlerMenu}
           >
             <Icon name="history" />
             Historial
           </Menu.Item>
-          <div className="divider div-transparent"></div>
-          
           <Menu.Item
             as={Link}
-            to="/terapia"
-            name="terapia"
-            active={activeMenu === '/terapia'}
+            to="/therapy"
+            name="therapy"
+            active={activeMenu === "/therapy"}
             onClick={handlerMenu}
           >
-            <Icon name="calendar alternate outline" />
+            <Icon name="video" />
             Terapia
           </Menu.Item>
-          <div className="divider div-transparent"></div>
-
-          
         </div>
         <div className="footer">
           {psychologistAssigned ? (
@@ -104,7 +97,7 @@ function MenuLeft(props) {
         </div>
       </Menu>
     </>
-  )
+  );
 }
 
-export default withRouter(MenuLeft)
+export default withRouter(MenuLeft);

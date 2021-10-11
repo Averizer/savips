@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Grid } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import MainChart from "./MainChart";
 
 import BasicModal from "../../components/Modal/BasicModal/BasicModal";

@@ -1,16 +1,22 @@
-import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 
 //Paginas
-import Home from '../pages/Home'
-import Settings from '../pages/Settings'
-import Mensajes from '../pages/Mensajes'
-import Historial from '../pages/Historial'
-import Calendario from '../components/Calendario'
-import Terapia from '../pages/Terapia'
+import Home from "../pages/Home";
+import Settings from "../pages/Settings";
+import Mensajes from "../pages/Mensajes";
+import Historial from "../pages/Historial";
+import Calendario from "../components/Calendario";
+import Therapy from "../pages/Therapy";
 
 export default function Routes(props) {
-  const { user, setReloadApp } = props
+  const {
+    user,
+    setReloadApp,
+    setContent,
+    setNotifications,
+    setNotificationsContent,
+  } = props;
 
   return (
     <Switch>
@@ -18,7 +24,7 @@ export default function Routes(props) {
         <Home user={user} />
       </Route>
       <Route path="/Calendario" exact>
-        <Calendario user={user} setReloadApp={setReloadApp}/>
+        <Calendario user={user} setReloadApp={setReloadApp} />
       </Route>
       <Route path="/Mensajes" exact>
         <Mensajes user={user} />
@@ -29,9 +35,13 @@ export default function Routes(props) {
       <Route path="/Settings" exact>
         <Settings user={user} setReloadApp={setReloadApp} />
       </Route>
-      <Route path="/Terapia" exact>
-        <Terapia user={user} setReloadApp={setReloadApp} />
+      <Route path="/Therapy" exact>
+        <Therapy
+          setContent={setContent}
+          setNotifications={setNotifications}
+          setNotificationsContent={setNotificationsContent}
+        />
       </Route>
     </Switch>
-  )
+  );
 }
