@@ -20,10 +20,12 @@ function MenuLeft(props) {
         : setPsychologistAssigned(true)
     })
   }, [setReloadApp, user])
+  
   //Verificar en donde nos encontramos
   useEffect(() => {
     setActiveMenu(location.pathname)
   }, [location])
+  
   //Navegar por el menu lateral
   const handlerMenu = (menu) => {
     setActiveMenu(menu.to)
@@ -41,8 +43,9 @@ function MenuLeft(props) {
             onClick={handlerMenu}
           >
             <Image src={logo} />
-          </Menu.Item>
+          </Menu.Item>  
           <div className="divider div-transparent"></div>
+          
           <Menu.Item
             as={Link}
             to="/calendario"
@@ -54,6 +57,7 @@ function MenuLeft(props) {
             Calendario
           </Menu.Item>
           <div className="divider div-transparent"></div>
+
           <Menu.Item
             as={Link}
             to="/mensajes"
@@ -75,6 +79,21 @@ function MenuLeft(props) {
             <Icon name="history" />
             Historial
           </Menu.Item>
+          <div className="divider div-transparent"></div>
+          
+          <Menu.Item
+            as={Link}
+            to="/terapia"
+            name="terapia"
+            active={activeMenu === '/terapia'}
+            onClick={handlerMenu}
+          >
+            <Icon name="calendar alternate outline" />
+            Terapia
+          </Menu.Item>
+          <div className="divider div-transparent"></div>
+
+          
         </div>
         <div className="footer">
           {psychologistAssigned ? (

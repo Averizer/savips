@@ -27,24 +27,24 @@ function App() {
 
   return (
     <>
-      {!user ? (
-        <Auth />
-      ) : (
-        <LoggedLayout user={user} setReloadApp={setReloadApp} />
-      )}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      {/* Same as */}
-      <ToastContainer />
+          {!user ? (
+            <Auth />
+          ) : (
+            <LoggedLayout user={user} setReloadApp={setReloadApp} />
+          )}
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+          {/* Same as */}
+          <ToastContainer />
     </>
   )
 }

@@ -1,5 +1,5 @@
 const electron = require('electron')
-const { shell } = require('electron')
+
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
@@ -13,7 +13,13 @@ function createWindow() {
     width: 1150,
     height: 807,
     webPreferences: {
-      nativeWindowOpen: true,
+        nativeWindowOpen: true,
+        nodeIntegration: true,
+        contextIsolation: false,
+        webviewTag: true,
+        webSecurity: false,
+        nodeIntegrationInWorker: true,
+        nodeIntegrationInSubFrames: true
     },
   })
 
