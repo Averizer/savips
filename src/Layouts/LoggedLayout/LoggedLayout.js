@@ -12,7 +12,11 @@ export default function LoggedLayout(props) {
   const { user, setReloadApp } = props;
   const [content, setContent] = useState(9);
   const [notifications, setNotifications] = useState(4);
-  const [notificationsContent, setNotificationsContent] = useState();
+  const [notificationsContent, setNotificationsContent] = useState(
+    <div className="notificaciones">
+      <h1>Notificaciones</h1>
+    </div>
+  );
   return (
     <BR>
       <Grid className="logged-layout">
@@ -33,7 +37,7 @@ export default function LoggedLayout(props) {
           <Grid.Column width={notifications}>
             <Notificaciones
               user={user}
-              // notificationsContent={notificationsContent}
+              notificationsContent={notificationsContent}
             />
           </Grid.Column>
         </Grid.Row>

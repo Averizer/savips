@@ -1,77 +1,47 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Grid, Segment } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
-import { makeStyles } from "@material-ui/core/styles";
 import { SocketContext } from "../../../utils/ServerIO";
 
 import "./VideoPlayer.scss";
 
-const useStyles = makeStyles((theme) => ({
-  // video: {
-  //   width: "94%",
-  //   borderRadius: "18px",
-  //   background: "grey",
-  // },
-  // gridContainer: {
-  //   justifyContent: "center",
-  //   width: "100%",
-  // },
-  // paper: {
-  //   width: "50%",
-  //   padding: "0 10px 0 10px",
-  //   // border: "2px solid black",
-  // },
-}));
-
 const VideoPlayer = (props) => {
-  const { setContent, setNotifications, setNotificationsContent } = props;
-
+  const { setNotificationsContent, mindWaves } = props;
   const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } =
     useContext(SocketContext);
-  const classes = useStyles();
 
-  const [video1, setVideo1] = useState(true);
-  const [video2, setVideo2] = useState(true);
-
-  const [userAVideo, setUserAVideo] = useState(null);
-  const [myAVideo, setMyAVideo] = useState(null);
+  const [videoMyShape, setVideoMyShape] = useState("");
+  const [videoUserWidth, setVideoUserWidth] = useState(5);
+  const [videoMyWidth, setVideoMyWidth] = useState(16);
+  const [videoMyHide, setVideoMyHide] = useState(true);
 
   useEffect(() => {
-    setUserAVideo(
-      <video
-        playsInline
-        ref={userVideo}
-        autoPlay
-        className="video"
-        onClick={() => {
-          setVideo1(!video1);
-          console.log("userVideo: ", video1);
-        }}
-      />
-    );
-    console.log("userVideo: ", userVideo);
-  }, [callAccepted, callEnded, video2, video1]);
+    console.log(mindWaves);
 
-  useEffect(() => {
-    setMyAVideo(
-      <video
-        playsInline
-        muted
-        ref={myVideo}
-        autoPlay
-        className="hidden"
-        onClick={() => {
-          setVideo2(!video2);
-          console.log("myVideo: ", video2);
-        }}
-      />
-    );
-    console.log("myVideo: ", myVideo);
-  }, [stream, video1, video2]);
-
-  // setContent(13);
-  // setNotifications(0);
-  // setNotificationsContent(null);
+    if (callAccepted && !callEnded) {
+      setNotificationsContent(
+        <div className="notificaciones">
+          <h1>Datos stream: {mindWaves}</h1>
+        </div>
+      );
+      setVideoUserWidth(16);
+      setVideoMyWidth(5);
+      setVideoMyShape("hidden");
+      if (videoMyHide) {
+        setVideoMyShape("videocall");
+      } else {
+        setVideoMyShape("hidden");
+      }
+    } else if (stream) {
+      setNotificationsContent(
+        <div className="notificaciones">
+          <h1>Preparando videollamada</h1>
+        </div>
+      );
+      setVideoMyWidth(16);
+      setVideoMyShape("video");
+    }
+  }, [callAccepted, callEnded, stream, videoMyHide]);
 
   return (
     <Grid className="gridVideo">
@@ -88,108 +58,38 @@ const VideoPlayer = (props) => {
       </Grid.Row>
 
       <Grid.Row className="videoBar">
-        {callAccepted && !callEnded && video2 && (
-          <Grid.Column className="c2" width={16}>
-            {userAVideo}
+        {callAccepted && !callEnded && (
+          <Grid.Column className="c2" width={videoUserWidth}>
+            <video
+              playsInline
+              ref={userVideo}
+              autoPlay
+              className="video"
+              onClick={() => {
+                setVideoMyHide(!videoMyHide);
+                console.log(videoMyHide);
+              }}
+            />
           </Grid.Column>
         )}
-        {stream && video1 && (
-          <Grid.Column
-            className="c1"
-            width={5}
-            // verticalAlign="bottom"
-            // floated="right"
-          >
-            {myAVideo}
+        {stream && (
+          <Grid.Column className="c1" width={videoMyWidth}>
+            <video
+              playsInline
+              muted
+              ref={myVideo}
+              autoPlay
+              className={videoMyShape}
+              onClick={() => {
+                setVideoMyHide(!videoMyHide);
+                console.log(videoMyHide);
+              }}
+            />
           </Grid.Column>
         )}
       </Grid.Row>
     </Grid>
   );
 };
-
-// function VideoInit(myVideo, classes) {
-//   // const { myVideo } = useContext(SocketContext);
-//   // const classes = useStyles();
-
-//   return (
-//     <Grid container className={classes.gridContainer}>
-//       {/* Our Video */}
-//       <Paper className={classes.paper} elevation={0}>
-//         <Grid>
-//           {/* <video
-//             playsInline
-//             muted
-//             ref={myVideo}
-//             autoPlay
-//             className={classes.video}
-//           /> */}
-//         </Grid>
-//       </Paper>
-//     </Grid>
-//   );
-// }
-
-// function VideoDuo(myVideo, userVideo, classes) {
-//   // const classes = useStyles();
-//   // const { myVideo, userVideo } = useContext(SocketContext);
-//   return (
-//     <Grid container className={classes.gridContainer}>
-//       {/* {stream && <Box sx={{ display: "flex" }}></Box>} */}
-//       {/* Our Video */}
-//       <Paper className={classes.paper} elevation={0}>
-//         <Grid>
-//           {/* <video
-//             playsInline
-//             muted={true}
-//             ref={myVideo}
-//             autoPlay
-//             className={classes.video}
-//           /> */}
-//         </Grid>
-
-//         {/* Users Video */}
-//         <Paper className={classes.paperx} elevation={0}>
-//           <Grid>
-//             {/* <video
-//               playsInline
-//               muted={false}
-//               ref={userVideo}
-//               autoPlay={true}
-//               className={classes.video}
-//             /> */}
-//           </Grid>
-//         </Paper>
-//       </Paper>
-//     </Grid>
-
-// <Grid container className={classes.gridContainer}>
-//   {/* Our Video */}
-//   <Paper className={classes.paper} elevation={0}>
-//     <Grid>
-//       <video
-//         playsInline
-//         muted
-//         ref={myVideo}
-//         autoPlay
-//         className={classes.video}
-//       />
-//     </Grid>
-//   </Paper>
-
-//   {/* Users Video */}
-//   <Paper className={classes.paperx} elevation={0} hidden={false}>
-//     <Grid>
-//       <video
-//         playsInline
-//         ref={userVideo}
-//         autoPlay
-//         className={classes.video}
-//       />
-//     </Grid>
-//   </Paper>
-// </Grid>
-//   );
-// }
 
 export default VideoPlayer;

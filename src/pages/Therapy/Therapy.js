@@ -6,16 +6,15 @@ import { ContextProvider } from "../../utils/ServerIO";
 
 export default function Therapy(props) {
   const { setContent, setNotifications, setNotificationsContent } = props;
-  const [data, setData] = useState("");
+  const [mindWaves, setMindWaves] = useState("");
   const [online, setOnline] = useState(null);
 
   return (
     <div>
-      <ContextProvider>
+      <ContextProvider setMindWaves={setMindWaves}>
         <VideoPlayer
-          setContent={setContent}
-          setNotifications={setNotifications}
           setNotificationsContent={setNotificationsContent}
+          mindWaves={mindWaves}
         />
         <Options>
           <Notifications />
