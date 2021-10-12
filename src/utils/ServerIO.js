@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 
 const connectSocketServer = () => {
-  const socket = io.connect("https://savips.herokuapp.com");
+  const socket = io.connect("http://localhost:8000");
   socket.emit("client", "pepe");
   return socket;
 };
@@ -37,6 +37,14 @@ const ContextProvider = ({ children }) => {
 
     socket.on("callUser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
+
+      socket.on("disconnect", function () {
+        console.log("Perdimos conexión con el servidor");
+      });
+
+      socket.on("dataResult", (data) => {
+        console.log(data);
+      });
     });
   }, []);
 
