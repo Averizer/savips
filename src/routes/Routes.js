@@ -11,13 +11,7 @@ import Therapy from "../pages/Therapy";
 import Terapia from "../pages/Terapia";
 
 export default function Routes(props) {
-  const {
-    user,
-    setReloadApp,
-    setContent,
-    setNotifications,
-    setNotificationsContent,
-  } = props;
+  const { user, setReloadApp, setNotificationsContent } = props;
 
   return (
     <Switch>
@@ -37,11 +31,7 @@ export default function Routes(props) {
         <Settings user={user} setReloadApp={setReloadApp} />
       </Route>
       <Route path="/Therapy" exact>
-        <Therapy
-          setContent={setContent}
-          setNotifications={setNotifications}
-          setNotificationsContent={setNotificationsContent}
-        />
+        <Therapy setNotificationsContent={setNotificationsContent} />
       </Route>
       <Route path="/Terapia" exact>
         <Terapia user={user} setReloadApp={setReloadApp} />

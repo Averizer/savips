@@ -5,18 +5,12 @@ import Options from "../../components/Terapy/Options/Options";
 import { ContextProvider } from "../../utils/ServerIO";
 
 export default function Therapy(props) {
-  const { setContent, setNotifications, setNotificationsContent } = props;
-  const [data, setData] = useState("");
-  const [online, setOnline] = useState(null);
+  const { setNotificationsContent } = props;
 
   return (
     <div>
       <ContextProvider>
-        <VideoPlayer
-          setContent={setContent}
-          setNotifications={setNotifications}
-          setNotificationsContent={setNotificationsContent}
-        />
+        <VideoPlayer setNotificationsContent={setNotificationsContent} />
         <Options>
           <Notifications />
         </Options>

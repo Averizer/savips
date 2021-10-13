@@ -1,4 +1,4 @@
-@import '../../scss/index.scss';
+@import "../../scss/index.scss";
 
 .ui.menu.vertical.menu-left {
   display: flex;
@@ -39,7 +39,7 @@
   }
 
   .div-transparent:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 5%;

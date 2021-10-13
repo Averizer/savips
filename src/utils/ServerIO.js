@@ -3,15 +3,16 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 
 const connectSocketServer = () => {
-  const socket = io.connect("https://savips.herokuapp.com/");
+  const socket = io.connect("https://savips.herokuapp.com");
   socket.emit("client", "pepe");
   return socket;
 };
 
 const SocketContext = createContext();
 
-// const ContextProvider = ({ children }, setData, setOnline) => {
-const ContextProvider = ({ children }) => {
+function ContextProvider(props) {
+  const { children } = props;
+
   const [socket] = useState(() => connectSocketServer());
   const [stream, setStream] = useState(null);
   const [me, setMe] = useState("");
@@ -19,6 +20,7 @@ const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
   const [name, setName] = useState("");
+  const [mindWaves, setMindWaves] = useState("");
 
   const myVideo = useRef();
   const userVideo = useRef();
@@ -33,18 +35,15 @@ const ContextProvider = ({ children }) => {
         myVideo.current.srcObject = currentStream;
       });
 
+    socket.on("dataResult", (data) => {
+      // console.log(data);
+      setMindWaves(data);
+    });
+
     socket.on("me", (id) => setMe(id));
 
     socket.on("callUser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
-
-      socket.on("disconnect", function () {
-        console.log("Perdimos conexión con el servidor");
-      });
-
-      socket.on("dataResult", (data) => {
-        console.log(data);
-      });
     });
   }, []);
 
@@ -113,11 +112,12 @@ const ContextProvider = ({ children }) => {
         callUser,
         leaveCall,
         answerCall,
+        mindWaves,
       }}
     >
       {children}
     </SocketContext.Provider>
   );
-};
+}
 
 export { ContextProvider, SocketContext };
