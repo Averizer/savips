@@ -8,6 +8,7 @@ import Mensajes from "../pages/Mensajes";
 import Historial from "../pages/Historial";
 import Calendario from "../components/Calendario";
 import Therapy from "../pages/Therapy";
+import Terapia from "../pages/Terapia";
 
 export default function Routes(props) {
   const {
@@ -41,6 +42,9 @@ export default function Routes(props) {
           setNotifications={setNotifications}
           setNotificationsContent={setNotificationsContent}
         />
+      </Route>
+      <Route path="/Terapia" exact>
+        <Terapia user={user} setReloadApp={setReloadApp} />
       </Route>
     </Switch>
   );

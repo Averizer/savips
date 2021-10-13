@@ -1,5 +1,5 @@
 const electron = require('electron')
-
+const { shell } = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
@@ -19,7 +19,8 @@ function createWindow() {
         webviewTag: true,
         webSecurity: false,
         nodeIntegrationInWorker: true,
-        nodeIntegrationInSubFrames: true
+        nodeIntegrationInSubFrames: true,
+        enableRemoteModule: true
     },
   })
 

@@ -87,6 +87,16 @@ function MenuLeft(props) {
             <Icon name="video" />
             Terapia
           </Menu.Item>
+          <Menu.Item
+            as={Link}
+            to="/terapia"
+            name="terapia"
+            active={activeMenu === "/terapia"}
+            onClick={handlerMenu}
+          >
+            <Icon name="video" />
+            Terapia TEST
+          </Menu.Item>
         </div>
         <div className="footer">
           {psychologistAssigned ? (
