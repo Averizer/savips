@@ -20,6 +20,7 @@ function MenuLeft(props) {
         : setPsychologistAssigned(true);
     });
   }, [setReloadApp, user]);
+
   //Verificar en donde nos encontramos
   useEffect(() => {
     setActiveMenu(location.pathname);

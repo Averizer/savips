@@ -11,7 +11,7 @@ const connectSocketServer = () => {
 const SocketContext = createContext();
 
 function ContextProvider(props) {
-  const { children, setMindWaves } = props;
+  const { children } = props;
 
   const [socket] = useState(() => connectSocketServer());
   const [stream, setStream] = useState(null);
@@ -20,6 +20,7 @@ function ContextProvider(props) {
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
   const [name, setName] = useState("");
+  const [mindWaves, setMindWaves] = useState("");
 
   const myVideo = useRef();
   const userVideo = useRef();
@@ -34,9 +35,6 @@ function ContextProvider(props) {
         myVideo.current.srcObject = currentStream;
       });
 
-    socket.on("disconnect", function () {
-      console.log("Perdimos conexión con el servidor");
-    });
     socket.on("dataResult", (data) => {
       // console.log(data);
       setMindWaves(data);
@@ -114,6 +112,7 @@ function ContextProvider(props) {
         callUser,
         leaveCall,
         answerCall,
+        mindWaves,
       }}
     >
       {children}

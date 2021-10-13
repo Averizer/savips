@@ -4,11 +4,20 @@ import { Grid } from "semantic-ui-react";
 import { SocketContext } from "../../../utils/ServerIO";
 
 import "./VideoPlayer.scss";
+import MyVideo from "../../MenuRight/MyVideo/MyVideo";
 
 const VideoPlayer = (props) => {
-  const { setNotificationsContent, mindWaves } = props;
-  const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } =
-    useContext(SocketContext);
+  const { setNotificationsContent } = props;
+  const {
+    name,
+    callAccepted,
+    myVideo,
+    userVideo,
+    callEnded,
+    stream,
+    call,
+    mindWaves,
+  } = useContext(SocketContext);
 
   const [videoMyShape, setVideoMyShape] = useState("");
   const [videoUserWidth, setVideoUserWidth] = useState(5);
@@ -16,8 +25,6 @@ const VideoPlayer = (props) => {
   const [videoMyHide, setVideoMyHide] = useState(true);
 
   useEffect(() => {
-    console.log(mindWaves);
-
     if (callAccepted && !callEnded) {
       setNotificationsContent(
         <div className="notificaciones">
@@ -27,21 +34,21 @@ const VideoPlayer = (props) => {
       setVideoUserWidth(16);
       setVideoMyWidth(5);
       setVideoMyShape("hidden");
+
       if (videoMyHide) {
         setVideoMyShape("videocall");
       } else {
         setVideoMyShape("hidden");
       }
     } else if (stream) {
-      setNotificationsContent(
-        <div className="notificaciones">
-          <h1>Preparando videollamada</h1>
-        </div>
-      );
       setVideoMyWidth(16);
       setVideoMyShape("video");
     }
   }, [callAccepted, callEnded, stream, videoMyHide]);
+
+  useEffect(() => {
+    setNotificationsContent(<MyVideo data={mindWaves} />);
+  }, [mindWaves]);
 
   return (
     <Grid className="gridVideo">
