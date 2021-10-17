@@ -24,8 +24,6 @@ function ContextProvider(props) {
   const [callEnded, setCallEnded] = useState(false);
   const [name, setName] = useState("");
   const [mindWaves, setMindWaves] = useState("");
-  const [audio, setAudio] = useState(true);
-  const [video, setVideo] = useState(true);
 
   const myVideo = useRef();
   const userVideo = useRef();
@@ -79,6 +77,7 @@ function ContextProvider(props) {
     });
 
     peer.on("stream", (currentStream) => {
+      console.log(currentStream);
       userVideo.current.srcObject = currentStream;
     });
 
@@ -99,6 +98,8 @@ function ContextProvider(props) {
     });
 
     peer.on("stream", (currentStream) => {
+      console.log(currentStream);
+
       userVideo.current.srcObject = currentStream;
     });
 

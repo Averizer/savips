@@ -19,7 +19,6 @@ const VideoPlayer = (props) => {
     mindWaves,
     playStop,
     muteUnmute,
-
   } = useContext(SocketContext);
 
   const [videoMyShape, setVideoMyShape] = useState("");
@@ -31,7 +30,7 @@ const VideoPlayer = (props) => {
 
   useEffect(() => {
     if (callAccepted && !callEnded) {
-      setNotificationsContent();
+      setNotificationsContent(<MyVideo data={0} />);
       setVideoUserWidth(16);
       setVideoMyWidth(5);
       setVideoMyShape("hidden");
