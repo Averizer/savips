@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Grid } from "semantic-ui-react";
 import { BrowserRouter as BR } from "react-router-dom";
 import { verifyPsico, verifyPacient } from "../../utils/Api";
-
 import "./LoggedLayout.scss";
 
 //Componentes
@@ -51,7 +50,9 @@ export default function LoggedLayout(props) {
             <TopBar user={user} />
             <Routes
               user={user}
+
               userInfo={userInfo}
+
               setReloadApp={setReloadApp}
               setContent={setContent}
               setNotifications={setNotifications}
@@ -59,7 +60,9 @@ export default function LoggedLayout(props) {
             />
           </Grid.Column>
           <Grid.Column width={notifications}>
+
             <Notificaciones notificationsContent={notificationsContent} />
+
           </Grid.Column>
         </Grid.Row>
       </Grid>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import DateFnsUtils from '@date-io/date-fns'
 import esLocaleDatePicker from 'date-fns/locale/es'
@@ -12,14 +12,49 @@ import esLocale from '@fullcalendar/core/locales/es'
 import StyleWrapper from './styleWrapper'
 
 import BasicModal from '../../components/Modal/BasicModal'
+import NuevaCita from '../Calendario/Citas/NuevaCita/NuevaCita'
+
+import { db, auth } from '../../utils/Api'
+
+import { format } from 'date-fns'
 export default function Calendario(props) {
   const { setReloadApp } = props
   const [showModal, setShowModal] = useState(false)
   const [titleModal, setTitleModal] = useState('')
   const [contentModal, setContentModal] = useState(null)
   // eslint-disable-next-line no-unused-vars
-  const [calendarEvents, setCalendarEvents] = useState({})
-  const [eventsCounter, setEventsCounter] = useState(2)
+  const [calendarEvents, setCalendarEvents] = useState([])
+  //Cargar los datos de la bd
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        let v = []
+        const docRef = db
+          .collection('pacientes')
+          .doc(auth.currentUser.email)
+          .collection('calendario')
+        await docRef
+          .get()
+          .then((collection) => {
+            collection.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+
+              const inicio = doc.data().hora.seconds * 1000
+              const titulo = doc.data().titulo
+              const hora = format(inicio, "yyyy-MM-dd'T'HH:mm:ss")
+              const data = { title: titulo, start: hora }
+              v.push(data)
+            })
+          })
+          .finally(() => {
+            setCalendarEvents(v)
+          })
+      } catch (error) {
+        console.log('error', error)
+      }
+    }
+    fetchEvents()
+  }, [])
   const [events, setEvents] = useState([
     {
       id: '0',
@@ -46,7 +81,17 @@ export default function Calendario(props) {
     { title: 'Mi cumpleaños en septiembre', date: '2021-09-16' },
   ]*/
   const handleDateClick = () => {
-    console.log('Evento clickado')
+    setContentModal(
+      <NuevaCita
+        setShowModal={setShowModal}
+        calendarEvents={calendarEvents}
+        setCalendarEvents={setCalendarEvents}
+        setReloadApp={setReloadApp}
+      />,
+    )
+    setTitleModal(`Añade una nueva cita`)
+
+    setShowModal(true)
   }
 
   return (
@@ -59,12 +104,10 @@ export default function Calendario(props) {
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           dateClick={handleDateClick}
           eventColor={'#bd8ebf'}
-          events={events}
+          events={calendarEvents}
           select={function (info) {
-            setEventsCounter(eventsCounter + 1)
             setEvents(
               events.concat({
-                id: eventsCounter.toString(),
                 title: 'Beschikbaar',
                 start: info.start,
                 end: info.end,
@@ -78,7 +121,7 @@ export default function Calendario(props) {
                 inicio={info.event.startStr}
                 setShowModal={setShowModal}
                 setReloadApp={setReloadApp}
-              />,
+              />
             )
             setTitleModal(`Evento: ${info.event._def.title}`)
 

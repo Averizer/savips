@@ -11,7 +11,6 @@ const connectSocketServer = () => {
 const SocketContext = createContext();
 
 let myVideoStream;
-
 function ContextProvider(props) {
   const { children } = props;
 
@@ -67,7 +66,6 @@ function ContextProvider(props) {
       myVideoStream.getAudioTracks()[0].enabled = false;
     }
   };
-
   const answerCall = () => {
     setCallAccepted(true);
 

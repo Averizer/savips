@@ -1,0 +1,20 @@
+@import '../../../../scss/index.scss';
+
+.nuevacita {
+  margin: 50px 80px 0 80px;
+  display: block;
+
+  > h1 {
+    font-size: 20px !important;
+    letter-spacing: 1px;
+    margin-bottom: 50px;
+  }
+  .button {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+    background-color: $lila;
+    color: $blanco;
+    letter-spacing: 1px;
+    border-radius: 40px;
+  }
+}

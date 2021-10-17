@@ -19,6 +19,7 @@ const VideoPlayer = (props) => {
     mindWaves,
     playStop,
     muteUnmute,
+
   } = useContext(SocketContext);
 
   const [videoMyShape, setVideoMyShape] = useState("");
@@ -93,7 +94,6 @@ const VideoPlayer = (props) => {
           </Grid.Column>
         )}
       </Grid.Row>
-
       <Grid.Row className="menuOption">
         <Grid.Column
           className="c1"

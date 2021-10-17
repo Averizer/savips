@@ -32,8 +32,9 @@ function MenuLeft(props) {
             onClick={handlerMenu}
           >
             <Image src={logo} />
-          </Menu.Item>
+          </Menu.Item>  
           <div className="divider div-transparent"></div>
+          
           <Menu.Item
             as={Link}
             to="/calendario"
@@ -45,6 +46,7 @@ function MenuLeft(props) {
             Calendario
           </Menu.Item>
           <div className="divider div-transparent"></div>
+
           <Menu.Item
             as={Link}
             to="/mensajes"

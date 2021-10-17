@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "semantic-ui-react";
 import { validateEmail } from "../../utils/Validation";
+
 import { verifyPsico, updateTherapistOfPatient } from "../../utils/Api";
+
 import { toast } from "react-toastify";
 
 export default function IngresarPsicologo(props) {
   console.log(props);
+
   const { userInfo, setReloadApp } = props;
+
   const [formData, setFormData] = useState(defaultValueForm());
   const [formError, setFormError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
