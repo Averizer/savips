@@ -1,28 +1,28 @@
-import React, { useState } from 'react'
-import firebase from './utils/firebase.js'
-import 'firebase/auth'
-import Auth from './pages/Auth'
-import {  ToastContainer } from 'react-toastify'
-import LoggedLayout from './Layouts/LoggedLayout/LoggedLayout.js'
+import React, { useState } from "react";
+import firebase from "./utils/firebase.js";
+import "firebase/auth";
+import Auth from "./pages/Auth";
+import { ToastContainer } from "react-toastify";
+import LoggedLayout from "./Layouts/LoggedLayout/LoggedLayout.js";
 
 function App() {
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-// eslint-disable-next-line
-  const [reloadApp, setReloadApp] = useState(true)
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  // eslint-disable-next-line
+  const [reloadApp, setReloadApp] = useState(true);
 
   firebase.auth().onAuthStateChanged((currentUser) => {
     if (!currentUser?.emailVerified) {
-      firebase.auth().signOut()
-      setUser(null)
+      firebase.auth().signOut();
+      setUser(null);
     } else {
-      setUser(currentUser)
+      setUser(currentUser);
     }
-    setIsLoading(false)
-  })
+    setIsLoading(false);
+  });
 
   if (isLoading) {
-    return null
+    return null;
   }
 
   return (
@@ -46,7 +46,7 @@ function App() {
           {/* Same as */}
           <ToastContainer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import { Form, Input, Button } from 'semantic-ui-react'
-import { toast } from 'react-toastify'
-import firebase from '../../utils/firebase'
-import 'firebase/auth'
+import React, { useState } from "react";
+import { Form, Input, Button } from "semantic-ui-react";
+import { toast } from "react-toastify";
+import firebase from "../../utils/firebase";
+import { updateUserName } from "../../../src/utils/Api";
+
+import "firebase/auth";
 
 export default function UserName(props) {
   const {
@@ -11,19 +13,22 @@ export default function UserName(props) {
     setTitleModal,
     setShowModal,
     setReloadApp,
-  } = props
+    userInfo,
+  } = props;
   const onEdit = () => {
-    setTitleModal('Edita tu nombre')
+    setTitleModal("Edita tu nombre");
     setContentModal(
       <ChangeDisplayNameForm
+        user={user}
         displayName={user.displayName}
         setShowModal={setShowModal}
         setReloadApp={setReloadApp}
-      />,
-    )
-    setShowModal(true)
-    console.log('editando el nombre del usuario')
-  }
+        userInfo={userInfo}
+      />
+    );
+    setShowModal(true);
+    console.log("editando el nombre del usuario");
+  };
   return (
     <div className="user-name">
       <h2>{user.displayName}</h2>
@@ -31,34 +36,37 @@ export default function UserName(props) {
         Actualizar
       </Button>
     </div>
-  )
+  );
 }
 
 function ChangeDisplayNameForm(props) {
-  const { displayName, setShowModal, setReloadApp } = props
-  const [formData, setFormData] = useState({ displayName: displayName })
-  const [isLoading, setIsLoading] = useState(false)
-  const onSubmit = () => {
+  const { displayName, setShowModal, setReloadApp, user, userInfo } = props;
+  const [formData, setFormData] = useState({ displayName: displayName });
+  const [isLoading, setIsLoading] = useState(false);
+  const onSubmit = async () => {
     if (!formData.displayName || formData.displayName === displayName) {
-      setShowModal(false)
+      setShowModal(false);
     } else {
-      setIsLoading(true)
+      // console.log(firebase.auth().currentUser);
+      setIsLoading(true);
       firebase
         .auth()
         .currentUser.updateProfile({ displayName: formData.displayName })
-        .then(() => {
-          setReloadApp((prevState) => !prevState)
-          toast.success('Nombre actualizado correctamente')
-          setIsLoading(false)
-          setShowModal(false)
+        .then(async () => {
+          setReloadApp((prevState) => !prevState);
+          toast.success("Nombre actualizado correctamente");
+          await updateUserName(formData.displayName, user.email, userInfo.role);
+          setIsLoading(false);
+          setShowModal(false);
         })
         .catch(() => {
-          toast.error('Error al actualizar el nombre, intenta más tarde!')
-          setIsLoading(false)
-        })
+          toast.error("Error al actualizar el nombre, intenta más tarde!");
+          setIsLoading(false);
+        });
+      console.log(userInfo);
     }
     //setShowModal(false)
-  }
+  };
   return (
     <Form onSubmit={onSubmit}>
       <Form.Field>
@@ -71,5 +79,5 @@ function ChangeDisplayNameForm(props) {
         Actualizar nombre
       </Button>
     </Form>
-  )
+  );
 }

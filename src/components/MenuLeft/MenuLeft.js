@@ -1,25 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Menu, Icon, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
-import { verifyTherapistHaving } from "../../utils/Api";
+import { verifyPsico, verifyPacient } from "../../utils/Api";
 import FooterName from "../FooterName/FooterName";
 import logo from "../../assets/png/SAVIPS.png";
 import "./MenuLeft.scss";
 
 import IngresarPsicologo from "../IngresarPsicologo/IngresarPsicologo";
 function MenuLeft(props) {
-  const { user, setReloadApp, location } = props;
+  const { setReloadApp, location, userInfo } = props;
   const [activeMenu, setActiveMenu] = useState(location.pathname);
-  const [psychologistAssigned, setPsychologistAssigned] = useState(false);
-  //
-  useEffect(() => {
-    setReloadApp();
-    verifyTherapistHaving(user.email).then((response) => {
-      response.data().psicologo === ""
-        ? setPsychologistAssigned(false)
-        : setPsychologistAssigned(true);
-    });
-  }, [setReloadApp, user]);
 
   //Verificar en donde nos encontramos
   useEffect(() => {
@@ -88,22 +78,17 @@ function MenuLeft(props) {
             <Icon name="video" />
             Terapia
           </Menu.Item>
-          <Menu.Item
-            as={Link}
-            to="/terapia"
-            name="terapia"
-            active={activeMenu === "/terapia"}
-            onClick={handlerMenu}
-          >
-            <Icon name="video" />
-            Terapia TEST
-          </Menu.Item>
         </div>
         <div className="footer">
-          {psychologistAssigned ? (
-            <FooterName user={user} setReloadApp={setReloadApp} />
+          {userInfo.role == "psicologo" ? (
+            <div></div>
+          ) : userInfo.nombrepsicologo === "" ? (
+            <IngresarPsicologo
+              userInfo={userInfo}
+              setReloadApp={setReloadApp}
+            />
           ) : (
-            <IngresarPsicologo user={user} setReloadApp={setReloadApp} />
+            <FooterName userInfo={userInfo} setReloadApp={setReloadApp} />
           )}
         </div>
       </Menu>

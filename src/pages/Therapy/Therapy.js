@@ -11,9 +11,9 @@ export default function Therapy(props) {
     <div>
       <ContextProvider>
         <VideoPlayer setNotificationsContent={setNotificationsContent} />
-        <Options>
+        {/* <Options>
           <Notifications />
-        </Options>
+        </Options> */}
       </ContextProvider>
     </div>
   );

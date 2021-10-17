@@ -4,11 +4,19 @@ import { Form, Input, Button, Icon } from "semantic-ui-react";
 import { reauthenticate } from "../../utils/Api";
 import alertErrors from "../../utils/AlertError";
 import firebase from "../../utils/firebase";
+
+import { updateEmail } from "../../utils/Api";
 import "firebase/auth";
 
 export default function UserEmail(props) {
-  const { user, setShowModal, setTitleModal, setContentModal, setReloadApp } =
-    props;
+  const {
+    user,
+    setShowModal,
+    setTitleModal,
+    setContentModal,
+    setReloadApp,
+    userInfo,
+  } = props;
 
   const onEdit = () => {
     setTitleModal("Edita tu correo");
@@ -17,6 +25,7 @@ export default function UserEmail(props) {
         email={user.email}
         setShowModal={setShowModal}
         setReloadApp={setReloadApp}
+        userInfo={userInfo}
       />
     );
     setShowModal(true);
@@ -34,7 +43,7 @@ export default function UserEmail(props) {
 }
 
 function ChangeEmailForm(props) {
-  const { email, setShowModal } = props;
+  const { email, setShowModal, userInfo } = props;
   const [showPasword, setShowPasword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [isloading, setIsloading] = useState(false);
@@ -56,8 +65,9 @@ function ChangeEmailForm(props) {
               toast.success("Correo actualizado");
               setIsloading(false);
               setShowModal(false);
-              currentUser.sendEmailVerification().then(() => {
+              currentUser.sendEmailVerification().then(async () => {
                 toast("Correo de verificacion reenviado");
+                await updateEmail(formData.email, email, userInfo.role);
                 firebase.auth().signOut();
               });
             })

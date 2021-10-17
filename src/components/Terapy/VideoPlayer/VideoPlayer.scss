@@ -4,7 +4,9 @@
 .ui.grid.gridVideo {
   width: 100%;
   height: 80%;
+  justify-items: flex-start;
   .topBar {
+    justify-content: initial;
     padding: 15px;
     margin-left: 30px;
     padding-bottom: 10px;
@@ -39,8 +41,8 @@
   .videoBar {
     justify-content: space-around;
     margin: 0 80px 0 105px;
-    height: 445px;
-    // background-color: aquamarine;
+    width: 56.5vh;
+    // background-color: antiquewhite;
     .c1 {
       width: 50%;
       height: 100%;
@@ -52,24 +54,43 @@
       }
       .hidden {
         width: 100%;
-        padding-top: 39%;
+        padding-top: 90%;
         border-radius: 20px;
         visibility: hidden;
       }
       .videocall {
         width: 100%;
-        padding-top: 39%;
+        padding-top: 90%;
         border-radius: 20px;
         visibility: visible;
       }
     }
     .c2 {
-      width: 50%;
-      height: 200px;
-      padding: 0.5%;
+      height: 20vh;
+      // padding: 0.5%;
       .video {
         width: 100%;
         border-radius: 20px;
+      }
+    }
+  }
+
+  .menuOption {
+    justify-content: space-evenly;
+    padding: 15px;
+    margin-left: 30px;
+    padding-bottom: 10px;
+    margin-top: -100px;
+    width: 100%;
+    .c1 {
+      background-color: $color_principal;
+      height: 7vh;
+      width: 7vh;
+      border-radius: 100%;
+      .micro {
+        width: 100%;
+        padding-top: 30%;
+        color: white;
       }
     }
   }

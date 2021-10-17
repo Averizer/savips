@@ -10,6 +10,7 @@ const connectSocketServer = () => {
 
 const SocketContext = createContext();
 
+let myVideoStream;
 function ContextProvider(props) {
   const { children } = props;
 
@@ -21,6 +22,8 @@ function ContextProvider(props) {
   const [callEnded, setCallEnded] = useState(false);
   const [name, setName] = useState("");
   const [mindWaves, setMindWaves] = useState("");
+  const [audio, setAudio] = useState(true);
+  const [video, setVideo] = useState(true);
 
   const myVideo = useRef();
   const userVideo = useRef();
@@ -28,15 +31,14 @@ function ContextProvider(props) {
 
   useEffect(() => {
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
+      .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
+        myVideoStream = currentStream;
         setStream(currentStream);
-
         myVideo.current.srcObject = currentStream;
       });
 
     socket.on("dataResult", (data) => {
-      // console.log(data);
       setMindWaves(data);
     });
 
@@ -47,6 +49,23 @@ function ContextProvider(props) {
     });
   }, []);
 
+  const playStop = (video) => {
+    console.log(video);
+    if (video) {
+      myVideoStream.getVideoTracks()[0].enabled = true;
+    } else {
+      myVideoStream.getVideoTracks()[0].enabled = false;
+    }
+  };
+
+  const muteUnmute = (audio) => {
+    console.log(audio);
+    if (audio) {
+      myVideoStream.getAudioTracks()[0].enabled = true;
+    } else {
+      myVideoStream.getAudioTracks()[0].enabled = false;
+    }
+  };
   const answerCall = () => {
     setCallAccepted(true);
 
@@ -113,6 +132,8 @@ function ContextProvider(props) {
         leaveCall,
         answerCall,
         mindWaves,
+        playStop,
+        muteUnmute,
       }}
     >
       {children}

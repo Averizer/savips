@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Form, Input, Button } from "semantic-ui-react";
 import { validateEmail } from "../../utils/Validation";
-import { therapistExistace, updateTherapistOfPatient } from "../../utils/Api";
+
+import { verifyPsico, updateTherapistOfPatient } from "../../utils/Api";
+
 import { toast } from "react-toastify";
 
 export default function IngresarPsicologo(props) {
   console.log(props);
-  const { user, setReloadApp } = props;
+
+  const { userInfo, setReloadApp } = props;
+
   const [formData, setFormData] = useState(defaultValueForm());
   const [formError, setFormError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -32,12 +36,11 @@ export default function IngresarPsicologo(props) {
     //Falta crear la opcion de hacer el update
     if (formOk) {
       setIsLoading(true);
-      therapistExistace(formData.email)
+      verifyPsico(formData.email)
         .then(async (response) => {
-          console.log(response.data());
           await updateTherapistOfPatient(
             formData.email,
-            user.email,
+            userInfo.email,
             response.data().nombre
           );
           setReloadApp((prevState) => !prevState);
