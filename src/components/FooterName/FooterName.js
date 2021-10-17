@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import { getTherapisName } from '../../utils/Api'
-import 'firebase/auth'
-import './FooterName.scss'
+import React from "react";
+import { Button } from "semantic-ui-react";
+import { updatePsico } from "../../utils/Api";
+
+import "firebase/auth";
+import "./FooterName.scss";
 
 export default function FooterName(props) {
-  const { user } = props
-  const [therapistName, setTherapistName] = useState('')
+  const { userInfo, setReloadApp } = props;
 
-  useEffect(() => {
-    getTherapisName(user.email).then((response) => {
-      setTherapistName(response.data().nombrepsicologo)
-    })
-  }, [user])
-
-  return <h4>Actualmente tu psicologo es {therapistName}. </h4>
+  return (
+    <div>
+      <h4>Actualmente tu psicologo es {userInfo.nombrepsicologo}. </h4>
+      <Button
+        onClick={async () => {
+          await updatePsico(userInfo.email, userInfo.role);
+          window.location.reload();
+        }}
+      >
+        Cambiar Psicologo
+      </Button>
+    </div>
+  );
 }

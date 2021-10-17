@@ -1,97 +1,109 @@
-import React, { useState } from 'react'
-import { Button, Form, Input, Icon } from 'semantic-ui-react'
-import { toast } from 'react-toastify'
-import { reauthenticate } from '../../utils/Api'
-import alertErrors from '../../utils/AlertError'
-import firebase from '../../utils/firebase'
-import 'firebase/auth'
+import React, { useState } from "react";
+import { Button, Form, Input, Icon } from "semantic-ui-react";
+import { toast } from "react-toastify";
+import { reauthenticate, updatePass } from "../../utils/Api";
+import alertErrors from "../../utils/AlertError";
+import firebase from "../../utils/firebase";
+import "firebase/auth";
 
 export default function UserPassword(props) {
-  const { setShowModal, setTitleModal, setContentModal } = props
+  const { setShowModal, setTitleModal, setContentModal, user, userInfo } =
+    props;
   const onEdit = () => {
-    setTitleModal('Actualizar contraseña')
-    setContentModal(<ChangePasswordForm setShowModal={setShowModal} />)
-    setShowModal(true)
-  }
+    setTitleModal("Actualizar contraseña");
+    setContentModal(
+      <ChangePasswordForm
+        setShowModal={setShowModal}
+        user={user}
+        userInfo={userInfo}
+      />
+    );
+    setShowModal(true);
+  };
   return (
     <div className="user-email">
-      <h3>Contraseña: *** *** *** *** </h3>{' '}
+      <h3>Contraseña: *** *** *** *** </h3>{" "}
       <Button circular onClick={onEdit}>
         Actualizar
       </Button>
     </div>
-  )
+  );
 }
 
 function ChangePasswordForm(props) {
-  const { setShowModal } = props
-  const [showPasword, setShowPasword] = useState(false)
-  const [showPasword2, setShowPasword2] = useState(false)
-  const [showPasword3, setShowPasword3] = useState(false)
+  const { setShowModal, userInfo, user } = props;
+  const [showPasword, setShowPasword] = useState(false);
+  const [showPasword2, setShowPasword2] = useState(false);
+  const [showPasword3, setShowPasword3] = useState(false);
   const [formData, setFormData] = useState({
-    passwordActual: '',
-    passwordNueva: '',
-    passwordNuevaRepetida: '',
-  })
-  const [isloading, setIsloading] = useState(false)
+    passwordActual: "",
+    passwordNueva: "",
+    passwordNuevaRepetida: "",
+  });
+  const [isloading, setIsloading] = useState(false);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (
       !formData.passwordActual ||
       !formData.passwordNueva ||
       !formData.passwordNuevaRepetida
     ) {
-      toast.warning('Las contraseñas no pueden estar vacias.')
+      toast.warning("Las contraseñas no pueden estar vacias.");
     } else if (formData.passwordActual === formData.passwordNueva) {
       toast.warning(
-        'La contraseña nueva no puede ser igual que la contraseña actual',
-      )
+        "La contraseña nueva no puede ser igual que la contraseña actual"
+      );
     } else if (formData.passwordNueva !== formData.passwordNuevaRepetida) {
-      toast.warning('Las nuevas contraseñas no coinciden.')
+      toast.warning("Las nuevas contraseñas no coinciden.");
     } else if (formData.passwordNueva.length < 6) {
-      toast.warning('La contraseña debe ser al menos de 6 caracteres.')
+      toast.warning("La contraseña debe ser al menos de 6 caracteres.");
     } else {
-      setIsloading(true)
+      setIsloading(true);
       reauthenticate(formData.passwordActual)
         .then(() => {
-          console.log('Reautenticado correcto')
-          const currentUser = firebase.auth().currentUser
+          console.log("Reautenticado correcto");
+          const currentUser = firebase.auth().currentUser;
           currentUser
             .updatePassword(formData.passwordNueva)
-            .then(() => {
-              toast.success('Contraseña actualizada')
-              setIsloading(false)
-              setShowModal(false)
-              firebase.auth().signOut()
+            .then(async () => {
+              toast.success("Contraseña actualizada");
+              setIsloading(false);
+              setShowModal(false);
+              await updatePass(
+                formData.passwordNueva,
+                user.email,
+                userInfo.role
+              );
+              firebase.auth().signOut();
             })
             .catch((err) => {
-              alertErrors(err?.code)
-              setIsloading(false)
-            })
+              alertErrors(err?.code);
+              setIsloading(false);
+            });
         })
         .catch((err) => {
-          alertErrors(err?.code)
-          setIsloading(false)
-        })
+          alertErrors(err?.code);
+          setIsloading(false);
+        });
     }
-  }
+  };
 
   const handlerShowPassword = () => {
-    setShowPasword(!showPasword)
-  }
+    setShowPasword(!showPasword);
+  };
   const handlerShowPassword2 = () => {
-    setShowPasword2(!showPasword2)
-  }
+    setShowPasword2(!showPasword2);
+  };
   const handlerShowPassword3 = () => {
-    setShowPasword3(!showPasword3)
-  }
+    setShowPasword3(!showPasword3);
+  };
 
   return (
     <Form onSubmit={onSubmit}>
       <Form.Field>
         <Input
           placeholder="Contraseña actual"
-          type={showPasword ? 'password' : 'text'}
+          type={showPasword ? "password" : "text"}
           onChange={(e) =>
             setFormData({ ...formData, passwordActual: e.target.value })
           }
@@ -111,7 +123,7 @@ function ChangePasswordForm(props) {
       <Form.Field>
         <Input
           placeholder="Contraseña nueva"
-          type={showPasword2 ? 'password' : 'text'}
+          type={showPasword2 ? "password" : "text"}
           onChange={(e) =>
             setFormData({ ...formData, passwordNueva: e.target.value })
           }
@@ -131,7 +143,7 @@ function ChangePasswordForm(props) {
       <Form.Field>
         <Input
           placeholder="Repite tu nueva contraseña"
-          type={showPasword2 ? 'password' : 'text'}
+          type={showPasword2 ? "password" : "text"}
           onChange={(e) =>
             setFormData({ ...formData, passwordNuevaRepetida: e.target.value })
           }
@@ -152,5 +164,5 @@ function ChangePasswordForm(props) {
         Actualizar
       </Button>
     </Form>
-  )
+  );
 }

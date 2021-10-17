@@ -1,56 +1,55 @@
-import React, { useState } from 'react'
-import { Form, Input, Button } from 'semantic-ui-react'
-import { validateEmail } from '../../utils/Validation'
-import { therapistExistace, updateTherapistOfPatient } from '../../utils/Api'
-import { toast } from 'react-toastify'
+import React, { useState } from "react";
+import { Form, Input, Button } from "semantic-ui-react";
+import { validateEmail } from "../../utils/Validation";
+import { verifyPsico, updateTherapistOfPatient } from "../../utils/Api";
+import { toast } from "react-toastify";
 
 export default function IngresarPsicologo(props) {
-  console.log(props)
-  const { user, setReloadApp } = props
-  const [formData, setFormData] = useState(defaultValueForm())
-  const [formError, setFormError] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
+  console.log(props);
+  const { userInfo, setReloadApp } = props;
+  const [formData, setFormData] = useState(defaultValueForm());
+  const [formError, setFormError] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   //Verificar y guardar cambios del formulario
   const onChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
   //Verificar que el correo del psicologo sea correcto
   const onSubmit = async () => {
-    setFormError({})
-    let errors = {}
-    let formOk = true
+    setFormError({});
+    let errors = {};
+    let formOk = true;
 
     if (!validateEmail(formData.email)) {
-      errors.email = true
-      formOk = false
+      errors.email = true;
+      formOk = false;
     }
-    setFormError(errors)
+    setFormError(errors);
     //Falta crear la opcion de hacer el update
     if (formOk) {
-      setIsLoading(true)
-      therapistExistace(formData.email)
+      setIsLoading(true);
+      verifyPsico(formData.email)
         .then(async (response) => {
-          console.log(response.data())
           await updateTherapistOfPatient(
             formData.email,
-            user.email,
-            response.data().nombre,
-          )
-          setReloadApp((prevState) => !prevState)
-          setIsLoading(false)
-          toast('Agregado correctamente, por favor recarga  (CTRL + R)')
+            userInfo.email,
+            response.data().nombre
+          );
+          setReloadApp((prevState) => !prevState);
+          setIsLoading(false);
+          toast("Agregado correctamente, por favor recarga  (CTRL + R)");
         })
         .catch((e) => {
-          console.log(e)
-          toast.error('Hubo un error intenta más tarde')
-        })
+          console.log(e);
+          toast.error("Hubo un error intenta más tarde");
+        });
     }
-    setReloadApp((prevState) => !prevState)
-  }
+    setReloadApp((prevState) => !prevState);
+  };
   return (
     <>
       <Form onSubmit={onSubmit} onChange={onChange}>
@@ -73,11 +72,11 @@ export default function IngresarPsicologo(props) {
         </Button>
       </Form>
     </>
-  )
+  );
 }
 
 function defaultValueForm() {
   return {
-    email: '',
-  }
+    email: "",
+  };
 }
