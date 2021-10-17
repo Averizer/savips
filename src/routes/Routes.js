@@ -32,7 +32,7 @@ export default function Routes(props) {
       <Route path="/Therapy" exact>
         <Therapy setNotificationsContent={setNotificationsContent} />
       </Route>
-      <Route path="/Therapy" exact>
+      {/* <Route path="/Therapy" exact>
         <Therapy setNotificationsContent={setNotificationsContent} />
       </Route>
       <Route path="/Therapy" exact>
@@ -40,7 +40,7 @@ export default function Routes(props) {
       </Route>
       <Route path="/Terapia" exact>
         <Terapia user={user} setReloadApp={setReloadApp} />
-      </Route>
+      </Route> */}
     </Switch>
   );
 }
