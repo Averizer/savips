@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Icon } from "semantic-ui-react";
 
 import { SocketContext } from "../../../utils/ServerIO";
 
@@ -17,20 +17,20 @@ const VideoPlayer = (props) => {
     stream,
     call,
     mindWaves,
+    playStop,
+    muteUnmute,
   } = useContext(SocketContext);
 
   const [videoMyShape, setVideoMyShape] = useState("");
   const [videoUserWidth, setVideoUserWidth] = useState(5);
   const [videoMyWidth, setVideoMyWidth] = useState(16);
   const [videoMyHide, setVideoMyHide] = useState(true);
+  const [audio, setAudio] = useState(false);
+  const [video, setVideo] = useState(false);
 
   useEffect(() => {
     if (callAccepted && !callEnded) {
-      setNotificationsContent(
-        <div className="notificaciones">
-          <h1>Datos stream: {mindWaves}</h1>
-        </div>
-      );
+      setNotificationsContent();
       setVideoUserWidth(16);
       setVideoMyWidth(5);
       setVideoMyShape("hidden");
@@ -74,7 +74,6 @@ const VideoPlayer = (props) => {
               className="video"
               onClick={() => {
                 setVideoMyHide(!videoMyHide);
-                console.log(videoMyHide);
               }}
             />
           </Grid.Column>
@@ -89,11 +88,36 @@ const VideoPlayer = (props) => {
               className={videoMyShape}
               onClick={() => {
                 setVideoMyHide(!videoMyHide);
-                console.log(videoMyHide);
               }}
             />
           </Grid.Column>
         )}
+      </Grid.Row>
+
+      <Grid.Row className="menuOption">
+        <Grid.Column
+          className="c1"
+          onClick={() => {
+            setAudio(!audio);
+            muteUnmute(audio);
+          }}
+        >
+          <Icon
+            name="microphone"
+            disabled={audio}
+            size="large"
+            className="micro"
+          />
+        </Grid.Column>
+        <Grid.Column
+          className="c1"
+          onClick={() => {
+            setVideo(!video);
+            playStop(video);
+          }}
+        >
+          <Icon name="video" disabled={video} size="large" className="micro" />
+        </Grid.Column>
       </Grid.Row>
     </Grid>
   );
