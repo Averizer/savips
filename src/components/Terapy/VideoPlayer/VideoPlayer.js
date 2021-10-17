@@ -9,13 +9,11 @@ import MyVideo from "../../MenuRight/MyVideo/MyVideo";
 const VideoPlayer = (props) => {
   const { setNotificationsContent } = props;
   const {
-    name,
     callAccepted,
     myVideo,
     userVideo,
     callEnded,
     stream,
-    call,
     mindWaves,
     playStop,
     muteUnmute,

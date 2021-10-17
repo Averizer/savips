@@ -26,7 +26,6 @@ export default function LoggedLayout(props) {
       const data = response.data();
       if (data) {
         setUserInfo(data);
-        console.log(data);
       }
     });
 
@@ -34,7 +33,6 @@ export default function LoggedLayout(props) {
       const data = response.data();
       if (data) {
         setUserInfo(data);
-        console.log(data);
       }
     });
   }, [user, setReloadApp]);
@@ -50,9 +48,7 @@ export default function LoggedLayout(props) {
             <TopBar user={user} />
             <Routes
               user={user}
-
               userInfo={userInfo}
-
               setReloadApp={setReloadApp}
               setContent={setContent}
               setNotifications={setNotifications}
@@ -60,9 +56,7 @@ export default function LoggedLayout(props) {
             />
           </Grid.Column>
           <Grid.Column width={notifications}>
-
             <Notificaciones notificationsContent={notificationsContent} />
-
           </Grid.Column>
         </Grid.Row>
       </Grid>

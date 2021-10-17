@@ -6,6 +6,7 @@ const connectSocketServer = () => {
   const socket = io.connect("https://savips.herokuapp.com");
   // const socket = io.connect("http://localhost:8000");
   socket.emit("client", "pepe");
+
   return socket;
 };
 
