@@ -5,6 +5,8 @@ import UserName from "../../components/Settings/UserName";
 import BasicModal from "../../components/Modal/BasicModal";
 import UserEmail from "../../components/Settings/UserEmail";
 import UserPassword from "../../components/Settings/UserPassword";
+// import ListVideos from "../../components/ListVideos/ListVideos";
+import ListVideosConfig from "../../components/ListVideos/ListVideosConfig";
 
 export default function Settings(props) {
   const { user, setReloadApp, userInfo } = props;
@@ -42,9 +44,16 @@ export default function Settings(props) {
         setReloadApp={setReloadApp}
         user={user}
       />
-      <BasicModal show={showModal} 
-      setShow={setShowModal} 
-      title={titleModal}>
+      {userInfo.role === "psicologo" && (
+        <ListVideosConfig
+          userInfo={userInfo}
+          setShowModal={setShowModal}
+          setTitleModal={setTitleModal}
+          setContentModal={setContentModal}
+          user={user}
+        />
+      )}
+      <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
         {contentModal}
       </BasicModal>
     </div>

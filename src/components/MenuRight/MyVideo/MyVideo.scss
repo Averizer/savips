@@ -8,8 +8,7 @@
 
   .row.t1 {
     padding: 0px;
-    margin-left: 25px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     h1 {
       font-size: 20px;
       color: $titulo-gris;
@@ -22,6 +21,7 @@
 
     .cl1 {
       height: 290px;
+      width: 98%;
       padding-left: 25px;
       .mainChart {
         height: 100%;

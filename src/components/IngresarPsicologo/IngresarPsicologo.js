@@ -7,8 +7,6 @@ import { verifyPsico, updateTherapistOfPatient } from "../../utils/Api";
 import { toast } from "react-toastify";
 
 export default function IngresarPsicologo(props) {
-  console.log(props);
-
   const { userInfo, setReloadApp } = props;
 
   const [formData, setFormData] = useState(defaultValueForm());

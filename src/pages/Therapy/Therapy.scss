@@ -1,1 +1,384 @@
 @import "../../scss/index.scss";
+
+.therapy {
+  height: 89%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .ui.grid.gridTop {
+    width: 100%;
+    height: 10%;
+    margin: 0px;
+    padding: 0 12px 0 12px;
+    justify-content: center;
+
+    .topBar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgb(165, 164, 164);
+      height: 100%;
+
+      .c1 {
+        margin-left: 10px;
+        display: flex;
+        border-radius: 100%;
+        background-color: $color_principal;
+        height: 50px;
+        width: 50px;
+        color: white;
+
+        .t1 {
+          padding: 15px;
+          font-size: 16px;
+          height: 10%;
+        }
+        .c2 {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          padding-left: 16px;
+          .t2 {
+            width: max-content;
+            font-size: 16px;
+            color: black;
+          }
+        }
+      }
+      .c3 {
+        height: 100%;
+        width: 150px;
+        .t3 {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          border-radius: 0 10px 10px 0;
+          color: #fff;
+          background-color: #bd8ebf;
+          font-size: 14px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+
+          &:hover,
+          &:active,
+          &:focus {
+            background-color: $color_hover;
+            color: white;
+            border: 0px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+  .ui.grid.gridVideo {
+    width: 100%;
+    height: 77%;
+    margin: 0;
+    padding: 0 12px 0 12px;
+    justify-content: center;
+    .videoBar {
+      height: 100%;
+      width: 100%;
+
+      .c1 {
+        height: 100%;
+        width: 100%;
+        .video {
+          height: 100%;
+          border-radius: 20px;
+          visibility: visible;
+        }
+        .hidden {
+          height: 100%;
+          visibility: hidden;
+        }
+      }
+      .c2 {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 15vh;
+
+        .hidden {
+          height: 100%;
+          visibility: hidden;
+        }
+        .videocall {
+          height: 100%;
+          border-radius: 0 0 20px 20px;
+          margin-bottom: 15vh;
+          // width: 100%;
+
+          // border-radius: 20px;
+        }
+      }
+    }
+    .menuOption {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin-top: -15vh;
+      width: 100%;
+      height: 20%;
+      .c1 {
+        border-width: 1px;
+        // border-style: solid;
+        // border-color: rgb(255, 255, 255);
+        background-color: $color_principal;
+        height: 7vh;
+        width: 7vh;
+        border-radius: 100%;
+        .micro {
+          width: 100%;
+          height: 100%;
+          padding-top: 30%;
+          color: white;
+        }
+        &:hover,
+        &:active,
+        &:focus {
+          background-color: $color_hover;
+          color: white;
+          border: 0px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .ui.grid.gridVideoHide {
+    width: 100%;
+    height: 0%;
+    margin: 0;
+    padding: 0 12px 0 12px;
+    justify-content: center;
+    .videoBar {
+      height: 100%;
+      width: 100%;
+
+      .c1 {
+        height: 100%;
+        width: 100%;
+        .video {
+          height: 100%;
+          border-radius: 20px;
+          visibility: visible;
+        }
+        .hidden {
+          height: 100%;
+          visibility: hidden;
+        }
+      }
+      .c2 {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 14vh;
+
+        .hidden {
+          height: 100%;
+          visibility: hidden;
+        }
+        .videocall {
+          height: 100%;
+          border-radius: 0 0 20px 20px;
+        }
+      }
+    }
+    .menuOption {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      width: 100%;
+      height: 20%;
+      .c1 {
+        border-width: 1px;
+        // border-style: solid;
+        // border-color: rgb(255, 255, 255);
+        background-color: $color_principal;
+        height: 7vh;
+        width: 7vh;
+        border-radius: 100%;
+        .micro {
+          width: 100%;
+          height: 100%;
+          padding-top: 30%;
+          color: white;
+        }
+        &:hover,
+        &:active,
+        &:focus {
+          background-color: $color_hover;
+          color: white;
+          border: 0px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .footerTherapy {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    // height: 24.7% !important;
+    // height: 21%;
+    height: 100%;
+    padding: 0;
+    // background-color: #bd8ebf;
+
+    .ui.button {
+      width: 100%;
+      height: 50px;
+      letter-spacing: 1px;
+      font-size: 14px;
+      text-transform: uppercase;
+      background-color: #bd8ebf;
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+      // box-shadow: 0 3px 10px rgb(165, 164, 164);
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: $color_hover;
+        color: white;
+        border: 0px;
+      }
+    }
+
+    .ui.button-note {
+      width: 100%;
+      height: 100%;
+      letter-spacing: 1px;
+      font-size: 14px;
+      text-transform: uppercase;
+      background-color: $nota;
+      color: rgb(88, 88, 88);
+      border-radius: 30px 30px 0 0;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: $nota_seleccionada;
+        color: rgb(59, 59, 59);
+      }
+    }
+    .note-content {
+      background-color: $nota;
+      .note-content-text {
+        background-color: $nota;
+        border-width: 1px;
+        border-style: solid;
+        border-color: $nota;
+      }
+      .videos {
+        height: 250px;
+        width: 100%;
+        background-color: #f1f0f1;
+        padding: 10px;
+        margin-top: 15px;
+        border-radius: 30px 30px 0 0;
+        .title {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $gris-claro;
+          letter-spacing: 1px;
+          font-size: 14px;
+          text-transform: uppercase;
+        }
+
+        .list {
+          .main {
+            margin: 10px;
+            border-radius: 10px;
+
+            &:hover,
+            &:active,
+            &:focus {
+              background-color: rgb(255, 255, 255);
+              color: rgb(255, 255, 255);
+              cursor: pointer;
+            }
+
+            .content {
+              .head {
+                color: $color_principal;
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+
+      &:focus {
+        background-color: $nota;
+        color: $nota_seleccionada;
+        border: 0px;
+      }
+    }
+
+    .ui.button-tools {
+      width: 100%;
+      height: 100%;
+      letter-spacing: 1px;
+      font-size: 14px;
+      text-transform: uppercase;
+      background-color: #bd8ebf;
+      color: #fff;
+      border-radius: 30px 30px 0 0;
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: #c390c4;
+        color: rgb(255, 255, 255);
+      }
+    }
+
+    .button-tools-button {
+      width: 100%;
+      // height: 10%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      // margin-left: 0.8%;
+      .button-tools {
+        width: 100%;
+        height: 100%;
+        letter-spacing: 1px;
+        font-size: 14px;
+        text-transform: uppercase;
+        background-color: #bd8ebf;
+        color: #fff;
+        border-radius: 30px 30px 0 0;
+        &:hover,
+        &:active,
+        &:focus {
+          background-color: #c390c4;
+          color: rgb(255, 255, 255);
+        }
+      }
+    }
+
+    .tools-content {
+      background-color: #f1f0f1;
+      height: 68vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      .youtubeFrame {
+        margin-top: 1%;
+        border-radius: 40px;
+        height: 96%;
+      }
+    }
+  }
+}

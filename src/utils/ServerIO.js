@@ -2,22 +2,22 @@ import React, { createContext, useRef, useState, useEffect } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 
-const connectSocketServer = () => {
+const connectSocketServer = (id) => {
   const socket = io.connect("https://savips.herokuapp.com");
   // const socket = io.connect("http://localhost:8000");
-  socket.emit("client", "pepe");
+  socket.emit("client", id);
 
   return socket;
 };
-
+//
 const SocketContext = createContext();
 
 let myVideoStream;
 
 function ContextProvider(props) {
-  const { children } = props;
+  const { children, sessionId } = props;
 
-  const [socket] = useState(() => connectSocketServer());
+  const [socket] = useState(() => connectSocketServer(sessionId));
   const [stream, setStream] = useState(null);
   const [me, setMe] = useState("");
   const [call, setCall] = useState({});
@@ -25,6 +25,8 @@ function ContextProvider(props) {
   const [callEnded, setCallEnded] = useState(false);
   const [name, setName] = useState("");
   const [mindWaves, setMindWaves] = useState("");
+  const [guess, setGuess] = useState(undefined);
+  const [videoId, setVideoId] = useState("");
 
   const myVideo = useRef();
   const userVideo = useRef();
@@ -32,7 +34,7 @@ function ContextProvider(props) {
 
   useEffect(() => {
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+      .getUserMedia({ video: true, audio: false })
       .then((currentStream) => {
         myVideoStream = currentStream;
         setStream(currentStream);
@@ -44,6 +46,22 @@ function ContextProvider(props) {
     });
 
     socket.on("me", (id) => setMe(id));
+
+    socket.on("guess", (guess) => {
+      setGuess(guess);
+    });
+
+    socket.on("videoId", (videoId) => {
+      setVideoId(videoId);
+      console.log(videoId);
+    });
+
+    socket.on("callEnded", (callEnded) => {
+      if (callEnded) {
+        connectionRef.current.destroy();
+        window.location.reload();
+      }
+    });
 
     socket.on("callUser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
@@ -78,7 +96,6 @@ function ContextProvider(props) {
     });
 
     peer.on("stream", (currentStream) => {
-      console.log(currentStream);
       userVideo.current.srcObject = currentStream;
     });
 
@@ -99,8 +116,6 @@ function ContextProvider(props) {
     });
 
     peer.on("stream", (currentStream) => {
-      console.log(currentStream);
-
       userVideo.current.srcObject = currentStream;
     });
 
@@ -115,10 +130,13 @@ function ContextProvider(props) {
 
   const leaveCall = () => {
     setCallEnded(true);
-
     connectionRef.current.destroy();
+    // window.location.reload();
+    socket.emit("callEnded", true);
+  };
 
-    window.location.reload();
+  const setVideId = (videoId) => {
+    socket.emit("videoId", videoId);
   };
 
   return (
@@ -139,6 +157,9 @@ function ContextProvider(props) {
         mindWaves,
         playStop,
         muteUnmute,
+        guess,
+        videoId,
+        setVideId,
       }}
     >
       {children}

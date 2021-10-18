@@ -21,11 +21,12 @@ export default function LoggedLayout(props) {
   );
 
   useEffect(() => {
-    setReloadApp();
+    // setReloadApp();
     verifyPsico(user.email).then((response) => {
       const data = response.data();
       if (data) {
         setUserInfo(data);
+        // console.log(data);
       }
     });
 
@@ -33,6 +34,7 @@ export default function LoggedLayout(props) {
       const data = response.data();
       if (data) {
         setUserInfo(data);
+        console.log(data);
       }
     });
   }, [user, setReloadApp]);
@@ -44,7 +46,7 @@ export default function LoggedLayout(props) {
           <Grid.Column width={3}>
             <MenuLeft setReloadApp={setReloadApp} userInfo={userInfo} />
           </Grid.Column>
-          <Grid.Column className="content" width={content}>
+          <Grid.Column width={content}>
             <TopBar user={user} />
             <Routes
               user={user}

@@ -26,8 +26,6 @@ export default function Historial() {
     setTitleModal("Notas");
     setContentModal(<h1>{note}</h1>);
     setShowModal(true);
-
-    console.log({ note });
   };
 
   return (

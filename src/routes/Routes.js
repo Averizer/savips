@@ -30,17 +30,12 @@ export default function Routes(props) {
         <Settings user={user} setReloadApp={setReloadApp} userInfo={userInfo} />
       </Route>
       <Route path="/Therapy" exact>
-        <Therapy setNotificationsContent={setNotificationsContent} />
+        <Therapy
+          setNotificationsContent={setNotificationsContent}
+          userInfo={userInfo}
+          setReloadApp={setReloadApp}
+        />
       </Route>
-      {/* <Route path="/Therapy" exact>
-        <Therapy setNotificationsContent={setNotificationsContent} />
-      </Route>
-      <Route path="/Therapy" exact>
-        <Therapy setNotificationsContent={setNotificationsContent} />
-      </Route>
-      <Route path="/Terapia" exact>
-        <Terapia user={user} setReloadApp={setReloadApp} />
-      </Route> */}
     </Switch>
   );
 }
