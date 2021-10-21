@@ -45,8 +45,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Options = ({ children }) => {
+              
+              
+
   const { me, callAccepted, name, setName, callEnded, leaveCall, callUser } =
-    useContext(SocketContext);
+  
+  useContext(SocketContext);
   const [idToCall, setIdToCall] = useState("");
   const classes = useStyles();
   return (
@@ -64,7 +68,9 @@ const Options = ({ children }) => {
                 onChange={(e) => setName(e.target.value)}
                 fullWidth
               />
+              {console.log(" asdfasdf "+me)}
               <CopyToClipboard text={me} className={classes.margin}>
+              
                 <Button
                   variant="contained"
                   color="primary"
