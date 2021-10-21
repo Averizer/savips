@@ -8,10 +8,9 @@ import Mensajes from "../pages/Mensajes";
 import Historial from "../pages/Historial";
 import Calendario from "../components/Calendario";
 import Therapy from "../pages/Therapy";
-import Terapia from "../pages/Terapia";
 
 export default function Routes(props) {
-  const { user, setReloadApp, setNotificationsContent } = props;
+  const { userInfo, setReloadApp, setNotificationsContent, user } = props;
 
   return (
     <Switch>
@@ -19,23 +18,29 @@ export default function Routes(props) {
         <Home user={user} />
       </Route>
       <Route path="/Calendario" exact>
-        <Calendario user={user} setReloadApp={setReloadApp} />
+        <Calendario setReloadApp={setReloadApp} />
       </Route>
       <Route path="/Mensajes" exact>
-        <Mensajes user={user} />
+        <Mensajes />
       </Route>
       <Route path="/Historial" exact>
         <Historial />
       </Route>
       <Route path="/Settings" exact>
-        <Settings user={user} setReloadApp={setReloadApp} />
+        <Settings user={user} setReloadApp={setReloadApp} userInfo={userInfo} />
+      </Route>
+      <Route path="/Therapy" exact>
+        <Therapy setNotificationsContent={setNotificationsContent} />
+      </Route>
+      {/* <Route path="/Therapy" exact>
+        <Therapy setNotificationsContent={setNotificationsContent} />
       </Route>
       <Route path="/Therapy" exact>
         <Therapy setNotificationsContent={setNotificationsContent} />
       </Route>
       <Route path="/Terapia" exact>
         <Terapia user={user} setReloadApp={setReloadApp} />
-      </Route>
+      </Route> */}
     </Switch>
   );
 }

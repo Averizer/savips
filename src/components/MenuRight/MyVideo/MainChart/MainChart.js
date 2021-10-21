@@ -22,17 +22,6 @@ export default function MainChart(props) {
         }}
         options={{
           maintainAspectRatio: false,
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true,
-                  min: -3,
-                  max: 3,
-                },
-              },
-            ],
-          },
           animation: {
             duration: 0,
           },
