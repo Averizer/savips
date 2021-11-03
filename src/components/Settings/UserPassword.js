@@ -22,7 +22,7 @@ export default function UserPassword(props) {
   };
   return (
     <div className="user-email">
-      <h3>Contraseña: *** *** *** *** </h3>{" "}
+      <h4>Contraseña: *** *** *** *** </h4>{" "}
       <Button circular onClick={onEdit}>
         Actualizar
       </Button>

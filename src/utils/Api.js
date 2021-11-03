@@ -53,7 +53,69 @@ export const reauthenticate = (password) => {
   return user.reauthenticateWithCredential(credentials);
 };
 
-//updateInfo
+/*--------------------------THERAPY-------------------------- */
+
+//updateTherapySession
+
+export async function updateTherapySession(idSession, data) {
+  const response = db
+    .collection("sesion_terapia")
+    .doc(idSession)
+    .update({ nota: data.note, comentario: data.comment });
+  return response;
+}
+
+//getTherapyInfo
+export async function getTherapySession(idSession) {
+  const verifySession = await db
+    .collection("sesion_terapia")
+    .doc(idSession)
+    .get();
+  return verifySession;
+}
+
+//updateInfoUser
+/*--------------------------------------------------------------------------------- */
+
+/*------------------------------------VIDEOS----------------------------------------*/
+
+export async function getVideos(emailUser) {
+  const getVideos = await db
+    .collection("psicologo")
+    .doc(emailUser)
+    .collection("video")
+    .get();
+  return getVideos.docs.map((doc) => doc.data());
+}
+
+export async function addVideo(emailUser, video) {
+  const addVideo = await db
+    .collection("psicologo")
+    .doc(emailUser)
+    .collection("video")
+    .doc(video.videoId)
+    .set({
+      id: video.videoId,
+      title: video.title,
+      description: video.description,
+    });
+  return addVideo;
+}
+
+export async function deleteVideo(emailUser, videoId) {
+  const doc = await db
+    .collection("psicologo")
+    .doc(emailUser)
+    .collection("video")
+    .doc(videoId)
+    .get();
+
+  doc.ref.delete();
+
+  return doc.data();
+}
+
+/*--------------------------------------------------------------------------------- */
 
 export async function updateUserName(userName, emailUser, role) {
   const response = db
@@ -83,41 +145,43 @@ export async function updatePsico(emailUser, role) {
     .update({ nombrepsicologo: "" });
   return response;
 }
+
+/*--------------------------------------------------------------------------------- */
 //OK
 export const getEvent = async () => {
-  const userEmail = firebaseApp.auth().currentUser.email
-  let events = {}
-  console.log(userEmail)
+  const userEmail = firebaseApp.auth().currentUser.email;
+  let events = {};
+  console.log(userEmail);
   const docRef = db
-    .collection('pacientes')
+    .collection("pacientes")
     .doc(userEmail)
-    .collection('calendario')
+    .collection("calendario");
 
   await docRef
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        const id = doc.id
-        const inicio = doc.data().hora.seconds
-        const titulo = doc.data().titulo
-        const data = { id: id, title: titulo, start: inicio }
-        events = { ...events, data }
-        console.log(events)
-      })
-      return events
+        const id = doc.id;
+        const inicio = doc.data().hora.seconds;
+        const titulo = doc.data().titulo;
+        const data = { id: id, title: titulo, start: inicio };
+        events = { ...events, data };
+        console.log(events);
+      });
+      return events;
     })
     .catch((error) => {
-      console.log('Error obteniendo el documento:', error)
-    })
-}
+      console.log("Error obteniendo el documento:", error);
+    });
+};
 
 export const addEvent = async (object) => {
-  console.log('agregando evento')
-  const userEmail = auth.currentUser.email
+  console.log("agregando evento");
+  const userEmail = auth.currentUser.email;
   await db
-    .collection('pacientes')
+    .collection("pacientes")
     .doc(userEmail)
-    .collection('calendario')
-    .add(object)
-}
+    .collection("calendario")
+    .add(object);
+};

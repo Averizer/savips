@@ -1,12 +1,12 @@
-@import '../../scss/index.scss';
+@import "../../scss/index.scss";
 
 .settings {
-  margin: 50px 100px 0 100px;
+  margin: 10px 100px 0 100px;
 
   > h1 {
     font-size: 40px;
     letter-spacing: 1px;
-    margin-bottom: 50px;
+    // margin-bottom: 50px;
   }
 
   .avatar-name {
@@ -20,7 +20,7 @@
       border-style: dashed;
       border-radius: 100px;
       padding: 10px;
-      margin-bottom: 20px;
+      // margin-bottom: 10px;
 
       .ui.image {
         width: 100px;
@@ -38,12 +38,17 @@
 
       h2 {
         margin: 0 20px !important;
+        color: $gris-claro;
+        letter-spacing: 1px;
+        font-size: 16px;
+        text-transform: uppercase;
       }
       .button {
         background-color: $lila;
         color: $blanco;
         letter-spacing: 1px;
         border-radius: 40px;
+        text-transform: uppercase;
       }
     }
   }
@@ -51,9 +56,13 @@
     display: flex !important;
     align-items: center;
     justify-content: space-between;
-    margin-top: 40px;
+    margin-top: 20px;
+    color: $gris-claro;
+    letter-spacing: 1px;
+    // font-size: 10px;
+    text-transform: uppercase;
 
-    .h3 {
+    .h4 {
       margin: 0px;
     }
 
@@ -62,6 +71,7 @@
       color: $blanco;
       letter-spacing: 1px;
       border-radius: 40px;
+      text-transform: uppercase;
     }
   }
 }

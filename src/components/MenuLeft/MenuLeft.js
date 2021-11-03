@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, Icon, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
-import { verifyPsico, verifyPacient } from "../../utils/Api";
 import FooterName from "../FooterName/FooterName";
 import logo from "../../assets/png/SAVIPS.png";
 import "./MenuLeft.scss";
@@ -32,9 +31,9 @@ function MenuLeft(props) {
             onClick={handlerMenu}
           >
             <Image src={logo} />
-          </Menu.Item>  
+          </Menu.Item>
           <div className="divider div-transparent"></div>
-          
+
           <Menu.Item
             as={Link}
             to="/calendario"
@@ -80,16 +79,13 @@ function MenuLeft(props) {
           </Menu.Item>
         </div>
         <div className="footer">
-          {userInfo.role == "psicologo" ? (
+          {/* {userInfo.role == "psicologo" ? (
             <div></div>
-          ) : userInfo.nombrepsicologo === "" ? (
-            <IngresarPsicologo
-              userInfo={userInfo}
-              setReloadApp={setReloadApp}
-            />
-          ) : (
+          ) : userInfo.nombrepsicologo === "" ? ( */}
+          <IngresarPsicologo userInfo={userInfo} setReloadApp={setReloadApp} />
+          {/* ) : (
             <FooterName userInfo={userInfo} setReloadApp={setReloadApp} />
-          )}
+          )} */}
         </div>
       </Menu>
     </>

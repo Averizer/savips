@@ -34,7 +34,7 @@ export default function UserEmail(props) {
 
   return (
     <div className="user-email">
-      <h3>Email: {user.email}</h3>{" "}
+      <h4>Email: {user.email}</h4>{" "}
       <Button circular onClick={onEdit}>
         Actualizar
       </Button>
@@ -49,8 +49,6 @@ function ChangeEmailForm(props) {
   const [isloading, setIsloading] = useState(false);
 
   const onSubmit = async () => {
-    console.log("Formulario enviado...");
-    console.log(formData);
     if (!formData.email) {
       toast.warning("El email es el mismo.");
     } else {

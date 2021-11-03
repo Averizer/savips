@@ -1,0 +1,58 @@
+@import "../../scss/index.scss";
+
+.videoContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  margin-top: 20px;
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .titleText {
+      color: $gris-claro;
+      letter-spacing: 1px;
+      font-size: 15px;
+      text-transform: uppercase;
+      // padding-left: 10px;
+    }
+    .button {
+      background-color: $lila;
+      color: $blanco;
+      letter-spacing: 1px;
+      border-radius: 40px;
+      text-transform: uppercase;
+    }
+  }
+
+  .list {
+    .main {
+      margin: 10px;
+      border-radius: 10px;
+
+      .button {
+        background-color: rgb(238, 69, 69);
+        color: $blanco;
+        letter-spacing: 1px;
+        border-radius: 40px;
+        // font-style: ;
+        text-transform: uppercase;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+      }
+      .content {
+        .head {
+          color: $color_principal;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

@@ -1,19 +1,83 @@
-import React, { useState, useEffect } from "react";
-import VideoPlayer from "../../components/Terapy/VideoPlayer/VideoPlayer";
-import Notifications from "../../components/Terapy/Notifications/Notifications";
-import Options from "../../components/Terapy/Options/Options";
+import React, { useState, useEffect, useRef } from "react";
+import VideoPlayer from "./VideoPlayer/VideoPlayer";
+import FooterPaciente from "./FooterPaciente/FooterPaciente";
+import FooterPsico from "./FooterPsico/FooterPsico";
+import TopBarTherapy from "./TopBarTherapy/TopBarTherapy";
+
+import BasicModal from "../../components/Modal/BasicModal/BasicModal";
+
+import { getTherapySession } from "../../utils/Api";
+
 import { ContextProvider } from "../../utils/ServerIO";
 
+import "./Therapy.scss";
+
 export default function Therapy(props) {
-  const { setNotificationsContent } = props;
+  const { setNotificationsContent, userInfo } = props;
+  const [noteVisible, setNoteVisible] = useState(false);
+  const [noteContent, setNoteContent] = useState("");
+
+  const [showModal, setShowModal] = useState(false);
+  const [titleModal, setTitleModal] = useState("");
+  const [contentModal, setContentModal] = useState(null);
+
+  const sessionId = "ZlIDvvhXB0RWTVcK0SHn";
+
+  const [sessionInfo, setSessionInfo] = useState({});
+
+  useEffect(async () => {
+    await getTherapySession(sessionId)
+      .then((res) => {
+        setSessionInfo({ ...res.data(), id: res.id });
+      })
+      .catch((e) => console.log(e));
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(sessionInfo);
+  // }, [sessionInfo]);
 
   return (
-    <div>
-      <ContextProvider>
-        <VideoPlayer setNotificationsContent={setNotificationsContent} />
-        <Options>
-          <Notifications />
-        </Options>
+    <div className="therapy">
+      <ContextProvider sessionId={sessionId}>
+        {sessionInfo && (
+          <TopBarTherapy
+            userInfo={userInfo}
+            setTitleModal={setTitleModal}
+            setContentModal={setContentModal}
+            setShowModal={setShowModal}
+            noteContent={noteContent}
+            sessionInfo={sessionInfo}
+          />
+        )}
+        <VideoPlayer
+          setNotificationsContent={setNotificationsContent}
+          noteVisible={noteVisible}
+        />
+        {userInfo.role === "psicologo" ? (
+          <FooterPsico
+            setNoteVisible={setNoteVisible}
+            noteVisible={noteVisible}
+            setNoteContent={setNoteContent}
+            noteContent={noteContent}
+            userInfo={userInfo}
+          />
+        ) : (
+          <FooterPaciente
+            setNoteVisible={setNoteVisible}
+            noteVisible={noteVisible}
+            setNoteContent={setNoteContent}
+            noteContent={noteContent}
+          />
+        )}
+        <BasicModal
+          show={showModal}
+          setShow={setShowModal}
+          title={titleModal}
+          block={true}
+        >
+          {contentModal}
+        </BasicModal>
       </ContextProvider>
     </div>
   );

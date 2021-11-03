@@ -1,12 +1,16 @@
-import React from 'react'
-import { Modal, Icon } from 'semantic-ui-react'
-import './BasicModal.scss'
+import React from "react";
+import { Modal, Icon } from "semantic-ui-react";
+import "./BasicModal.scss";
 
 export default function BasicModal(props) {
-  const { show, setShow, title, children } = props
+  const { show, setShow, title, children, block } = props;
   const onClose = () => {
-    setShow(false)
-  }
+    if (!block) {
+      setShow(false);
+    } else {
+      setShow(block);
+    }
+  };
   return (
     <Modal open={show} onClose={onClose} className="basic-modal" size="tiny">
       <Modal.Header>
@@ -15,5 +19,5 @@ export default function BasicModal(props) {
       </Modal.Header>
       <Modal.Content>{children}</Modal.Content>
     </Modal>
-  )
+  );
 }
