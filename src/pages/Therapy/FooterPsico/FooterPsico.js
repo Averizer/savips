@@ -19,7 +19,12 @@ const FooterPsico = (props) => {
     } else {
       setButton(true);
     }
+    if (callAccepted) {
+      setLoading(false);
+    }
   }, [guess, callAccepted, callEnded]);
+
+  // useEffect(() => {}, []);
 
   return (
     <div className="footerTherapy">
@@ -29,6 +34,7 @@ const FooterPsico = (props) => {
           disabled={button}
           onClick={() => {
             callUser(pacienteId);
+            setLoading(true);
           }}
           loading={loading}
         >

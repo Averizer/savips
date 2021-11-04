@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid } from "semantic-ui-react";
-import MainChart from "./MainChart";
+import MainChart from "../../components/MenuRight/MyVideo/MainChart/MainChart";
 
 import ListPatient from "../../components/MenuRight/ListPatient/ListPatient";
 
 import BasicModal from "../../components/Modal/BasicModal/BasicModal";
-import "./Historial.scss";
+import "./PatientSessionDescription.scss";
 
-export default function Historial(props) {
+export default function PatientSessionDescription(props) {
   const { setNotificationsContent, userInfo, setpatientSessionsContent } =
     props;
 
@@ -15,18 +15,18 @@ export default function Historial(props) {
   const [titleModal, setTitleModal] = useState("");
   const [contentModal, setContentModal] = useState(null);
 
-  useEffect(() => {
-    userInfo.role === "psicologo" ? (
-      setNotificationsContent(
-        <ListPatient
-          userInfo={userInfo}
-          setpatientSessionsContent={setpatientSessionsContent}
-        />
-      )
-    ) : (
-      <div></div>
-    );
-  }, []);
+  //   useEffect(() => {
+  //     userInfo.role === "psicologo" ? (
+  //       setNotificationsContent(
+  //         <ListPatient
+  //           userInfo={userInfo}
+  //           setpatientSessionsContent={setpatientSessionsContent}
+  //         />
+  //       )
+  //     ) : (
+  //       <div></div>
+  //     );
+  //   }, []);
 
   const fakeInfo = {
     level: JSON.parse(randomStressChartValues(15, 5, 3)),
@@ -48,45 +48,43 @@ export default function Historial(props) {
 
   return (
     <div>
-      {/* {userInfo.role === "paciente" && (
-        <Grid className="historial">
-          <Grid.Row className="t1">
-            <h1>Nivel de estrés detectado durante la sesión</h1>
-          </Grid.Row>
-          <Grid.Row className="stressChart">
-            <Grid.Column className="cl1" width={15}>
-              <MainChart level={level} />
-            </Grid.Column>
-            <Grid.Column className="cl2" width={1}>
-              <h1>mins</h1>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row className="extraInfo">
-            <Grid.Column className="cl3">
-              <h1 className="title">Promedio</h1>
-              <h1 className="result">{extraValues.prom}</h1>
-            </Grid.Column>
-            <Grid.Column className="cl4">
-              <h1 className="title">Nivel mas alto</h1>
-              <h1 className="result">{extraValues.limSup}</h1>
-            </Grid.Column>
-            <Grid.Column className="cl5">
-              <h1 className="title">Nivel mas bajo </h1>
-              <h1 className="result">{extraValues.limInf}</h1>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row className="t1">
-            <h1>Notas</h1>
-          </Grid.Row>
-          <Grid.Row className="notes" onClick={() => handlerModal()}>
-            <TextShown note={note} />
-          </Grid.Row>
-        </Grid>
-      )}
+      <Grid className="historial">
+        <Grid.Row className="t1">
+          <h1>Nivel de estrés detectado durante la sesión</h1>
+        </Grid.Row>
+        <Grid.Row className="stressChart">
+          <Grid.Column className="cl1" width={15}>
+            <MainChart level={level} />
+          </Grid.Column>
+          <Grid.Column className="cl2" width={1}>
+            <h1>mins</h1>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row className="extraInfo">
+          <Grid.Column className="cl3">
+            <h1 className="title">Promedio</h1>
+            <h1 className="result">{extraValues.prom}</h1>
+          </Grid.Column>
+          <Grid.Column className="cl4">
+            <h1 className="title">Nivel mas alto</h1>
+            <h1 className="result">{extraValues.limSup}</h1>
+          </Grid.Column>
+          <Grid.Column className="cl5">
+            <h1 className="title">Nivel mas bajo </h1>
+            <h1 className="result">{extraValues.limInf}</h1>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row className="t1">
+          <h1>Notas</h1>
+        </Grid.Row>
+        <Grid.Row className="notes" onClick={() => handlerModal()}>
+          <TextShown note={note} />
+        </Grid.Row>
+      </Grid>
 
       <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
         {contentModal}
-      </BasicModal> */}
+      </BasicModal>
     </div>
   );
 }

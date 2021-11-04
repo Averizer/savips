@@ -79,13 +79,16 @@ function MenuLeft(props) {
           </Menu.Item>
         </div>
         <div className="footer">
-          {/* {userInfo.role == "psicologo" ? (
+          {userInfo.role == "psicologo" ? (
             <div></div>
-          ) : userInfo.nombrepsicologo === "" ? ( */}
-          <IngresarPsicologo userInfo={userInfo} setReloadApp={setReloadApp} />
-          {/* ) : (
+          ) : userInfo.nombrepsicologo === "" ? (
+            <IngresarPsicologo
+              userInfo={userInfo}
+              setReloadApp={setReloadApp}
+            />
+          ) : (
             <FooterName userInfo={userInfo} setReloadApp={setReloadApp} />
-          )} */}
+          )}
         </div>
       </Menu>
     </>

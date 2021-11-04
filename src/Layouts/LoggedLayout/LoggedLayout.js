@@ -16,12 +16,12 @@ export default function LoggedLayout(props) {
   const [userInfo, setUserInfo] = useState({});
   const [notificationsContent, setNotificationsContent] = useState(
     <div className="notificaciones">
-      <h1>Notificaciones</h1>
+      <h1></h1>
     </div>
   );
 
   useEffect(() => {
-    // setReloadApp();
+    setReloadApp((state) => !state);
     verifyPsico(user.email).then((response) => {
       const data = response.data();
       if (data) {

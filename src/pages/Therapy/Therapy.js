@@ -13,7 +13,7 @@ import { ContextProvider } from "../../utils/ServerIO";
 import "./Therapy.scss";
 
 export default function Therapy(props) {
-  const { setNotificationsContent, userInfo } = props;
+  const { setNotificationsContent, userInfo, setRefresh, refresh } = props;
   const [noteVisible, setNoteVisible] = useState(false);
   const [noteContent, setNoteContent] = useState("");
 
@@ -25,13 +25,17 @@ export default function Therapy(props) {
 
   const [sessionInfo, setSessionInfo] = useState({});
 
+  useEffect(() => {
+    setRefresh((state) => !state);
+  }, []);
+
   useEffect(async () => {
     await getTherapySession(sessionId)
       .then((res) => {
         setSessionInfo({ ...res.data(), id: res.id });
       })
       .catch((e) => console.log(e));
-  }, []);
+  }, [refresh]);
 
   // useEffect(() => {
   //   console.log(sessionInfo);

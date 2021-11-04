@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Form, Input, Button } from "semantic-ui-react";
 import { validateEmail } from "../../utils/Validation";
 
-import { verifyPsico, updateTherapistOfPatient } from "../../utils/Api";
+import {
+  verifyPsico,
+  updateTherapistOfPatient,
+  addPatientList,
+} from "../../utils/Api";
 
 import { toast } from "react-toastify";
 
@@ -12,6 +16,8 @@ export default function IngresarPsicologo(props) {
   const [formData, setFormData] = useState(defaultValueForm());
   const [formError, setFormError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  console.log(userInfo);
 
   //Verificar y guardar cambios del formulario
   const onChange = (e) => {
@@ -41,6 +47,7 @@ export default function IngresarPsicologo(props) {
             userInfo.email,
             response.data().nombre
           );
+          await addPatientList(formData.email, userInfo.email, userInfo.nombre);
           setReloadApp((prevState) => !prevState);
           setIsLoading(false);
           toast("Agregado correctamente, por favor recarga  (CTRL + R)");

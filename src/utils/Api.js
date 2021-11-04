@@ -36,6 +36,61 @@ export async function updateTherapistOfPatient(
     .update({ emailpsico: emailTherapist, nombrepsicologo: therapistName });
   return response;
 }
+
+/*--------------------------PatientList-------------------------- */
+
+export async function addPatientList(
+  emailTherapist,
+  emailPatient,
+  namePatient
+) {
+  const response = db
+    .collection("psicologo")
+    .doc(emailTherapist)
+    .collection("pacientes")
+    .doc(emailPatient)
+    .set({ emailpatient: emailPatient, nombrepatient: namePatient });
+  return response;
+}
+
+export async function removePatientList(emailTherapist, emailPatient) {
+  const doc = await db
+    .collection("psicologo")
+    .doc(emailTherapist)
+    .collection("pacientes")
+    .doc(emailPatient)
+    .get();
+
+  doc.ref.delete();
+
+  return doc;
+}
+
+export async function getPatientList(emailTherapist) {
+  const getPatientList = await db
+    .collection("psicologo")
+    .doc(emailTherapist)
+    .collection("pacientes")
+    .get();
+
+  return getPatientList.docs.map((doc) => doc.data());
+}
+
+/*-------------------------------------------------------------- */
+
+/*--------------------------SessionPatientList-------------------------- */
+
+export async function getSessionPatientList(emailPatient) {
+  const getSessionPatientList = await db
+    .collection("sesion_terapia")
+    .where("paciente", "==", emailPatient)
+    .get();
+
+  return getSessionPatientList.docs.map((doc) => doc);
+}
+
+/*-------------------------------------------------------------- */
+
 //OK
 export async function registrarUsuario(uid, formData) {
   await db

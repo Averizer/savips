@@ -1,0 +1,29 @@
+@import "../../../../scss/index.scss";
+
+.title {
+  // background-color: aqua;
+  font-size: 20px;
+  color: #939292;
+  padding: 50px 0 20px 20px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  padding: 5px 0 5px 10px;
+  .ui.labelItem {
+    background-color: $color_principal;
+    color: $blanco;
+    margin-right: 8px;
+  }
+  .headerItem {
+    font-size: 16px;
+    color: #939292;
+    font-weight: 500;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: #e6e6e6;
+    cursor: pointer;
+  }
+}

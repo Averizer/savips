@@ -1,0 +1,9 @@
+@import "../../scss/index.scss";
+
+.mainListPatient {
+  display: flex;
+  flex-direction: column;
+  background-color: $blanco;
+  height: 89%;
+  overflow-y: auto;
+}

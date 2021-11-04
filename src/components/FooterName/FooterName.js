@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
-import { updatePsico } from "../../utils/Api";
+import { updatePsico, removePatientList } from "../../utils/Api";
 
 import "firebase/auth";
 import "./FooterName.scss";
@@ -14,6 +14,7 @@ export default function FooterName(props) {
       <Button
         onClick={async () => {
           await updatePsico(userInfo.email, userInfo.role);
+          await removePatientList(userInfo.emailpsico, userInfo.email);
           window.location.reload();
         }}
       >

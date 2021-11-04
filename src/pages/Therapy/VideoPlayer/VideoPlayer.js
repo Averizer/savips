@@ -4,6 +4,7 @@ import { Grid, Icon } from "semantic-ui-react";
 import { SocketContext } from "../../../utils/ServerIO";
 
 import MyVideo from "../../../components/MenuRight/MyVideo/MyVideo";
+import MyVideoBefore from "../../../components/MenuRight/MyVideoBefore/MyVideoBefore";
 
 const VideoPlayer = (props) => {
   const { setNotificationsContent, noteVisible } = props;
@@ -33,7 +34,7 @@ const VideoPlayer = (props) => {
 
   useEffect(() => {
     if (callAccepted && !callEnded) {
-      setNotificationsContent(<MyVideo data={""} setVideId={setVideId} />);
+      setNotificationsContent(<MyVideo setVideId={setVideId} />);
       setVideoMyShape("hidden");
       setVideoMyMain("c2");
 
@@ -55,13 +56,18 @@ const VideoPlayer = (props) => {
         setVideoCompleteShape("gridVideoHide");
       }
     } else if (stream) {
+      setNotificationsContent(<MyVideoBefore />);
       setVideoMyMain("c1");
       setVideoMyShape("video");
     }
   }, [callAccepted, callEnded, stream, videoMyHide, videoUserHide]);
 
   useEffect(() => {
-    setNotificationsContent(<MyVideo data={mindWaves} />);
+    if (mindWaves) {
+      setNotificationsContent(<MyVideo data={mindWaves} />);
+    } else {
+      setNotificationsContent(<MyVideoBefore />);
+    }
   }, [mindWaves]);
 
   // useEffect(() => {
