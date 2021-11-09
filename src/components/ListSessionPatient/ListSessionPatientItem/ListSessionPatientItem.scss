@@ -2,24 +2,111 @@
 
 .itemSession {
   display: flex;
-  align-items: center;
-  padding: 5px 0 5px 10px;
+  // padding: 5px 0 5px 10px;
   width: 100%;
-  background-color: aqua;
-  .ui.labelItem {
+  background-color: $gris-menus;
+  border-radius: 15px;
+  justify-content: space-between;
+
+  .join {
+    display: flex;
+    align-items: center;
+  }
+  .joinButton {
+    display: flex;
+    align-items: center;
+  }
+
+  .ui.divider.dividerDate {
+    background-color: $blanco;
+    margin: 8px 0 8px 0;
+  }
+
+  .ui.labelItemDate {
+    text-transform: uppercase;
+
+    border-radius: 15px;
     background-color: $color_principal;
     color: $blanco;
     margin-right: 8px;
-  }
-  .headerItem {
+    font-weight: 300;
+    height: 100%;
+
     font-size: 16px;
-    color: #939292;
+    .dividerDate {
+      color: $blanco;
+    }
+  }
+  .ui.labelItemInfo {
+    background-color: $gris-menus;
+    color: $gris_sessions;
+    margin-right: 8px;
+    font-weight: 400;
+    padding: 0;
+    margin: 0 8px;
+    font-size: 16px;
+  }
+
+  .ui.buttonInfo {
+    background-color: $color_principal;
+    color: $blanco;
+    font-weight: 600;
+    height: 80px;
+    width: 100%;
+    border-radius: 0 15px 15px 0;
+    font-size: 13px;
+    text-transform: uppercase;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $color_hover;
+      color: $blanco;
+      cursor: pointer;
+    }
+  }
+
+  .ui.joinButtonCancel {
+    background-color: rgb(228, 57, 57);
+    color: $blanco;
+    font-weight: 600;
+    height: 80px;
+    width: 100%;
+    border-radius: 0 15px 15px 0;
+    font-size: 13px;
+    text-transform: uppercase;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: rgb(228, 9, 9);
+      color: $blanco;
+      cursor: pointer;
+    }
+  }
+
+  .divierInfo {
+    width: 2px;
+    height: 70px;
+    background-color: $blanco;
+    margin: 5px 5px;
+  }
+
+  .boldDate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
     font-weight: 500;
   }
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: #e6e6e6;
-    cursor: pointer;
+
+  .bold {
+    font-weight: 500;
+    color: $gris_sessions;
   }
+}
+.divierJoin {
+  width: 100%;
+  height: 2px;
+  background-color: $blanco;
 }

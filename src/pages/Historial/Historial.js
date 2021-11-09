@@ -8,8 +8,12 @@ import BasicModal from "../../components/Modal/BasicModal/BasicModal";
 import "./Historial.scss";
 
 export default function Historial(props) {
-  const { setNotificationsContent, userInfo, setpatientSessionsContent } =
-    props;
+  const {
+    setNotificationsContent,
+    userInfo,
+    setpatientSessionsContent,
+    setReloadApp,
+  } = props;
 
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
@@ -21,6 +25,7 @@ export default function Historial(props) {
         <ListPatient
           userInfo={userInfo}
           setpatientSessionsContent={setpatientSessionsContent}
+          setReloadApp={setReloadApp}
         />
       )
     ) : (

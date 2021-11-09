@@ -80,13 +80,49 @@ export async function getPatientList(emailTherapist) {
 
 /*--------------------------SessionPatientList-------------------------- */
 
+//getTherapySession
 export async function getSessionPatientList(emailPatient) {
   const getSessionPatientList = await db
     .collection("sesion_terapia")
-    .where("paciente", "==", emailPatient)
+    .orderBy("time", "asc")
+    // .where("paciente", "==", emailPatient)
     .get();
 
   return getSessionPatientList.docs.map((doc) => doc);
+}
+
+//addTherapySession
+export async function addTherapySession(
+  emailTherapist,
+  emailPatient,
+  dataInit,
+  dataEnd,
+  sessionId
+) {
+  const response = db.collection("sesion_terapia").doc(sessionId).set({
+    estatus: "Agendada",
+    paciente: emailPatient,
+    psicologo: emailTherapist,
+    time: dataInit,
+    timeEnd: dataEnd,
+    comentario: "",
+    nota: "",
+    promedio: "",
+    linferior: "",
+    lsuperior: "",
+  });
+  return response;
+}
+
+//deleteTherapySession
+
+export async function removeTherapySession(sessionId) {
+  // const response = db.collection("sesion_terapia").doc(sessionId).update({
+  //   estatus: "Cancelada",
+  // });
+  const response = await db.collection("sesion_terapia").doc(sessionId).get();
+  response.ref.delete();
+  return response;
 }
 
 /*-------------------------------------------------------------- */
@@ -113,24 +149,24 @@ export const reauthenticate = (password) => {
 //updateTherapySession
 
 export async function updateTherapySession(idSession, data) {
-  const response = db
-    .collection("sesion_terapia")
-    .doc(idSession)
-    .update({ nota: data.note, comentario: data.comment });
+  const response = await db.collection("sesion_terapia").doc(idSession).update({
+    nota: data.note,
+    comentario: data.comment,
+    estatus: "Finalizada",
+  });
   return response;
 }
 
-//getTherapyInfo
+//getTherapySession
 export async function getTherapySession(idSession) {
-  const verifySession = await db
+  const getTherapySession = await db
     .collection("sesion_terapia")
+    // .where("id", "==", idSession)
+    // .orderBy("time");
     .doc(idSession)
     .get();
-  return verifySession;
+  return getTherapySession;
 }
-
-//updateInfoUser
-/*--------------------------------------------------------------------------------- */
 
 /*------------------------------------VIDEOS----------------------------------------*/
 
@@ -170,10 +206,20 @@ export async function deleteVideo(emailUser, videoId) {
   return doc.data();
 }
 
-/*--------------------------------------------------------------------------------- */
+/*----------------------------------CALENDAR-------------------------------------- */
+
+export async function getTherapistSessions(emailTherapist) {
+  const response = await db
+    .collection("sesion_terapia")
+    .where("psicologo", "==", emailTherapist)
+    .where("estatus", "==", "Agendada")
+    .orderBy("time", "asc")
+    .get();
+  return response;
+}
 
 export async function updateUserName(userName, emailUser, role) {
-  const response = db
+  const response = await db
     .collection(role)
     .doc(emailUser)
     .update({ nombre: userName });
@@ -181,12 +227,15 @@ export async function updateUserName(userName, emailUser, role) {
 }
 
 export async function updateEmail(email, emailUser, role) {
-  const response = db.collection(role).doc(emailUser).update({ email: email });
+  const response = await db
+    .collection(role)
+    .doc(emailUser)
+    .update({ email: email });
   return response;
 }
 
 export async function updatePass(password, emailUser, role) {
-  const response = db
+  const response = await db
     .collection(role)
     .doc(emailUser)
     .update({ password: password });
@@ -194,7 +243,7 @@ export async function updatePass(password, emailUser, role) {
 }
 
 export async function updatePsico(emailUser, role) {
-  const response = db
+  const response = await db
     .collection(role)
     .doc(emailUser)
     .update({ nombrepsicologo: "" });

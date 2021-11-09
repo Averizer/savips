@@ -7,7 +7,7 @@ import ListSessionPatient from "../../../ListSessionPatient/ListSessionPatient";
 import "./ItemPatient.scss";
 
 export default function ItemPatient(props) {
-  const { patient, setpatientSessionsContent } = props;
+  const { patient, userInfo, setpatientSessionsContent, setReloadApp } = props;
 
   // const [state, setstate] = useState();
 
@@ -25,7 +25,13 @@ export default function ItemPatient(props) {
     <Link to="/patientSessions">
       <List.Item
         onClick={() => {
-          setpatientSessionsContent(<ListSessionPatient patient={patient} />);
+          setpatientSessionsContent(
+            <ListSessionPatient
+              patient={patient}
+              userInfo={userInfo}
+              setReloadApp={setReloadApp}
+            />
+          );
         }}
       >
         <div className="item">

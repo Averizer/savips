@@ -69,9 +69,9 @@ function MenuLeft(props) {
           </Menu.Item>
           <Menu.Item
             as={Link}
-            to="/therapy"
-            name="therapy"
-            active={activeMenu === "/therapy"}
+            to="/therapyConfig"
+            name="therapyConfig"
+            active={activeMenu === "/therapyConfig"}
             onClick={handlerMenu}
           >
             <Icon name="video" />

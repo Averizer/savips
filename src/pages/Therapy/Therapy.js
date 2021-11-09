@@ -6,14 +6,20 @@ import TopBarTherapy from "./TopBarTherapy/TopBarTherapy";
 
 import BasicModal from "../../components/Modal/BasicModal/BasicModal";
 
-import { getTherapySession } from "../../utils/Api";
+import {
+  getTherapySession,
+  getTherapistSessions,
+  verifyPacient,
+} from "../../utils/Api";
 
 import { ContextProvider } from "../../utils/ServerIO";
+
+import { format } from "date-fns";
 
 import "./Therapy.scss";
 
 export default function Therapy(props) {
-  const { setNotificationsContent, userInfo, setRefresh, refresh } = props;
+  const { setNotificationsContent, userInfo, setRefresh, refresh, id } = props;
   const [noteVisible, setNoteVisible] = useState(false);
   const [noteContent, setNoteContent] = useState("");
 
@@ -21,13 +27,45 @@ export default function Therapy(props) {
   const [titleModal, setTitleModal] = useState("");
   const [contentModal, setContentModal] = useState(null);
 
-  const sessionId = "ZlIDvvhXB0RWTVcK0SHn";
+  const [calendarEvents, setCalendarEvents] = useState([]);
+
+  // const sessionId = "ZlIDvvhXB0RWTVcK0SHn";
 
   const [sessionInfo, setSessionInfo] = useState({});
+
+  // console.log(id[0].id);
+  let sessionId;
+
+  useEffect(() => {
+    if (!id[0]) {
+      window.location.href = "http://localhost:3000/TherapyConfig";
+      // window.location.reload(false);
+    } else {
+      sessionId = id[0].id;
+    }
+  }, []);
 
   useEffect(() => {
     setRefresh((state) => !state);
   }, []);
+
+  useEffect(async () => {
+    // let v = [];
+    if (userInfo.email) {
+      await getTherapistSessions(userInfo.email).then((res) => {
+        res.forEach(async (doc) => {
+          const inicio = doc.data().time.seconds * 1000;
+          const horaInit = format(inicio, "yyyy-MM-dd'T'HH:mm:ss");
+          await verifyPacient(doc.data().paciente).then((res) => {
+            const data = { title: res.data().nombre, start: horaInit };
+            setCalendarEvents((array) => [...array, data]);
+          });
+        });
+      });
+      // .finally(() => {
+      // });
+    }
+  }, [userInfo]);
 
   useEffect(async () => {
     await getTherapySession(sessionId)
@@ -36,10 +74,6 @@ export default function Therapy(props) {
       })
       .catch((e) => console.log(e));
   }, [refresh]);
-
-  // useEffect(() => {
-  //   console.log(sessionInfo);
-  // }, [sessionInfo]);
 
   return (
     <div className="therapy">

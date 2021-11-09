@@ -34,7 +34,7 @@ function ContextProvider(props) {
 
   useEffect(() => {
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
+      .getUserMedia({ video: true, audio: false })
       .then((currentStream) => {
         myVideoStream = currentStream;
         setStream(currentStream);

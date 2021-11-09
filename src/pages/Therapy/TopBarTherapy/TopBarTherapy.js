@@ -92,7 +92,8 @@ export default function TopBar(props) {
       })
       .catch((e) => console.log(e));
 
-    window.location.reload();
+    // window.location.reload(true);
+    window.location.href = "http://localhost:3000/TherapyConfig";
   };
 
   const handlerModal = () => {
