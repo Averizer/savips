@@ -6,6 +6,8 @@ import { Image, Button } from "semantic-ui-react";
 
 import { Link } from "react-router-dom";
 
+import { updateTherapySessionExpired } from "../../utils/Api";
+
 import "./TherapyConfig.scss";
 
 export default function TherapyConfig(props) {

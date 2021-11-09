@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 import "./ListSessionPatient.scss";
 
 export default function ListSessionPatient(props) {
-  const { patient, userInfo, setReloadApp } = props;
+  const { patient, userInfo, setReloadApp, changeItem } = props;
 
   const [sessionsDB, setSessionsDB] = useState(null);
   const [listSessionPatient, setlistSessionPatient] = useState(null);
@@ -27,12 +27,16 @@ export default function ListSessionPatient(props) {
   const [addSession, setAddSession] = useState(false);
 
   useEffect(async () => {
+    console.log("CONSULTANDO LISTA", changeItem);
+
+    // console.log(patient.emailpatient);
     await getSessionPatientList(patient.emailpatient).then((res) => {
       setSessionsDB(res);
     });
-  }, [addSessionRefresh]);
+  }, [addSessionRefresh, changeItem]);
 
   useEffect(() => {
+    console.log("DESPLEGANDO LISTA", changeItem);
     if (sessionsDB) {
       setlistSessionPatient(
         sessionsDB.map((sessionsDB) => (
@@ -43,7 +47,7 @@ export default function ListSessionPatient(props) {
         ))
       );
     }
-  }, [sessionsDB, addSessionRefresh]);
+  }, [sessionsDB, addSessionRefresh, changeItem]);
 
   return (
     <div className="listSession">
@@ -54,7 +58,6 @@ export default function ListSessionPatient(props) {
           size="big"
           onClick={() => {
             setAddSession((state) => !state);
-            console.log(addSession);
           }}
         />
       </div>

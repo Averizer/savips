@@ -84,8 +84,8 @@ export async function getPatientList(emailTherapist) {
 export async function getSessionPatientList(emailPatient) {
   const getSessionPatientList = await db
     .collection("sesion_terapia")
+    .where("paciente", "==", emailPatient)
     .orderBy("time", "asc")
-    // .where("paciente", "==", emailPatient)
     .get();
 
   return getSessionPatientList.docs.map((doc) => doc);
@@ -153,6 +153,15 @@ export async function updateTherapySession(idSession, data) {
     nota: data.note,
     comentario: data.comment,
     estatus: "Finalizada",
+  });
+  return response;
+}
+
+export async function updateTherapySessionExpired(idSession, data) {
+  const response = await db.collection("sesion_terapia").doc(idSession).update({
+    nota: data.note,
+    comentario: data.comment,
+    estatus: "Expirada",
   });
   return response;
 }

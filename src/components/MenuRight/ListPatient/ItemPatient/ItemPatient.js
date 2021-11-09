@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { List, Label } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ import "./ItemPatient.scss";
 export default function ItemPatient(props) {
   const { patient, userInfo, setpatientSessionsContent, setReloadApp } = props;
 
-  // const [state, setstate] = useState();
+  const [changeItem, setChangeItem] = useState(true);
 
   const getInitials = (nombre) => {
     if (nombre)
@@ -25,11 +25,14 @@ export default function ItemPatient(props) {
     <Link to="/patientSessions">
       <List.Item
         onClick={() => {
+          console.log("SE DIO CLICK EN ITEM: ", changeItem);
+          setChangeItem(!changeItem);
           setpatientSessionsContent(
             <ListSessionPatient
               patient={patient}
               userInfo={userInfo}
               setReloadApp={setReloadApp}
+              changeItem={changeItem}
             />
           );
         }}
