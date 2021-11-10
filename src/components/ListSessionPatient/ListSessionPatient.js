@@ -22,21 +22,18 @@ export default function ListSessionPatient(props) {
   const [sessionsDB, setSessionsDB] = useState(null);
   const [listSessionPatient, setlistSessionPatient] = useState(null);
 
-  const [addSessionRefresh, setAddSessionRefresh] = useState(true);
+  const [addSessionRefresh, setAddSessionRefresh] = useState();
 
   const [addSession, setAddSession] = useState(false);
 
   useEffect(async () => {
-    console.log("CONSULTANDO LISTA", changeItem);
-
     // console.log(patient.emailpatient);
     await getSessionPatientList(patient.emailpatient).then((res) => {
       setSessionsDB(res);
     });
-  }, [addSessionRefresh, changeItem]);
+  }, [addSessionRefresh, patient.nombrepatient]);
 
   useEffect(() => {
-    console.log("DESPLEGANDO LISTA", changeItem);
     if (sessionsDB) {
       setlistSessionPatient(
         sessionsDB.map((sessionsDB) => (
@@ -47,7 +44,7 @@ export default function ListSessionPatient(props) {
         ))
       );
     }
-  }, [sessionsDB, addSessionRefresh, changeItem]);
+  }, [sessionsDB, addSessionRefresh, patient.nombrepatient]);
 
   return (
     <div className="listSession">

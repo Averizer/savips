@@ -30,10 +30,10 @@ export default function ListVideosConfig(props) {
               <Button
                 onClick={async () => {
                   console.log(video.id);
-                  setUpdateList((state) => !state);
                   await deleteVideo(userInfo.email, video.id)
                     .then((res) => {
                       console.log(res);
+                      setUpdateList((state) => !state);
                     })
                     .catch((err) => {
                       console.log(err);

@@ -43,10 +43,9 @@ export default function ListSessionPatientItem(props) {
           <div className="joinButton">
             <Button
               onClick={async () => {
-                setAddSessionRefresh((state) => !state);
-
                 await removeTherapySession(session.id).then((res) => {
                   if (res) {
+                    setAddSessionRefresh((state) => !state);
                     toast.success("Sesión cancelada correctamente");
                   }
                 });

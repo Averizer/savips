@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Switch, Route } from "react-router-dom";
 
 //Paginas
@@ -23,40 +23,17 @@ export default function Routes(props) {
 
   const [refresh, setRefresh] = useState(false);
 
-  const [calendarEvents, setCalendarEvents] = useState([]);
-
-  useEffect(async () => {
-    // let v = [];
-    if (userInfo.email) {
-      await getTherapistSessions(userInfo.email).then((res) => {
-        res.forEach(async (doc) => {
-          const inicio = doc.data().time.seconds * 1000;
-          const fin = doc.data().timeEnd.seconds * 1000;
-          const horaInit = format(inicio, "yyyy-MM-dd'T'HH:mm:ss");
-          const horaEnd = format(fin, "yyyy-MM-dd'T'HH:mm:ss");
-          await verifyPacient(doc.data().paciente).then((res) => {
-            const data = {
-              title: res.data().nombre,
-              start: horaInit,
-              end: horaEnd,
-              id: doc.id,
-            };
-            setCalendarEvents((array) => [...array, data]);
-          });
-        });
-      });
-      // .finally(() => {
-      // });
-    }
-  }, [userInfo]);
-
   return (
     <Switch>
       <Route path="/" exact>
         <Home user={user} />
       </Route>
       <Route path="/Calendario" exact>
-        <Calendario setReloadApp={setReloadApp} userInfo={userInfo} />
+        <Calendario
+          setReloadApp={setReloadApp}
+          userInfo={userInfo}
+          // calendarEvents={calendarEvents}
+        />
       </Route>
       <Route path="/Mensajes" exact>
         <Mensajes />
@@ -73,16 +50,16 @@ export default function Routes(props) {
         <Settings user={user} setReloadApp={setReloadApp} userInfo={userInfo} />
       </Route>
       <Route path="/TherapyConfig" exact>
-        <TherapyConfig userInfo={userInfo} calendarEvents={calendarEvents} />
+        <TherapyConfig userInfo={userInfo} />
       </Route>
       <Route path="/Therapy" exact>
         <Therapy
-          setRefresh={setRefresh}
-          refresh={refresh}
+          // setRefresh={setRefresh}
+          // refresh={refresh}
           setNotificationsContent={setNotificationsContent}
           userInfo={userInfo}
-          setReloadApp={setReloadApp}
-          id={calendarEvents}
+          // setReloadApp={setReloadApp}
+          // id={calendarEvents}
         />
       </Route>
       <Route path="/PatientSessions" exact>

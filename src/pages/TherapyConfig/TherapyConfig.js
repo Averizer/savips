@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import ilustracion from "../../assets/svg/ilustacion-inicio.svg";
 
@@ -6,12 +6,30 @@ import { Image, Button } from "semantic-ui-react";
 
 import { Link } from "react-router-dom";
 
+import { fetchSessionData } from "../../utils/fetchSessionData";
 import { updateTherapySessionExpired } from "../../utils/Api";
 
 import "./TherapyConfig.scss";
+import UserName from "../../components/Settings/UserName";
 
 export default function TherapyConfig(props) {
-  const { userInfo, calendarEvents } = props;
+  const { userInfo } = props;
+
+  const [calendarEvents, setCalendarEvents] = useState([]);
+  const [sessionList, setSessionList] = useState([]);
+  const [flag, setFlag] = useState(true);
+
+  const fetchList = useCallback(async () => {
+    await fetchSessionData(userInfo, setSessionList, setFlag);
+  }, [userInfo]);
+
+  useEffect(() => {
+    fetchList();
+  }, [userInfo]);
+
+  useEffect(() => {
+    setCalendarEvents(sessionList);
+  }, [flag]);
 
   //   console.log(calendarEvents);
 

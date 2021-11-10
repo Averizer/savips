@@ -19,13 +19,10 @@ export default function ItemPatient(props) {
         .join("");
   };
 
-  // useEffect(() => {}, []);
-
   return (
     <Link to="/patientSessions">
       <List.Item
         onClick={() => {
-          console.log("SE DIO CLICK EN ITEM: ", changeItem);
           setChangeItem(!changeItem);
           setpatientSessionsContent(
             <ListSessionPatient
@@ -48,7 +45,6 @@ export default function ItemPatient(props) {
           </List.Content>
         </div>
       </List.Item>
-      {/* <Divider /> */}
     </Link>
   );
 }

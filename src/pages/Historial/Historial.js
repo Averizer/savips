@@ -31,7 +31,7 @@ export default function Historial(props) {
     ) : (
       <div></div>
     );
-  }, []);
+  }, [userInfo]);
 
   const fakeInfo = {
     level: JSON.parse(randomStressChartValues(15, 5, 3)),
