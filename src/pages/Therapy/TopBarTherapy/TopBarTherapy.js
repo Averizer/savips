@@ -82,6 +82,8 @@ export default function TopBar(props) {
     setShowModal(false);
     setLoading(true);
 
+    console.log(sessionInfo.id);
+
     await updateTherapySession(sessionInfo.id, {
       note: noteContent,
       comment: commentsPacient,
@@ -94,6 +96,7 @@ export default function TopBar(props) {
 
     // window.location.reload(true);
     window.location.href = "http://localhost:3000/TherapyConfig";
+    // window.location.reload();
   };
 
   const handlerModal = () => {

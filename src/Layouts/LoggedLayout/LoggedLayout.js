@@ -34,7 +34,6 @@ export default function LoggedLayout(props) {
       const data = response.data();
       if (data) {
         setUserInfo(data);
-        console.log(data);
       }
     });
   }, [user, setReloadApp]);

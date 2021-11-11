@@ -19,7 +19,7 @@ export default function Calendario(props) {
   const [flag, setFlag] = useState(true);
 
   const fetchList = useCallback(async () => {
-    await fetchSessionData(userInfo, setSessionList, setFlag);
+    await fetchSessionData(userInfo, setSessionList, setFlag, true);
   }, [userInfo]);
 
   useEffect(() => {

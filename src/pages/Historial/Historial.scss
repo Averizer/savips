@@ -1,92 +1,92 @@
-@import "../../scss/index.scss";
+// @import "../../scss/index.scss";
 
-.ui.grid.historial {
-  width: 100%;
-  height: 80%;
-  margin: unset;
-  align-items: flex-start;
+// .ui.grid.historial {
+//   width: 100%;
+//   height: 80%;
+//   margin: unset;
+//   align-items: flex-start;
 
-  .row.t1 {
-    padding: 0px;
-    margin-left: 25px;
-    padding-bottom: 10px;
-    h1 {
-      font-size: 25px;
-      color: $titulo-gris;
-    }
-  }
+//   .row.t1 {
+//     padding: 0px;
+//     margin-left: 25px;
+//     padding-bottom: 10px;
+//     h1 {
+//       font-size: 25px;
+//       color: $titulo-gris;
+//     }
+//   }
 
-  .row.stressChart {
-    // height: 285px;
-    height: 38vh;
-    margin: 0 20px 0 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgb(165, 164, 164);
+//   .row.stressChart {
+//     // height: 285px;
+//     height: 38vh;
+//     margin: 0 20px 0 20px;
+//     border-radius: 10px;
+//     box-shadow: 0 2px 5px rgb(165, 164, 164);
 
-    .cl1 {
-      height: 290px;
-      padding-left: 25px;
-      .stressChart {
-        height: 35vh;
-      }
-    }
-    .cl2 {
-      height: auto;
-      padding: 32.4vh 0 0 0.2vh;
-      h1 {
-        font-size: 14px;
-        color: $titulo-gris;
-      }
-    }
-  }
+//     .cl1 {
+//       height: 290px;
+//       padding-left: 25px;
+//       .stressChart {
+//         height: 35vh;
+//       }
+//     }
+//     .cl2 {
+//       height: auto;
+//       padding: 32.4vh 0 0 0.2vh;
+//       h1 {
+//         font-size: 14px;
+//         color: $titulo-gris;
+//       }
+//     }
+//   }
 
-  .row.extraInfo {
-    margin: 0 20px 0 20px;
-    justify-content: space-around;
-    .cl3,
-    .cl4,
-    .cl5 {
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgb(165, 164, 164);
-      height: 95px;
-      width: 25vh;
-      margin: 6px;
-      margin-top: 1vh;
-      .title {
-        font-size: 18px;
-        display: flex;
-        color: $titulo-gris;
-        justify-content: center;
-        padding-top: 15px;
-      }
-      .result {
-        font-size: 18px;
-        display: flex;
-        color: $color_principal;
-        justify-content: center;
-        margin-top: -1px;
-      }
-    }
-  }
+//   .row.extraInfo {
+//     margin: 0 20px 0 20px;
+//     justify-content: space-around;
+//     .cl3,
+//     .cl4,
+//     .cl5 {
+//       border-radius: 10px;
+//       box-shadow: 0 2px 5px rgb(165, 164, 164);
+//       height: 95px;
+//       width: 25vh;
+//       margin: 6px;
+//       margin-top: 1vh;
+//       .title {
+//         font-size: 18px;
+//         display: flex;
+//         color: $titulo-gris;
+//         justify-content: center;
+//         padding-top: 15px;
+//       }
+//       .result {
+//         font-size: 18px;
+//         display: flex;
+//         color: $color_principal;
+//         justify-content: center;
+//         margin-top: -1px;
+//       }
+//     }
+//   }
 
-  .row.notes {
-    margin: 0 20px 0 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgb(165, 164, 164);
-    height: 110px;
-    background-color: $nota;
+//   .row.notes {
+//     margin: 0 20px 0 20px;
+//     border-radius: 10px;
+//     box-shadow: 0 2px 5px rgb(165, 164, 164);
+//     height: 110px;
+//     background-color: $nota;
 
-    &:hover {
-      cursor: pointer;
-      background-color: $nota_seleccionada;
-    }
+//     &:hover {
+//       cursor: pointer;
+//       background-color: $nota_seleccionada;
+//     }
 
-    h1 {
-      margin: 0 20px 0 20px;
-      font-size: 15px;
-      display: flex;
-      color: $titulo-gris;
-      justify-content: center;
-    }
-  }
-}
+//     h1 {
+//       margin: 0 20px 0 20px;
+//       font-size: 15px;
+//       display: flex;
+//       color: $titulo-gris;
+//       justify-content: center;
+//     }
+//   }
+// }

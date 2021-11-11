@@ -3,9 +3,11 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 
 const connectSocketServer = (id) => {
-  const socket = io.connect("https://savips.herokuapp.com");
-  // const socket = io.connect("http://localhost:8000");
-  socket.emit("client", id);
+  // const socket = io.connect("https://savips.herokuapp.com");
+  const socket = io.connect("http://localhost:8000");
+  if (id != null) {
+    socket.emit("client", id);
+  }
 
   return socket;
 };
@@ -16,8 +18,10 @@ let myVideoStream;
 
 function ContextProvider(props) {
   const { children, sessionId } = props;
+  // console.log("ID DE SESION: ", sessionId);
 
   const [socket] = useState(() => connectSocketServer(sessionId));
+
   const [stream, setStream] = useState(null);
   const [me, setMe] = useState("");
   const [call, setCall] = useState({});
@@ -59,7 +63,8 @@ function ContextProvider(props) {
     socket.on("callEnded", (callEnded) => {
       if (callEnded) {
         connectionRef.current.destroy();
-        window.location.reload();
+        window.location.href = "http://localhost:3000/TherapyConfig";
+        // window.location.reload();
       }
     });
 

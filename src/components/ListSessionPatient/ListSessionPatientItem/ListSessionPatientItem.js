@@ -34,7 +34,7 @@ export default function ListSessionPatientItem(props) {
         </div>
         {session.data().estatus == "Finalizada" && (
           <div className="joinButton">
-            <Link to="/patientSessionDescription">
+            <Link to={`/patientSessionDescription/${session.id}`}>
               <Button className="buttonInfo">Detalles</Button>
             </Link>
           </div>

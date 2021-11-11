@@ -49,8 +49,14 @@
       color: $gris_sessions;
       margin-left: 10px;
       font-size: 17px;
-      font-weight: 600;
+      font-weight: 500;
       color: $color_principal;
+      &:hover,
+      &:active,
+      &:focus {
+        // background-color: $color_hover;
+        color: $color_hover;
+      }
     }
   }
 

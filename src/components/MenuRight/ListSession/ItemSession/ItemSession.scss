@@ -1,0 +1,121 @@
+@import "../../../../scss/index.scss";
+
+.itemSessionP {
+  display: flex;
+  // padding: 5px 0 5px 10px;
+  width: 100%;
+  background-color: $gris-menus;
+  border-radius: 15px;
+  justify-content: space-between;
+  padding: 0 15px 0 15px;
+
+  .joinP {
+    display: flex;
+    align-items: center;
+  }
+  .joinButtonP {
+    display: flex;
+    align-items: center;
+  }
+
+  .ui.divider.dividerDateP {
+    background-color: $blanco;
+    margin: 8px 0 8px 0;
+  }
+
+  .ui.labelItemDateP {
+    text-transform: uppercase;
+
+    border-radius: 15px;
+    background-color: $color_principal;
+    color: $blanco;
+    margin-right: 8px;
+    font-weight: 300;
+    height: 100%;
+
+    font-size: 16px;
+    .dividerDateP {
+      color: $blanco;
+    }
+  }
+  .ui.labelItemInfoP {
+    background-color: transparent;
+    color: $gris_sessions;
+    margin-right: 8px;
+    font-weight: 400;
+    padding: 0;
+    margin: 0 8px;
+    font-size: 16px;
+  }
+
+  .ui.buttonInfoP {
+    background-color: $color_principal;
+    color: $blanco;
+    font-weight: 600;
+    height: 80px;
+    width: 100%;
+    border-radius: 0 15px 15px 0;
+    font-size: 13px;
+    text-transform: uppercase;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $color_hover;
+      color: $blanco;
+      cursor: pointer;
+    }
+  }
+
+  .ui.joinButtonCancelP {
+    background-color: rgb(228, 57, 57);
+    color: $blanco;
+    font-weight: 600;
+    height: 80px;
+    width: 100%;
+    border-radius: 0 15px 15px 0;
+    font-size: 13px;
+    text-transform: uppercase;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: rgb(228, 9, 9);
+      color: $blanco;
+      cursor: pointer;
+    }
+  }
+
+  .divierInfoP {
+    width: 2px;
+    height: 70px;
+    background-color: $blanco;
+    margin: 5px 5px;
+  }
+
+  .boldDateP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 500;
+  }
+
+  .boldP {
+    font-weight: 500;
+    color: $gris_sessions;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $fondo-gris;
+    color: $blanco;
+    cursor: pointer;
+  }
+}
+.divierJoinP {
+  width: 100%;
+  //   padding: 0 15px 0 15px;
+  height: 2px;
+  background-color: $blanco;
+}

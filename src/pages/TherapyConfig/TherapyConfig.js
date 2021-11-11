@@ -20,7 +20,7 @@ export default function TherapyConfig(props) {
   const [flag, setFlag] = useState(true);
 
   const fetchList = useCallback(async () => {
-    await fetchSessionData(userInfo, setSessionList, setFlag);
+    await fetchSessionData(userInfo, setSessionList, setFlag, false);
   }, [userInfo]);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function TherapyConfig(props) {
   }, [userInfo]);
 
   useEffect(() => {
-    setCalendarEvents(sessionList);
+    setCalendarEvents(sessionList.filter((x) => x.status === "Agendada"));
   }, [flag]);
 
   //   console.log(calendarEvents);
@@ -42,16 +42,16 @@ export default function TherapyConfig(props) {
         <h1 className="titleLatest">Información General</h1>
       </div>
       {calendarEvents.length > 0 ? (
-        <SessionAvailable calendarEvents={calendarEvents} />
+        <SessionAvailable calendarEvents={calendarEvents} userInfo={userInfo} />
       ) : (
-        <NoSessionAvailable />
+        <NoSessionAvailable userInfo={userInfo} />
       )}
     </div>
   );
 }
 
 function SessionAvailable(props) {
-  const { calendarEvents } = props;
+  const { calendarEvents, userInfo } = props;
 
   const [realTime, setRealTime] = useState(null);
 
@@ -104,7 +104,8 @@ function SessionAvailable(props) {
         </a>
       </h1>
       <h1 className="text">
-        Paciente: <a className="infoText"> {title} </a>
+        {userInfo.role === "psicologo" ? "Paciente" : "Psicólogo"}:{" "}
+        <a className="infoText"> {title} </a>
       </h1>
       <h1 className="text">
         ID: <a className="infoText"> {id} </a>
@@ -115,7 +116,7 @@ function SessionAvailable(props) {
 
       <div className="buttonIn">
         <Button disabled={realTime}>
-          <Link className="link" to={"/Therapy"}>
+          <Link className="link" to={`/Therapy/${id}`}>
             Ingresar a Sesión
           </Link>
         </Button>
@@ -124,16 +125,19 @@ function SessionAvailable(props) {
   );
 }
 
-function NoSessionAvailable() {
+function NoSessionAvailable(props) {
+  const { userInfo } = props;
   return (
     <div className="initSessionContainer">
       <p className="text">
         Por el momento no cuentas con ninguna sesión agendada...{" "}
       </p>
       <h1 className="text">
-        Si quieres hacerlo,
-        <Link to={"/Historial"}>
-          <div className="infoText"> {"Presiona aquí"} </div>
+        {userInfo.role === "psicologo"
+          ? "Si quieres hacerlo,"
+          : "Ponte en contacto con tu psicólogo y agenda una,"}
+        <Link to={userInfo.role === "psicologo" ? "/Historial" : "/Mensajes"}>
+          <div className="infoText"> {"presiona aquí."} </div>
         </Link>
       </h1>
     </div>

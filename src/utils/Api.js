@@ -221,7 +221,15 @@ export async function getTherapistSessions(emailTherapist) {
   const response = await db
     .collection("sesion_terapia")
     .where("psicologo", "==", emailTherapist)
-    .where("estatus", "==", "Agendada")
+    .orderBy("time", "asc")
+    .get();
+  return response;
+}
+
+export async function getPatientSessions(emailPatient) {
+  const response = await db
+    .collection("sesion_terapia")
+    .where("paciente", "==", emailPatient)
     .orderBy("time", "asc")
     .get();
   return response;

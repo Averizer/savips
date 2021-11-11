@@ -1,0 +1,9 @@
+@import "../../../scss/index.scss";
+
+.listBar {
+  display: flex;
+  flex-direction: column;
+  background-color: $gris-menus;
+  height: 100%;
+  overflow-y: auto;
+}

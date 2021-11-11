@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "semantic-ui-react";
-import MainChart from "./MainChart";
+// import MainChart from "./MainChart";
+
+// import MainChart
 
 import ListPatient from "../../components/MenuRight/ListPatient/ListPatient";
+
+import ListSession from "../../components/MenuRight/ListSession/ListSession";
 
 import BasicModal from "../../components/Modal/BasicModal/BasicModal";
 import "./Historial.scss";
@@ -20,17 +24,21 @@ export default function Historial(props) {
   const [contentModal, setContentModal] = useState(null);
 
   useEffect(() => {
-    userInfo.role === "psicologo" ? (
-      setNotificationsContent(
-        <ListPatient
-          userInfo={userInfo}
-          setpatientSessionsContent={setpatientSessionsContent}
-          setReloadApp={setReloadApp}
-        />
-      )
-    ) : (
-      <div></div>
-    );
+    // console.log(userInfo.role);
+    userInfo.role === "psicologo"
+      ? setNotificationsContent(
+          <ListPatient
+            userInfo={userInfo}
+            setpatientSessionsContent={setpatientSessionsContent}
+            setReloadApp={setReloadApp}
+          />
+        )
+      : setNotificationsContent(
+          <ListSession
+            userInfo={userInfo}
+            setpatientSessionsContent={setpatientSessionsContent}
+          />
+        );
   }, [userInfo]);
 
   const fakeInfo = {

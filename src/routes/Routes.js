@@ -52,7 +52,7 @@ export default function Routes(props) {
       <Route path="/TherapyConfig" exact>
         <TherapyConfig userInfo={userInfo} />
       </Route>
-      <Route path="/Therapy" exact>
+      <Route path="/Therapy/:id" exact>
         <Therapy
           // setRefresh={setRefresh}
           // refresh={refresh}
@@ -65,7 +65,7 @@ export default function Routes(props) {
       <Route path="/PatientSessions" exact>
         <PatientSessions patientSessionsContent={patientSessionsContent} />
       </Route>
-      <Route path="/PatientSessionDescription">
+      <Route path="/PatientSessionDescription/:id">
         <PatientSessionDescription />
       </Route>
     </Switch>
