@@ -1,14 +1,21 @@
-import React, { useState } from "react";
-import { Grid } from "semantic-ui-react";
-// import MainChart from "../../components/MenuRight/MyVideo/MainChart/MainChart";
+import React, { useState, useEffect, useCallback } from "react";
+import { Icon } from "semantic-ui-react";
 import MainChart from "./MainChart";
 
 import { useParams } from "react-router-dom";
 
-// import ListPatient from "../../components/MenuRight/ListPatient/ListPatient";
-
 import BasicModal from "../../components/Modal/BasicModal/BasicModal";
+
+import {
+  fetchSessionData,
+  fetchSessionLastData,
+} from "../../utils/fetchLastSessionData";
+
+import fetchStadisticsSession from "../../utils/fetchStadisticsSession";
+
 import "./PatientSessionDescription.scss";
+
+import { getTherapySession } from "../../utils/Api";
 
 export default function PatientSessionDescription(props) {
   const { setNotificationsContent, userInfo, setpatientSessionsContent } =
@@ -18,11 +25,108 @@ export default function PatientSessionDescription(props) {
   const [titleModal, setTitleModal] = useState("");
   const [contentModal, setContentModal] = useState(null);
 
-  const { id } = useParams();
-  console.log(id);
+  const [dataFromServer, setDataFromServer] = useState([]);
+  const [lastDataFromServer, setlastDataFromServer] = useState([]);
+  const [stadisticData, setStadisticData] = useState(null);
+  const { id, paciente } = useParams();
 
+  const [chart, setChart] = useState();
+
+  useEffect(() => {
+    if (id) {
+      fetchStadisticsSession(id, setDataFromServer);
+      setChart(<MainChart level={dataFromServer.level} />);
+    }
+  }, [id, dataFromServer]);
+
+  const [nextId, setNextId] = useState(null);
+  const [flag, setFlag] = useState(true);
+
+  const fetchList = useCallback(async () => {
+    await fetchSessionLastData(paciente, setNextId, setFlag, id);
+  }, [userInfo, id]);
+
+  useEffect(() => {
+    fetchList();
+  }, [userInfo, id]);
+
+  useEffect(async () => {
+    if (nextId) {
+      fetchStadisticsSession(nextId, setlastDataFromServer);
+
+      if (lastDataFromServer) {
+        setStadisticData({
+          lInferior: (
+            dataFromServer.lInferior - lastDataFromServer.lInferior
+          ).toFixed(2),
+          lSuperior: (
+            dataFromServer.lSuperior - lastDataFromServer.lSuperior
+          ).toFixed(2),
+          prom: (dataFromServer.prom - lastDataFromServer.prom).toFixed(2),
+          promCalm: (
+            dataFromServer.promCalm - lastDataFromServer.promCalm
+          ).toFixed(2),
+          promStress: (
+            dataFromServer.promStress - lastDataFromServer.promStress
+          ).toFixed(2),
+        });
+      }
+
+      // console.log(stadisticData);
+    }
+  }, [flag, id]);
+
+  const [calm, setCalm] = useState();
+  const [stress, setStress] = useState();
+  const [differenceCalm, setDifferenceCalm] = useState();
+  const [differenceStress, setDifferenceStress] = useState();
+  const [differenceProm, setDifferenceProm] = useState();
+  const [changeLabel, setChangeLabel] = useState("");
+
+  useEffect(() => {
+    // if (stadisticData && dataFromServer) {
+    setCalm(dataFromServer.lSuperior);
+    // setDifferenceCalm(stadisticData.lSuperior);
+
+    setStress(dataFromServer.lInferior);
+    // setDifferenceStress(stadisticData.lInferior);
+    // }
+  }, [dataFromServer]);
+
+  useEffect(() => {
+    if (dataFromServer && stadisticData) {
+      switch (changeLabel) {
+        case "calmProm":
+          setCalm(dataFromServer.promCalm);
+          // setDifferenceCalm(stadisticData.promCalm);
+          break;
+
+        case "calmSup":
+          setCalm(dataFromServer.lSuperior);
+          // setDifferenceCalm(stadisticData.lSuperior);
+
+          break;
+
+        case "stressProm":
+          setStress(dataFromServer.promStress);
+          // setDifferenceStress(stadisticData.promStress);
+
+          break;
+
+        case "stressInf":
+          setStress(dataFromServer.lInferior);
+          // setDifferenceStress(stadisticData.lInferior);
+
+          break;
+
+        default:
+          break;
+      }
+    }
+  }, [changeLabel]);
   const fakeInfo = {
     level: JSON.parse(randomStressChartValues(15, 5, 3)),
+    // level: randomStressChartValues(15, 5, 3),
     extraValues: {
       prom: 6.2,
       limInf: 3.5,
@@ -42,40 +146,85 @@ export default function PatientSessionDescription(props) {
   };
 
   return (
-    <div>
-      <Grid className="historial">
-        <Grid.Row className="t1">
-          <h1>Nivel de estrés detectado durante la sesión</h1>
-        </Grid.Row>
-        <Grid.Row className="stressChart">
-          <Grid.Column className="cl1" width={15}>
-            <MainChart level={level} />
-          </Grid.Column>
-          <Grid.Column className="cl2" width={1}>
-            <h1>mins</h1>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row className="extraInfo">
-          <Grid.Column className="cl3">
-            <h1 className="title">Promedio</h1>
-            <h1 className="result">{extraValues.prom}</h1>
-          </Grid.Column>
-          <Grid.Column className="cl4">
-            <h1 className="title">Nivel mas alto</h1>
-            <h1 className="result">{extraValues.limSup}</h1>
-          </Grid.Column>
-          <Grid.Column className="cl5">
-            <h1 className="title">Nivel mas bajo </h1>
-            <h1 className="result">{extraValues.limInf}</h1>
-          </Grid.Column>
-        </Grid.Row>
-        <Grid.Row className="t1">
-          <h1>Notas</h1>
-        </Grid.Row>
-        <Grid.Row className="notes" onClick={() => handlerModal()}>
-          <TextShown note={note} />
-        </Grid.Row>
-      </Grid>
+    <div className="historialContainer">
+      {dataFromServer && (
+        <div className="historial">
+          <div className="t1">
+            <h1>Nivel de estrés detectado durante la sesión</h1>
+          </div>
+          <div className="stressChart">
+            <div className="cl1">{chart}</div>
+            <div className="cl2">
+              <h1>mins</h1>
+            </div>
+          </div>
+          <div className="extraInfo">
+            <div className="cl4">
+              <div className="title">
+                <Icon
+                  onClick={() => {
+                    setChangeLabel("calmSup");
+                  }}
+                  circular
+                  name="chevron up"
+                />
+                <h1 className="titleIn">Nivel Calma</h1>
+                <Icon
+                  circular
+                  onClick={() => {
+                    setChangeLabel("calmProm");
+                  }}
+                  name="chart bar outline"
+                />
+              </div>
+
+              <div className="result">
+                <h1 className="number">{calm}</h1>
+                <h1 className="divider"> | </h1>
+                <h1 className="negative">{differenceCalm}</h1>
+              </div>
+            </div>
+            <div className="cl3">
+              <h1 className="titlePromedio">Promedio General</h1>
+              <div className="result">
+                <h1 className="number">{dataFromServer.prom}</h1>
+                <h1 className="divider"> | </h1>
+                <h1 className="positive">{differenceProm}</h1>
+              </div>
+            </div>
+            <div className="cl5">
+              <div className="title">
+                <Icon
+                  onClick={() => {
+                    setChangeLabel("stressInf");
+                  }}
+                  circular
+                  name="chevron down"
+                />
+                <h1 className="titleIn">Nivel estrés</h1>
+                <Icon
+                  circular
+                  onClick={() => {
+                    setChangeLabel("stressProm");
+                  }}
+                  name="chart bar outline"
+                />
+              </div>
+              <div className="result">
+                <h1 className="number">{stress}</h1>
+                <h1 className="divider"> | </h1>
+                <h1 className="negative">{differenceStress}</h1>
+              </div>
+            </div>
+          </div>
+          <div className="t1">
+            <h1>Notas</h1>
+          </div>
+          <div className="notes" onClick={() => handlerModal()}>
+            <TextShown note={note} />
+          </div>
+        </div>
+      )}
 
       <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
         {contentModal}

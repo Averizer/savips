@@ -1,92 +1,199 @@
 @import "../../scss/index.scss";
 
-.ui.grid.historial {
-  width: 100%;
-  height: 80%;
-  margin: unset;
-  align-items: flex-start;
+.historialContainer {
+  // background-color: aqua;
+  height: 89%;
+  display: flex;
+  // flex-direction: row-reverse;
 
-  .row.t1 {
-    padding: 0px;
-    margin-left: 25px;
-    padding-bottom: 10px;
-    h1 {
-      font-size: 25px;
-      color: $titulo-gris;
-    }
-  }
+  .historial {
+    width: 100%;
+    height: 40%;
+    margin: unset;
+    // background-color: aliceblue;
+    // align-items: flex-start;
 
-  .row.stressChart {
-    // height: 285px;
-    height: 38vh;
-    margin: 0 20px 0 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgb(165, 164, 164);
-
-    .cl1 {
-      height: 290px;
-      padding-left: 25px;
-      .stressChart {
-        height: 35vh;
-      }
-    }
-    .cl2 {
-      height: auto;
-      padding: 32.4vh 0 0 0.2vh;
+    .t1 {
+      padding: 0px;
+      margin-left: 25px;
+      padding-bottom: 10px;
       h1 {
-        font-size: 14px;
+        font-size: 25px;
         color: $titulo-gris;
       }
     }
-  }
 
-  .row.extraInfo {
-    margin: 0 20px 0 20px;
-    justify-content: space-around;
-    .cl3,
-    .cl4,
-    .cl5 {
+    .stressChart {
+      height: 100%;
+      margin: 0 25px 0 20px;
+      padding-bottom: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-top: 10px;
+      // background-color: aqua;
+
+      .cl1 {
+        height: 100%;
+        width: 100%;
+        // padding-left: 25px;
+        box-shadow: 0 2px 5px rgb(165, 164, 164);
+        border-radius: 10px;
+
+        .stressChart {
+          height: 100%;
+        }
+      }
+      .cl2 {
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+        margin-left: -35px;
+        // background-color: aquamarine;
+        h1 {
+          font-size: 13px;
+          color: $titulo-gris;
+          font-weight: 300;
+        }
+      }
+    }
+
+    .extraInfo {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      height: 30%;
+      padding: 0 15px 0 15px;
+      margin-top: 10px;
+      // background-color: aqua;
+      .cl3,
+      .cl4,
+      .cl5 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgb(165, 164, 164);
+        height: 100%;
+        width: 100%;
+        margin: 0 10px 0 10px;
+        .title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          height: 150px;
+          background-color: $color_principal;
+          border-radius: 10px 10px 0 0;
+          color: $blanco;
+          // margin: 15px;
+          padding: 0;
+          font-size: 18px;
+          .icon {
+            // background-color: aqua;
+            margin: 0 5px 0 5px;
+            padding: 0;
+            &:hover,
+            &:active,
+            &:focus {
+              background-color: $color_hover;
+              color: white;
+              cursor: pointer;
+            }
+          }
+          .titleIn {
+            font-size: 18px;
+            margin: 0;
+          }
+        }
+        .titlePromedio {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 200px;
+          background-color: $color_principal;
+          border-radius: 10px 10px 0 0;
+          color: $blanco;
+          padding: 0;
+          font-size: 18px;
+          margin: 0;
+        }
+        .resultPromedio {
+          width: 100%;
+          height: 100px;
+          // background-color: aqua;
+          font-size: 18px;
+          display: flex;
+          color: $color_principal;
+          justify-content: center;
+          margin-top: -4px;
+        }
+        .result {
+          width: 100%;
+          height: 100px;
+          // background-color: aqua;
+          display: flex;
+          color: $color_principal;
+          justify-content: space-between;
+
+          .number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 8px;
+            font-size: 18px;
+            padding: 0 0 0 40px;
+          }
+          .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $letra-gris-claro;
+            font-size: 20px;
+            margin: 0;
+          }
+          .positive {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin: 0;
+            padding: 0 40px 0 0;
+            color: $available;
+          }
+          .negative {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin: 0;
+            padding: 0 40px 0 0;
+            color: $bad;
+          }
+        }
+      }
+    }
+
+    .notes {
+      margin: 0 20px 0 20px;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgb(165, 164, 164);
-      height: 95px;
-      width: 25vh;
-      margin: 6px;
-      margin-top: 1vh;
-      .title {
-        font-size: 18px;
+      height: 110px;
+      background-color: $nota;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $nota_seleccionada;
+      }
+
+      h1 {
+        margin: 0 20px 0 20px;
+        font-size: 15px;
         display: flex;
         color: $titulo-gris;
         justify-content: center;
-        padding-top: 15px;
       }
-      .result {
-        font-size: 18px;
-        display: flex;
-        color: $color_principal;
-        justify-content: center;
-        margin-top: -1px;
-      }
-    }
-  }
-
-  .row.notes {
-    margin: 0 20px 0 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgb(165, 164, 164);
-    height: 110px;
-    background-color: $nota;
-
-    &:hover {
-      cursor: pointer;
-      background-color: $nota_seleccionada;
-    }
-
-    h1 {
-      margin: 0 20px 0 20px;
-      font-size: 15px;
-      display: flex;
-      color: $titulo-gris;
-      justify-content: center;
     }
   }
 }

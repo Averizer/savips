@@ -1,8 +1,4 @@
-import {
-  getTherapistSessions,
-  verifyPacient,
-  getPatientSessions,
-} from "../utils/Api";
+import { getTherapistSessions, verifyPacient, getPatientSessions } from "./Api";
 import { format } from "date-fns";
 
 export async function fetchSessionData(

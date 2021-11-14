@@ -21,8 +21,6 @@ export default function Routes(props) {
     <div></div>
   );
 
-  const [refresh, setRefresh] = useState(false);
-
   return (
     <Switch>
       <Route path="/" exact>
@@ -65,7 +63,7 @@ export default function Routes(props) {
       <Route path="/PatientSessions" exact>
         <PatientSessions patientSessionsContent={patientSessionsContent} />
       </Route>
-      <Route path="/PatientSessionDescription/:id">
+      <Route path="/PatientSessionDescription/:id/:paciente">
         <PatientSessionDescription />
       </Route>
     </Switch>

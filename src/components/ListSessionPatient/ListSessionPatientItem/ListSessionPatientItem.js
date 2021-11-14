@@ -12,6 +12,8 @@ export default function ListSessionPatientItem(props) {
 
   const { month, day, duration, schedule } = getDate(session);
 
+  // console.log(session.data().paciente);
+
   return (
     <div>
       <div className="itemSession">
@@ -34,7 +36,11 @@ export default function ListSessionPatientItem(props) {
         </div>
         {session.data().estatus == "Finalizada" && (
           <div className="joinButton">
-            <Link to={`/patientSessionDescription/${session.id}`}>
+            <Link
+              to={`/patientSessionDescription/${session.id}/${
+                session.data().paciente
+              }`}
+            >
               <Button className="buttonInfo">Detalles</Button>
             </Link>
           </div>

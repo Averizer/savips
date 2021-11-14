@@ -6,7 +6,7 @@ import { fetchSessionData } from "../../../utils/fetchSessionData";
 import ItemSession from "./ItemSession/ItemSession";
 
 export default function ListSession(props) {
-  const { userInfo, setpatientSessionsContent } = props;
+  const { userInfo } = props;
 
   const [sessionList, setSessionList] = useState([]);
   const [calendarEvents, setCalendarEvents] = useState([]);
@@ -23,15 +23,11 @@ export default function ListSession(props) {
   useEffect(() => {
     if (sessionList) {
       const sessions = sessionList.filter((x) => x.status === "Finalizada");
-      // if (sessions.length > 0) {
-      //   sessionId = sessions[0].id;
-      // }
       setCalendarEvents(
         sessions.map((calendarEvents) => (
-          <ItemSession calendarEvents={calendarEvents} />
+          <ItemSession calendarEvents={calendarEvents} userInfo={userInfo} />
         ))
       );
-      // console.log("LISTAS", sessions);
     }
   }, [flag]);
 

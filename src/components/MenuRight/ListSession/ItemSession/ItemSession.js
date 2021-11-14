@@ -8,11 +8,9 @@ import { removeTherapySession } from "../../../../utils/Api";
 import "./ItemSession.scss";
 
 export default function ItemSession(props) {
-  const { calendarEvents, setAddSessionRefresh } = props;
+  const { calendarEvents, userInfo } = props;
 
   const [itemInfo, setItemInfo] = useState({});
-
-  //   console.log(calendarEvents);
 
   useEffect(() => {
     if (calendarEvents) {
@@ -23,7 +21,9 @@ export default function ItemSession(props) {
   return (
     <div>
       {itemInfo && (
-        <Link to={`/patientSessionDescription/${calendarEvents.id}`}>
+        <Link
+          to={`/patientSessionDescription/${calendarEvents.id}/${userInfo.email}`}
+        >
           <div className="itemSessionP">
             <div className="joinP">
               <Label className="labelItemDateP">

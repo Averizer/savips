@@ -53,6 +53,7 @@ function ContextProvider(props) {
 
     socket.on("guess", (guess) => {
       setGuess(guess);
+      console.log("GUESS: ", guess);
     });
 
     socket.on("videoId", (videoId) => {
