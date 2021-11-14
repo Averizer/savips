@@ -23,7 +23,6 @@ export default function LoggedLayout(props) {
   const [notificationHide, setNotificationHide] = useState(false);
 
   useEffect(() => {
-    console.log(notificationHide);
     if (notificationHide) {
       setNotifications(4);
       setContent(9);
@@ -38,7 +37,6 @@ export default function LoggedLayout(props) {
       const data = response.data();
       if (data) {
         setUserInfo(data);
-        // console.log(data);
       }
     });
 
@@ -55,7 +53,11 @@ export default function LoggedLayout(props) {
       <Grid className="logged-layout">
         <Grid.Row>
           <Grid.Column width={3}>
-            <MenuLeft setReloadApp={setReloadApp} userInfo={userInfo} />
+            <MenuLeft
+              setReloadApp={setReloadApp}
+              userInfo={userInfo}
+              user={user}
+            />
           </Grid.Column>
           <Grid.Column width={content}>
             <TopBar user={user} />

@@ -1,11 +1,39 @@
-@import '../../scss/index.scss';
+@import "../../scss/index.scss";
 
-.footer {
-  height: 100% !important;
-  margin-bottom: 20%;
+.container {
+}
 
-  .h4 {
-    text-transform: uppercase;
-    margin-left: 0px !important;
+.info {
+  // background-color: aqua;
+  .psicologo {
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $gris-menus;
   }
+}
+
+.ui.button.buttonChange {
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  background-color: $color_principal;
+  border-radius: 10px;
+
+  color: $blanco;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $color_hover;
+    color: white;
+    border: 0px;
+  }
+  // .h4 {
+  //   text-transform: uppercase;
+  //   margin-left: 0px !important;
+  // }
 }

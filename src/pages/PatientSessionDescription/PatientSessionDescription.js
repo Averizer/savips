@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Icon } from "semantic-ui-react";
+import { Icon, Form, TextArea } from "semantic-ui-react";
 import MainChart from "./MainChart";
 
 import { useParams } from "react-router-dom";
 
 import BasicModal from "../../components/Modal/BasicModal/BasicModal";
 
-import {
-  fetchSessionData,
-  fetchSessionLastData,
-} from "../../utils/fetchLastSessionData";
+import { fetchSessionLastData } from "../../utils/fetchLastSessionData";
 
 import fetchStadisticsSession from "../../utils/fetchStadisticsSession";
 
 import "./PatientSessionDescription.scss";
-
 import { getTherapySession } from "../../utils/Api";
 
 export default function PatientSessionDescription(props) {
@@ -33,7 +29,7 @@ export default function PatientSessionDescription(props) {
 
   useEffect(() => {
     if (id) {
-      console.log("ID original: ", id);
+      // console.log("ID original: ", id);
       setStadisticData(null);
       fetchStadisticsSession(id, setDataFromServer);
     }
@@ -52,7 +48,7 @@ export default function PatientSessionDescription(props) {
 
   useEffect(() => {
     if (nextId) {
-      console.log("Se busca el ID que sigue: ", nextId);
+      // console.log("Se busca el ID que sigue: ", nextId);
       fetchStadisticsSession(nextId, setlastDataFromServer);
     }
   }, [nextId, id]);
@@ -91,7 +87,7 @@ export default function PatientSessionDescription(props) {
         ).toFixed(2),
       };
       setStadisticData(aux);
-      console.log("Estadisticas__: ", aux);
+      // console.log("Estadisticas__: ", aux);
 
       setNextId(null);
     }
@@ -140,20 +136,33 @@ export default function PatientSessionDescription(props) {
     }
   }, [changeLabel]);
 
-  useEffect(() => {
-    if (dataFromServer) {
-    }
-  }, [dataFromServer]);
-
   const handlerModal = () => {
-    setTitleModal("Notas");
-    setContentModal(<h1>Hola</h1>);
+    setTitleModal(userInfo.role === "psicologo" ? "Notas" : "Comentarios");
+    setContentModal(<h1>{noteContent}</h1>);
     setShowModal(true);
   };
 
+  /**
+   * SE OBTIENEN LOS DATOS DE LA NOTA
+   */
+
+  const [noteContent, setNoteContent] = useState(
+    "Comprender textos, desde una perspectiva psicológica, Comprender textos, desde una perspectiva psicológica, Comprender textos, desde una perspectiva psicológica, Comprender textos, desde una Comprender textos, desde una perspectiva psicológica, Comprender textos, desde una perspectiva psicológica, perspectiva psicológica, supone más que una tarea lingüística de   decodificación de signos escritos en unidades semánticas, pues en la estructura superficial del texto no se explicitan todos los elementos necesarios para su comprensión. La tarea del lector consiste en ir más allá de los signos verbales, esto es, crear y reconstruir informaciones que llenen los “vacíos” dejados por los signos escritos, con el fin de recrear en la mente el significado del texto. En consecuencia, Walter Kintch (1988) ha propuesto un modelo que tiene en cuenta las actividades que el sujeto realiza cuando comprende un texto, la estructura que subyace al texto y la integraci"
+  );
+
+  useEffect(async () => {
+    await getTherapySession(id).then((res) => {
+      if (userInfo.role === "psicologo") {
+        setNoteContent(res.data().nota);
+      } else {
+        setNoteContent(res.data().comentario);
+      }
+    });
+  }, [id]);
+
   return (
     <div className="historialContainer">
-      {dataFromServer && (
+      {dataFromServer && userInfo && (
         <div className="historial">
           <div className="t1">
             <h1>Nivel de estrés detectado durante la sesión</h1>
@@ -236,9 +245,23 @@ export default function PatientSessionDescription(props) {
             </div>
           </div>
           <div className="notasComentarios">
-            <div className="notesC" onClick={() => handlerModal()}>
-              <h1 className="title">Notas</h1>
-              <TextShown note={"note"} />
+            <div className="notesC">
+              <h1 className="title" onClick={() => handlerModal()}>
+                {userInfo.role === "psicologo" ? "Notas" : "Comentarios"}
+              </h1>
+              {/* <TextShown note={"note"} /> */}
+              <Form className="note-content ">
+                <TextArea
+                  placeholder={`No hubo ${
+                    userInfo.role === "psicologo" ? "notas" : "comentarios"
+                  } para esta sesión...`}
+                  // onChange={(e, { value }) => setNoteContent(value)}
+                  value={noteContent}
+                  className="note-content-text scroll"
+                  rows={4}
+                  disabled
+                />
+              </Form>
             </div>
           </div>
         </div>
@@ -251,32 +274,32 @@ export default function PatientSessionDescription(props) {
   );
 }
 
-function TextShown(note) {
-  let finalText = "";
-  for (let i = 0; i < 375; i++) {
-    finalText += note.note[i];
-  }
-  return <h1></h1>;
-}
+// function TextShown(note) {
+//   let finalText = "";
+//   for (let i = 0; i < 375; i++) {
+//     finalText += note.note[i];
+//   }
+//   return <h1></h1>;
+// }
 
-let lastSec = 2;
-const randomStressChartValues = (minutes, timelapse, factor) => {
-  let data = '{"jsonarray":[';
-  let timestap = minutes * (60 / timelapse);
-  for (let i = 0; i < timestap; i++) {
-    let lowerLimit = lastSec - factor;
-    let upperLimit = lastSec + factor;
+// let lastSec = 2;
+// const randomStressChartValues = (minutes, timelapse, factor) => {
+//   let data = '{"jsonarray":[';
+//   let timestap = minutes * (60 / timelapse);
+//   for (let i = 0; i < timestap; i++) {
+//     let lowerLimit = lastSec - factor;
+//     let upperLimit = lastSec + factor;
 
-    let stress = Math.random() * (upperLimit - lowerLimit) + lowerLimit;
+//     let stress = Math.random() * (upperLimit - lowerLimit) + lowerLimit;
 
-    data += `{"timestap":${((i * timelapse) / 60).toFixed(
-      1
-    )}, "stress": ${stress}},`;
-    if (i === timestap - 1) {
-      data += `{"timestap": ${minutes}, "stress": ${stress}}`;
-    }
-    lastSec = stress;
-  }
-  data += "]}";
-  return data;
-};
+//     data += `{"timestap":${((i * timelapse) / 60).toFixed(
+//       1
+//     )}, "stress": ${stress}},`;
+//     if (i === timestap - 1) {
+//       data += `{"timestap": ${minutes}, "stress": ${stress}}`;
+//     }
+//     lastSec = stress;
+//   }
+//   data += "]}";
+//   return data;
+// };

@@ -7,10 +7,8 @@ import { Image, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import { fetchSessionData } from "../../utils/fetchSessionData";
-import { updateTherapySessionExpired } from "../../utils/Api";
 
 import "./TherapyConfig.scss";
-import UserName from "../../components/Settings/UserName";
 
 export default function TherapyConfig(props) {
   const { userInfo, setNotificationHide } = props;
@@ -31,8 +29,6 @@ export default function TherapyConfig(props) {
   useEffect(() => {
     setCalendarEvents(sessionList.filter((x) => x.status === "Agendada"));
   }, [flag]);
-
-  //   console.log(calendarEvents);
 
   return (
     <div className="latestUpdate">

@@ -9,6 +9,15 @@ import SendMessage from "../../components/Mensajes/SendMessage";
 export default function Mensajes(props) {
   const { setNotificationHide } = props;
   const scroll = useRef();
+
+  const executeScroll = () => {
+    if (scroll.current) {
+      scroll.current.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     setNotificationHide(false);
@@ -21,7 +30,7 @@ export default function Mensajes(props) {
   }, []);
   return (
     <Grid>
-      <div className="mensjes">
+      <div className="mensjes" ref={executeScroll}>
         <Grid.Row>
           <div className="msgs">
             {messages.map(({ id, text, photoURL, uid }) => (

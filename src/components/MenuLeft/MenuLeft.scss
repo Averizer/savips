@@ -55,9 +55,9 @@
 
   .footer {
     height: 100% !important;
+    width: 100%;
     margin-bottom: 20%;
     display: flex;
-    align-items: flex-end;
     flex-direction: column-reverse;
 
     .ui.form {
@@ -89,13 +89,12 @@
         }
       }
       .button {
-        width: 60%;
+        width: 100%;
         background-color: $lila;
         color: $blanco;
         text-transform: uppercase;
         margin-top: 10px;
-        margin-left: 40px !important;
-        border-radius: 50px;
+        border-radius: 10px;
         font-size: 14px;
         letter-spacing: 1px;
       }

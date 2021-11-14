@@ -1,69 +1,72 @@
-import React, { useState } from 'react'
-import { Button, Icon, Form, Input } from 'semantic-ui-react'
-import { toast } from 'react-toastify'
-import { validateEmail } from '../../../utils/Validation'
-import firebase from '../../../utils/firebase'
-import 'firebase/auth'
-import './LoginForm.scss'
+import React, { useState } from "react";
+import { Button, Icon, Form, Input } from "semantic-ui-react";
+import { toast } from "react-toastify";
+import { validateEmail } from "../../../utils/Validation";
+import firebase from "../../../utils/firebase";
+import "firebase/auth";
+import "./LoginForm.scss";
 
 export default function LoginForm(props) {
-  const [formData, setFormData] = useState(defaultValueForm())
-  const [showPassword, setShowPassword] = useState(true)
-  const { setSelectedForm } = props
-  const [formError, setFormError] = useState({})
-  const [isLoading, setIsLoading] = useState(false)
-  const [userActive, setUserActive] = useState(true)
-  const [user, setUser] = useState(null)
+  const [formData, setFormData] = useState(defaultValueForm());
+  const [showPassword, setShowPassword] = useState(true);
+  const { setSelectedForm } = props;
+  const [formError, setFormError] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [userActive, setUserActive] = useState(true);
+  const [user, setUser] = useState(null);
 
   const handlerShowPassword = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
   const onChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const onSubmit = () => {
-    setFormError({})
-    let errors = {}
-    let formOk = true
+    setFormError({});
+    let errors = {};
+    let formOk = true;
     if (!validateEmail(formData.email)) {
-      errors.email = true
-      formOk = false
+      errors.email = true;
+      formOk = false;
     }
     if (formData.password.length < 6) {
-      errors.password = true
-      formOk = false
+      errors.password = true;
+      formOk = false;
     }
-    setFormError(errors)
+    setFormError(errors);
     if (formOk) {
-      console.log('LogIn sin problemas')
-      setIsLoading(true)
+      console.log("Inicio de Sesión exitoso.");
+      setIsLoading(true);
       firebase
         .auth()
         .signInWithEmailAndPassword(formData.email, formData.password)
         .then((response) => {
           //Nada
-          setUser(response.user)
-          setUserActive(response.user.emailVerified)
+          setUser(response.user);
+          setUserActive(response.user.emailVerified);
           if (!response.user.emailVerified) {
-            toast.warning('Para poder ingresar debes verificar tu cuenta antes')
+            toast.warning(
+              "Para poder ingresar debes verificar tu cuenta antes"
+            );
           }
         })
         .catch((err) => {
-          handleError(err.code)
+          handleError(err.code);
         })
         .finally(() => {
-          setIsLoading(false)
-        })
+          setIsLoading(false);
+        });
     }
-  }
+  };
 
   return (
     <div className="login-form">
-      <h1>Musica para todos.</h1>
+      <p></p>
+      <h1>Inicio de Sesión</h1>
       <Form onSubmit={onSubmit} onChange={onChange}>
         <Form.Field>
           <Input
@@ -81,7 +84,7 @@ export default function LoginForm(props) {
         </Form.Field>
         <Form.Field>
           <Input
-            type={showPassword ? 'password' : 'text'}
+            type={showPassword ? "password" : "text"}
             name="password"
             placeholder="Contraseña"
             icon={
@@ -118,30 +121,30 @@ export default function LoginForm(props) {
       <div className="login-form__options">
         <p onClick={() => setSelectedForm(null)}>Volver</p>
         <p>
-          ¿No tienes cuenta?{' '}
-          <span onClick={() => setSelectedForm('register')}>Regístrate</span>
+          ¿No tienes cuenta?{" "}
+          <span onClick={() => setSelectedForm("register")}>Regístrate</span>
         </p>
       </div>
     </div>
-  )
+  );
 }
 
 function ButtonResetSendEmailVerification(props) {
-  const { user, setIsLoading, setUserActive } = props
+  const { user, setIsLoading, setUserActive } = props;
   const resendVerificationEmail = () => {
     user
       .sendEmailVerification()
       .then(() => {
-        toast.success('Se ha enviado el email de verificacion.')
+        toast.success("Se ha enviado el email de verificacion.");
       })
       .catch((err) => {
-        handleError(err.code)
+        handleError(err.code);
       })
       .finally(() => {
-        setIsLoading(false)
-        setUserActive(true)
-      })
-  }
+        setIsLoading(false);
+        setUserActive(true);
+      });
+  };
   return (
     <div className="resend-verification-email">
       <p>
@@ -149,30 +152,30 @@ function ButtonResetSendEmailVerification(props) {
         haciendo click <span onClick={resendVerificationEmail}>aquí.</span>
       </p>
     </div>
-  )
+  );
 }
 
 function handleError(code) {
   switch (code) {
-    case 'auth/wrong-password':
-      toast.warning('El usuario o la contraseña son incorrectos.')
-      break
-    case 'auth/too-many-request':
+    case "auth/wrong-password":
+      toast.warning("El usuario o la contraseña son incorrectos.");
+      break;
+    case "auth/too-many-request":
       toast.warning(
-        'Has enviado demasiadas solicitudes de confirmación en poco tiempo',
-      )
-      break
-    case 'auth/user-not-found':
-      toast.warning('El usuario o la contraseña son incorrectos.')
-      break
+        "Has enviado demasiadas solicitudes de confirmación en poco tiempo"
+      );
+      break;
+    case "auth/user-not-found":
+      toast.warning("El usuario o la contraseña son incorrectos.");
+      break;
     default:
-      break
+      break;
   }
 }
 
 function defaultValueForm() {
   return {
-    email: '',
-    password: '',
-  }
+    email: "",
+    password: "",
+  };
 }

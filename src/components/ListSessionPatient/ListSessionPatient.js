@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getSessionPatientList } from "../../utils/Api";
+import { getAllSession, getSessionPatientList } from "../../utils/Api";
 import {
   Icon,
   List,
@@ -86,6 +86,10 @@ function AddSession(props) {
     a: "",
   });
 
+  // useEffect(async () => {
+
+  // }, []);
+
   const onSubmit = async () => {
     const dateInit = new Date(formData.fecha + "T" + formData.de);
     const dateEnd = new Date(formData.fecha + "T" + formData.a);
@@ -93,6 +97,51 @@ function AddSession(props) {
     let sessionId = Math.random().toString(36).substring(2).toUpperCase();
     setAddSessionRefresh((state) => !state);
     setAddSession((state) => !state);
+
+    /**
+     * VALIDAMOS SI SE CRUZA CON OTRA SESIÓN
+     */
+
+    // await getAllSession().then((res) => {
+    //   if (res.length > 0) {
+    //     let auxDate,
+    //       cont = 0;
+    //     const actualDate = new Date();
+    //     res.forEach((data) => {
+    //       const initBD = new Date(data.time.seconds * 1000);
+    //       const endBD = new Date(data.timeEnd.seconds * 1000);
+    //       console.log("ENTRA");
+
+    //       if (auxDate) {
+    //         // console.log("No se ha guardado date a comparar");
+    //         if (auxDate <= initBD) {
+    //           console.log("Si se puede agendar");
+    //           return;
+    //         } else {
+    //           auxDate = null;
+    //           // console.log("No se puede agendar: Hora que viene colapsa");
+    //           // return;
+    //         }
+    //       } else {
+    //         if (actualDate < dateInit) {
+    //           if (dateInit >= endBD) {
+    //             if (cont + 1 == res.length) {
+    //               console.log("Si se puede, es el ultimo elemento");
+    //             } else {
+    //               auxDate = dateEnd;
+    //             }
+    //           }
+    //         } else {
+    //           console.log("No se puede agendar: es menor a tiempo actual");
+    //         }
+    //       }
+    //       // console.log("Se ha guardado date a comparar");
+
+    //       cont++;
+    //     });
+    //   }
+    //   console.log(res);
+    // });
 
     await addTherapySession(
       userInfo.email,

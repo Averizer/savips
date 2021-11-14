@@ -80,6 +80,17 @@ export async function getPatientList(emailTherapist) {
 
 /*--------------------------SessionPatientList-------------------------- */
 
+//getAllSession
+export async function getAllSession() {
+  const getSessionPatientList = await db
+    .collection("sesion_terapia")
+    .where("estatus", "==", "Agendada")
+    .orderBy("time", "asc")
+    .get();
+
+  return getSessionPatientList.docs.map((doc) => doc.data());
+}
+
 //getTherapySession
 export async function getSessionPatientList(emailPatient) {
   const getSessionPatientList = await db
@@ -263,7 +274,7 @@ export async function updatePsico(emailUser, role) {
   const response = await db
     .collection(role)
     .doc(emailUser)
-    .update({ nombrepsicologo: "" });
+    .update({ nombrepsicologo: "", emailpsico: "" });
   return response;
 }
 

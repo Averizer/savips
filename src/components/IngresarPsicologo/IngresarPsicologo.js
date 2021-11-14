@@ -17,8 +17,6 @@ export default function IngresarPsicologo(props) {
   const [formError, setFormError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(userInfo);
-
   //Verificar y guardar cambios del formulario
   const onChange = (e) => {
     setFormData({
@@ -50,7 +48,8 @@ export default function IngresarPsicologo(props) {
           await addPatientList(formData.email, userInfo.email, userInfo.nombre);
           setReloadApp((prevState) => !prevState);
           setIsLoading(false);
-          toast("Agregado correctamente, por favor recarga  (CTRL + R)");
+          window.location.reload();
+          // toast("Agregado correctamente, por favor recarga  (CTRL + R)");
         })
         .catch((e) => {
           console.log(e);
@@ -72,7 +71,7 @@ export default function IngresarPsicologo(props) {
           />
           {formError.email && (
             <span className="error-text">
-              Por favor, introduce un correo valido.
+              Por favor, introduce un correo válido.
             </span>
           )}
         </Form.Field>

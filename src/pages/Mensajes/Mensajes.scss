@@ -1,31 +1,34 @@
 @import "../../scss/index.scss";
 
 .ui.grid {
-  height: 620px;
+  height: 87%;
   .mensjes {
     overflow-y: auto;
     width: 98%;
     height: 93%;
     .row:first-of-type {
       .msgs {
+        height: 90%;
         display: flex;
         flex-direction: column;
 
         .msg {
           display: flex;
-          padding: 10px 10px 0 10px;
-          margin: 20px;
-          border-radius: 3000px;
-          box-shadow: 0 0 8px rgb(164, 164, 164);
+          // padding: 10px 10px 0 10px;
+          margin: 10px;
+          border-radius: 15px 0 15px 15px;
+          // box-shadow: 0 0 8px rgb(164, 164, 164);
           align-items: center;
 
           &.sent {
             background-color: $lila;
             color: white;
-            border-top-right-radius: 1000px;
+            // border-top-right-radius: 1000px;
             flex-direction: row-reverse;
-            padding: 20px 20px 0 10px;
-            text-align: end;
+            // padding: 20px 20px 0 10px;
+            padding-right: 8px;
+            padding-left: 10px;
+            text-align: start;
             float: right;
 
             p {
@@ -33,18 +36,14 @@
                 Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
                 sans-serif;
               font-weight: 300;
-              font-size: 20px;
-              margin-bottom: 10%;
-              margin-left: 10px;
-              margin-right: 12px;
-              //overflow-wrap: break-word;
+              font-size: 18px;
+              margin: 10px;
             }
 
             img {
               border-radius: 50%;
               height: 30px;
-              margin-top: -20px;
-              border: 2px solid black;
+              border: 2px solid $color_principal;
             }
           }
 
@@ -53,8 +52,9 @@
             justify-content: center;
             border: 1px solid lightgray;
             background-color: #fafafa;
-            padding: 20px 20px 0 10px;
-            border-top-left-radius: 1000px;
+            padding-right: 8px;
+            padding-left: 10px;
+            text-align: start;
             float: left;
 
             p {
@@ -62,18 +62,15 @@
                 Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
                 sans-serif;
               font-weight: 300;
-              font-size: 20px;
-              margin-bottom: 10%;
-              margin-left: 10px;
-              margin-right: 12px;
+              font-size: 18px;
+              margin: 10px;
               //overflow-wrap: break-word;
             }
 
             img {
               border-radius: 50%;
               height: 30px;
-              margin-top: -20px;
-              border: 2px solid black;
+              border: 2px solid rgb(255, 255, 255);
             }
           }
         }
@@ -112,27 +109,33 @@
       }*/
     }
     .row:last-of-type {
-      height: 20vh;
+      // width: 100%;
       .sendMsg {
-        position: fixed;
+        position: absolute;
         display: flex;
         justify-content: space-between;
-        width: 57%;
+        width: 100%;
         bottom: 0;
         border-top: 1px solid lightgray;
         padding: 10px;
-        padding-bottom: 30px;
+        padding-bottom: 15px;
+        padding-top: 15px;
         background-color: #fafafa;
 
         .input {
-          width: 80%;
+          width: 100%;
+          padding-right: 2%;
         }
         .button {
           background-color: $lila;
           color: $blanco;
-          margin-right: 8%;
-          letter-spacing: 1px;
-          border-radius: 40px;
+          border-radius: 0 10px 10px 0;
+          &:hover,
+          &:active,
+          &:focus {
+            background-color: $color_hover;
+            color: rgb(255, 255, 255);
+          }
         }
       }
     }

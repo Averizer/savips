@@ -76,7 +76,7 @@ export default function Routes(props) {
         <PatientSessions patientSessionsContent={patientSessionsContent} />
       </Route>
       <Route path="/PatientSessionDescription/:id/:paciente">
-        <PatientSessionDescription />
+        <PatientSessionDescription userInfo={userInfo} />
       </Route>
     </Switch>
   );
