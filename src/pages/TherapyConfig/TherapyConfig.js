@@ -13,13 +13,14 @@ import "./TherapyConfig.scss";
 import UserName from "../../components/Settings/UserName";
 
 export default function TherapyConfig(props) {
-  const { userInfo } = props;
+  const { userInfo, setNotificationHide } = props;
 
   const [calendarEvents, setCalendarEvents] = useState([]);
   const [sessionList, setSessionList] = useState([]);
   const [flag, setFlag] = useState(true);
 
   const fetchList = useCallback(async () => {
+    setNotificationHide(false);
     await fetchSessionData(userInfo, setSessionList, setFlag, false);
   }, [userInfo]);
 

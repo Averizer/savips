@@ -12,7 +12,7 @@ import { fetchSessionData } from "../../utils/fetchSessionData";
 import "./Calendario.scss";
 
 export default function Calendario(props) {
-  const { userInfo } = props;
+  const { userInfo, setNotificationHide } = props;
   const [sessionList, setSessionList] = useState([]);
   const [calendarEvents, setCalendarEvents] = useState(null);
 
@@ -29,6 +29,10 @@ export default function Calendario(props) {
   useEffect(() => {
     setCalendarEvents(sessionList);
   }, [flag]);
+
+  useEffect(() => {
+    setNotificationHide(false);
+  }, []);
 
   return (
     <div className="calendar">

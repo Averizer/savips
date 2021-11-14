@@ -12,15 +12,16 @@ export default function fetchStadisticsSession(id, setDataFromServer) {
         timestamp++;
       });
       if (res) {
-        setDataFromServer({
+        const data = {
           level: level,
           lInferior: res.data.data.lInferior.toFixed(2),
           lSuperior: res.data.data.lSuperior.toFixed(2),
           prom: res.data.data.prom.toFixed(2),
           promCalm: res.data.data.promCalm.toFixed(2),
           promStress: res.data.data.promStress.toFixed(2),
-        });
-        // console.log(level);
+        };
+        setDataFromServer(data);
+        console.log("DATA DE: ", id, " : ", data);
       }
     });
   }

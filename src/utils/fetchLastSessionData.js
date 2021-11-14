@@ -4,6 +4,7 @@ export async function fetchSessionLastData(email, setNextId, setFlag, id) {
   //   let calendarEvents = [];
 
   //   console.log("FUNCION FETCH CALL", userInfo);
+
   if (email) {
     let v = [];
     await getPatientSessions(email).then((res) => {
@@ -12,8 +13,9 @@ export async function fetchSessionLastData(email, setNextId, setFlag, id) {
       });
       if (v.indexOf(id) > 0) {
         setNextId(v[v.indexOf(id) - 1]);
+        console.log("ID de ultima sesión: ", v[v.indexOf(id) - 1]);
       } else {
-        return null;
+        setNextId(null);
       }
       setFlag((v) => !v);
     });

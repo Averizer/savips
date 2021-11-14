@@ -16,7 +16,13 @@ import { getTherapistSessions, verifyPacient } from "../utils/Api";
 import { format } from "date-fns";
 
 export default function Routes(props) {
-  const { userInfo, setReloadApp, setNotificationsContent, user } = props;
+  const {
+    userInfo,
+    setReloadApp,
+    setNotificationsContent,
+    user,
+    setNotificationHide,
+  } = props;
   const [patientSessionsContent, setpatientSessionsContent] = useState(
     <div></div>
   );
@@ -30,11 +36,12 @@ export default function Routes(props) {
         <Calendario
           setReloadApp={setReloadApp}
           userInfo={userInfo}
+          setNotificationHide={setNotificationHide}
           // calendarEvents={calendarEvents}
         />
       </Route>
       <Route path="/Mensajes" exact>
-        <Mensajes />
+        <Mensajes setNotificationHide={setNotificationHide} />
       </Route>
       <Route path="/Historial" exact>
         <Historial
@@ -42,13 +49,17 @@ export default function Routes(props) {
           userInfo={userInfo}
           setpatientSessionsContent={setpatientSessionsContent}
           setReloadApp={setReloadApp}
+          setNotificationHide={setNotificationHide}
         />
       </Route>
       <Route path="/Settings" exact>
         <Settings user={user} setReloadApp={setReloadApp} userInfo={userInfo} />
       </Route>
       <Route path="/TherapyConfig" exact>
-        <TherapyConfig userInfo={userInfo} />
+        <TherapyConfig
+          userInfo={userInfo}
+          setNotificationHide={setNotificationHide}
+        />
       </Route>
       <Route path="/Therapy/:id" exact>
         <Therapy
@@ -56,6 +67,7 @@ export default function Routes(props) {
           // refresh={refresh}
           setNotificationsContent={setNotificationsContent}
           userInfo={userInfo}
+          setNotificationHide={setNotificationHide}
           // setReloadApp={setReloadApp}
           // id={calendarEvents}
         />

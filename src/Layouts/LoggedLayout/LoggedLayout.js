@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Transition } from "semantic-ui-react";
 import { BrowserRouter as BR } from "react-router-dom";
 import { verifyPsico, verifyPacient } from "../../utils/Api";
 import "./LoggedLayout.scss";
@@ -11,14 +11,26 @@ import MenuLeft from "../../components/MenuLeft";
 import Notificaciones from "../../components/Notificaciones";
 export default function LoggedLayout(props) {
   const { user, setReloadApp } = props;
-  const [content, setContent] = useState(9);
-  const [notifications, setNotifications] = useState(4);
+  const [content, setContent] = useState(13);
+  const [notifications, setNotifications] = useState(0);
   const [userInfo, setUserInfo] = useState({});
   const [notificationsContent, setNotificationsContent] = useState(
     <div className="notificaciones">
       <h1></h1>
     </div>
   );
+
+  const [notificationHide, setNotificationHide] = useState(false);
+
+  useEffect(() => {
+    console.log(notificationHide);
+    if (notificationHide) {
+      setNotifications(4);
+      setContent(9);
+    } else {
+      setContent(13);
+    }
+  }, [notificationHide]);
 
   useEffect(() => {
     setReloadApp((state) => !state);
@@ -54,11 +66,14 @@ export default function LoggedLayout(props) {
               setContent={setContent}
               setNotifications={setNotifications}
               setNotificationsContent={setNotificationsContent}
+              setNotificationHide={setNotificationHide}
             />
           </Grid.Column>
-          <Grid.Column width={notifications}>
-            <Notificaciones notificationsContent={notificationsContent} />
-          </Grid.Column>
+          {notificationHide && (
+            <Grid.Column width={notifications}>
+              <Notificaciones notificationsContent={notificationsContent} />
+            </Grid.Column>
+          )}
         </Grid.Row>
       </Grid>
     </BR>

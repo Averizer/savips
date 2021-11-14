@@ -22,7 +22,7 @@ import { format } from "date-fns";
 import "./Therapy.scss";
 
 export default function Therapy(props) {
-  const { setNotificationsContent, userInfo } = props;
+  const { setNotificationsContent, userInfo, setNotificationHide } = props;
   const [noteVisible, setNoteVisible] = useState(false);
   const [noteContent, setNoteContent] = useState("");
 
@@ -55,6 +55,7 @@ export default function Therapy(props) {
   // }, [flag]);
 
   useEffect(async () => {
+    setNotificationHide(true);
     if (id === undefined) {
       window.location.href = "http://localhost:3000/TherapyConfig";
     }

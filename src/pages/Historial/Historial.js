@@ -17,6 +17,7 @@ export default function Historial(props) {
     userInfo,
     setpatientSessionsContent,
     setReloadApp,
+    setNotificationHide,
   } = props;
 
   const [showModal, setShowModal] = useState(false);
@@ -25,6 +26,7 @@ export default function Historial(props) {
 
   useEffect(() => {
     // console.log(userInfo.role);
+    setNotificationHide(true);
     userInfo.role === "psicologo"
       ? setNotificationsContent(
           <ListPatient

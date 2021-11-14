@@ -6,10 +6,12 @@ import "firebase/auth";
 import "./Mensajes.scss";
 import SendMessage from "../../components/Mensajes/SendMessage";
 
-export default function Mensajes() {
+export default function Mensajes(props) {
+  const { setNotificationHide } = props;
   const scroll = useRef();
   const [messages, setMessages] = useState([]);
   useEffect(() => {
+    setNotificationHide(false);
     db.collection("messages")
       .orderBy("createdAt")
       .limit(50)
