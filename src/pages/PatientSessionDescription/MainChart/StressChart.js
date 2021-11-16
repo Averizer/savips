@@ -51,7 +51,7 @@ const datos = (auxLevel) => {
   });
 
   const stress = auxLevel.map((e) => {
-    if (e.stress > 0) {
+    if (e.stress > 0 && e.stress < 3) {
       return e.stress;
     } else {
       return 0;
@@ -59,9 +59,10 @@ const datos = (auxLevel) => {
   });
 
   const calm = auxLevel.map((e) => {
-    if (e.stress < 0) {
+    if (e.stress < 0 && e.stress > -3) {
       return e.stress;
     } else {
+      console.log(e.stress);
       return 0;
     }
   });

@@ -24,8 +24,8 @@ export default function MyVideo(props) {
     if (array.length > 10) {
       array.shift();
     }
-    array.push(!isNaN(data) && data);
-    result.push(!isNaN(data) && data);
+    array.push(!isNaN(data) && data > -3 && data < 3 && data);
+    result.push(!isNaN(data) && data > -3 && data < 3 && data);
 
     if (result.length > 0) {
       const prom = (result) => {
