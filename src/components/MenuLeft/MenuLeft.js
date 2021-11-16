@@ -64,9 +64,9 @@ function MenuLeft(props) {
 
           <Menu.Item
             as={!rolePacient && Link}
-            to="/mensajes"
-            name="mensajes"
-            active={activeMenu === "/mensajes"}
+            to="/mensajesConfig"
+            name="mensajesConfig"
+            active={activeMenu === "/mensajesConfig"}
             onClick={handlerMenu}
             disabled={rolePacient}
           >

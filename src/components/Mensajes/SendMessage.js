@@ -4,7 +4,7 @@ import { db, auth } from "../../utils/Api";
 import firebase from "firebase";
 import "firebase/auth";
 
-function SendMessage({ scroll }) {
+function SendMessage({ scroll, paciente, psicologo }) {
   const [msg, setMsg] = useState("");
 
   async function sendMessage(e) {
@@ -16,6 +16,8 @@ function SendMessage({ scroll }) {
       photoURL,
       uid,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      paciente: paciente,
+      psicologo: psicologo,
     });
     setMsg("");
     scroll.current.scrollIntoView({ behavior: "smooth" });

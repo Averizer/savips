@@ -11,9 +11,7 @@ import Therapy from "../pages/Therapy";
 import PatientSessions from "../pages/PatientSessions/PatientSessions";
 import PatientSessionDescription from "../pages/PatientSessionDescription/PatientSessionDescription";
 import TherapyConfig from "../pages/TherapyConfig/TherapyConfig";
-
-import { getTherapistSessions, verifyPacient } from "../utils/Api";
-import { format } from "date-fns";
+import MensajesConfig from "../pages/MensajesConfig/MensajesConfig";
 
 export default function Routes(props) {
   const {
@@ -40,8 +38,27 @@ export default function Routes(props) {
           // calendarEvents={calendarEvents}
         />
       </Route>
-      <Route path="/Mensajes" exact>
-        <Mensajes setNotificationHide={setNotificationHide} />
+      <Route path="/MensajesConfig" exact>
+        {userInfo.role === "psicologo" ? (
+          <MensajesConfig
+            setNotificationsContent={setNotificationsContent}
+            setNotificationHide={setNotificationHide}
+            userInfo={userInfo}
+          />
+        ) : (
+          <Mensajes
+            setNotificationHide={setNotificationHide}
+            userInfo={userInfo}
+            setNotificationsContent={setNotificationsContent}
+          />
+        )}
+      </Route>
+      <Route path="/Mensajes/:id" exact>
+        <Mensajes
+          setNotificationHide={setNotificationHide}
+          userInfo={userInfo}
+          setNotificationsContent={setNotificationsContent}
+        />
       </Route>
       <Route path="/Historial" exact>
         <Historial
@@ -63,13 +80,9 @@ export default function Routes(props) {
       </Route>
       <Route path="/Therapy/:id" exact>
         <Therapy
-          // setRefresh={setRefresh}
-          // refresh={refresh}
           setNotificationsContent={setNotificationsContent}
           userInfo={userInfo}
           setNotificationHide={setNotificationHide}
-          // setReloadApp={setReloadApp}
-          // id={calendarEvents}
         />
       </Route>
       <Route path="/PatientSessions" exact>

@@ -3,7 +3,7 @@ import axios from "axios";
 export default function fetchStadisticsSession(id, setDataFromServer) {
   if (id) {
     // console.log(id, paciente);
-    axios.get(`http://localhost:8000/${id}`).then((res) => {
+    axios.get(`https://savips.herokuapp.com/${id}`).then((res) => {
       // axios.get(`http://localhost:8000/OCBBE0I221R`).then((res) => {
       let level = [];
       let timestamp = 0;

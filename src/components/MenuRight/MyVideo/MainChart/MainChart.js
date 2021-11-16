@@ -11,7 +11,7 @@ export default function MainChart(props) {
           labels: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0],
           datasets: [
             {
-              label: "Estrés/Calma",
+              label: "Calma/Estrés",
               data: mindWaves,
               fill: true,
               borderColor: "rgba(189, 142, 191, 1)",

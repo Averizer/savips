@@ -3,8 +3,8 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 
 const connectSocketServer = (id) => {
-  // const socket = io.connect("https://savips.herokuapp.com");
-  const socket = io.connect("http://localhost:8000");
+  const socket = io.connect("https://savips.herokuapp.com");
+  // const socket = io.connect("http://localhost:8000");
   if (id != null) {
     socket.emit("client", id);
   }

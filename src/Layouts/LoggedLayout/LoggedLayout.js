@@ -12,7 +12,7 @@ import Notificaciones from "../../components/Notificaciones";
 export default function LoggedLayout(props) {
   const { user, setReloadApp } = props;
   const [content, setContent] = useState(13);
-  const [notifications, setNotifications] = useState(0);
+  const [notifications, setNotifications] = useState(1);
   const [userInfo, setUserInfo] = useState({});
   const [notificationsContent, setNotificationsContent] = useState(
     <div className="notificaciones">

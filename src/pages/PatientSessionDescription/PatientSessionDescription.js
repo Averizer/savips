@@ -165,7 +165,7 @@ export default function PatientSessionDescription(props) {
       {dataFromServer && userInfo && (
         <div className="historial">
           <div className="t1">
-            <h1>Nivel de estrés detectado durante la sesión</h1>
+            <h1>Nivel de calma/estrés detectado durante la sesión</h1>
           </div>
           <div className="stressChart">
             <div className="cl1">{chart}</div>

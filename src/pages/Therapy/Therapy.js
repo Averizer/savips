@@ -7,17 +7,9 @@ import TopBarTherapy from "./TopBarTherapy/TopBarTherapy";
 import BasicModal from "../../components/Modal/BasicModal/BasicModal";
 import { useParams } from "react-router-dom";
 
-import { fetchSessionData } from "../../utils/fetchSessionData";
-
-import {
-  getTherapySession,
-  getTherapistSessions,
-  verifyPacient,
-} from "../../utils/Api";
+import { getTherapySession } from "../../utils/Api";
 
 import { ContextProvider } from "../../utils/ServerIO";
-
-import { format } from "date-fns";
 
 import "./Therapy.scss";
 
@@ -31,28 +23,8 @@ export default function Therapy(props) {
   const [contentModal, setContentModal] = useState(null);
 
   const { id } = useParams();
-  // console.log(id);
-  // let sessionId;
 
   const [sessionInfo, setSessionInfo] = useState({});
-
-  // const [sessionList, setSessionList] = useState([]);
-  // const [flag, setFlag] = useState(true);
-
-  // const fetchList = useCallback(async () => {
-  //   await fetchSessionData(userInfo, setSessionList, setFlag);
-  // }, [userInfo]);
-
-  // useEffect(() => {
-  //   fetchList();
-  // }, [userInfo]);
-
-  // useEffect(() => {
-  //   const sessions = sessionList.filter((x) => x.status === "Agendada");
-  //   if (sessions.length > 0) {
-  //     sessionId = sessions[0].id;
-  //   }
-  // }, [flag]);
 
   useEffect(async () => {
     setNotificationHide(true);
@@ -70,7 +42,6 @@ export default function Therapy(props) {
     <div className="therapy">
       {sessionInfo && id && (
         <ContextProvider sessionId={id}>
-          {/* {sessionInfo && ( */}
           <TopBarTherapy
             userInfo={userInfo}
             setTitleModal={setTitleModal}
@@ -79,7 +50,6 @@ export default function Therapy(props) {
             noteContent={noteContent}
             sessionInfo={sessionInfo}
           />
-          {/* )} */}
           <VideoPlayer
             setNotificationsContent={setNotificationsContent}
             noteVisible={noteVisible}

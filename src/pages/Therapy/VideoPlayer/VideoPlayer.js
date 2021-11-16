@@ -7,7 +7,7 @@ import MyVideo from "../../../components/MenuRight/MyVideo/MyVideo";
 import MyVideoBefore from "../../../components/MenuRight/MyVideoBefore/MyVideoBefore";
 
 const VideoPlayer = (props) => {
-  const { setNotificationsContent, noteVisible } = props;
+  const { setNotificationsContent, noteVisible, setNotificationHide } = props;
   const {
     callAccepted,
     myVideo,
@@ -34,7 +34,12 @@ const VideoPlayer = (props) => {
 
   useEffect(() => {
     if (callAccepted && !callEnded) {
-      setNotificationsContent(<MyVideo setVideId={setVideId} />);
+      setNotificationsContent(
+        <MyVideo
+          setVideId={setVideId}
+          // setNotificationHide={setNotificationHide}
+        />
+      );
       setVideoMyShape("hidden");
       setVideoMyMain("c2");
 

@@ -7,7 +7,8 @@ import ListSessionPatient from "../../../ListSessionPatient/ListSessionPatient";
 import "./ItemPatient.scss";
 
 export default function ItemPatient(props) {
-  const { patient, userInfo, setpatientSessionsContent, setReloadApp } = props;
+  const { patient, userInfo, setpatientSessionsContent, setReloadApp, flag } =
+    props;
 
   const [changeItem, setChangeItem] = useState(true);
 
@@ -18,20 +19,24 @@ export default function ItemPatient(props) {
         .map((n) => n[0])
         .join("");
   };
+  console.log(flag);
 
   return (
-    <Link to="/patientSessions">
+    <Link to={flag ? "/patientSessions" : `/Mensajes/${patient.emailpatient}`}>
+      {/* // <Link to={flag ? "/patientSessions" : `/Mensajes/`}> */}
       <List.Item
         onClick={() => {
-          setChangeItem(!changeItem);
-          setpatientSessionsContent(
-            <ListSessionPatient
-              patient={patient}
-              userInfo={userInfo}
-              setReloadApp={setReloadApp}
-              changeItem={changeItem}
-            />
-          );
+          if (flag) {
+            setChangeItem(!changeItem);
+            setpatientSessionsContent(
+              <ListSessionPatient
+                patient={patient}
+                userInfo={userInfo}
+                setReloadApp={setReloadApp}
+                changeItem={changeItem}
+              />
+            );
+          }
         }}
       >
         <div className="item">
