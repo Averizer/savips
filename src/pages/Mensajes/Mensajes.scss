@@ -16,11 +16,12 @@
           display: flex;
           // padding: 10px 10px 0 10px;
           margin: 10px;
-          border-radius: 15px 0 15px 15px;
           // box-shadow: 0 0 8px rgb(164, 164, 164);
           align-items: center;
 
           &.sent {
+            border-radius: 15px 0 15px 15px;
+
             background-color: $lila;
             color: white;
             // border-top-right-radius: 1000px;
@@ -48,6 +49,8 @@
           }
 
           &.received {
+            border-radius: 0 15px 15px 15px;
+
             justify-items: center;
             justify-content: center;
             border: 1px solid lightgray;
