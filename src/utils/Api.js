@@ -143,7 +143,12 @@ export async function registrarUsuario(uid, formData) {
   await db
     .collection("paciente")
     .doc(uid)
-    .set({ ...formData, role: "paciente", nombrepsicologo: "" });
+    .set({
+      ...formData,
+      role: "paciente",
+      nombrepsicologo: "",
+      emailpsico: "",
+    });
 }
 //OK
 export const reauthenticate = (password) => {

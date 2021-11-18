@@ -82,8 +82,6 @@ export default function TopBar(props) {
     setShowModal(false);
     setLoading(true);
 
-    console.log(sessionInfo.id);
-
     await updateTherapySession(sessionInfo.id, {
       note: noteContent,
       comment: commentsPacient,

@@ -20,7 +20,7 @@ function MenuLeft(props) {
   }, [location]);
 
   useEffect(() => {
-    // console.log(userInfo);
+    console.log(userInfo);
     if (userInfo.role === "paciente" && userInfo.emailpsico == "") {
       setRolePacient(true);
     } else if (userInfo.role === "paciente" && userInfo.emailpsico != "") {

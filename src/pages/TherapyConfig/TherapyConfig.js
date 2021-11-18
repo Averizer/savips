@@ -133,7 +133,9 @@ function NoSessionAvailable(props) {
         {userInfo.role === "psicologo"
           ? "Si quieres hacerlo,"
           : "Ponte en contacto con tu psicólogo y agenda una,"}
-        <Link to={userInfo.role === "psicologo" ? "/Historial" : "/Mensajes"}>
+        <Link
+          to={userInfo.role === "psicologo" ? "/Historial" : "/MensajesConfig"}
+        >
           <div className="infoText"> {"presiona aquí."} </div>
         </Link>
       </h1>

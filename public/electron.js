@@ -12,6 +12,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1300,
     height: 807,
+    icon: __dirname + "/icon.png",
     webPreferences: {
       nativeWindowOpen: true,
       nodeIntegration: true,
@@ -36,6 +37,8 @@ function createWindow() {
     mainWindow.webContents.openDevTools();
   }
   mainWindow.on("closed", () => (mainWindow = null));
+
+  mainWindow.setMenu(null);
 
   // This is the actual solution
 }
